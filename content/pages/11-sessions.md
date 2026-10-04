@@ -1,9 +1,11 @@
 ---
 page: sessions
-description: The 12 sessions behind this debrief, the focus of the attendee, and what the debrief does not cover.
+description: The 12 sessions behind this debrief, its focus, and what the debrief does not cover.
 ---
 
-I went to FabCon Europe 2026 with one focus: applied AI in the Microsoft stack, and the security and governance of it. This site reports that part of the conference only.
+Two of us went to FabCon Europe 2026. This site reports one focus: applied AI in the Microsoft stack, and the security and governance of it. It does not cover the full event.
+
+This first version holds the notes of one of us. The second attendee had a focus on data engineering, and those notes are not in it yet.
 
 ## The sessions
 
@@ -17,6 +19,8 @@ Where the speaker is "Not recorded", the attendee's notes do not hold the name. 
 - Real-Time Intelligence.
 - Data engineering practice.
 - Most SQL sessions.
+
+Data engineering was the focus of the second attendee. Those notes can add that part.
 
 ## The evidence base
 

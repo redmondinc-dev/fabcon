@@ -1,6 +1,8 @@
 # FabCon Europe 2026 debrief site
 
-A public static website. It reports what one attendee learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026) about applied AI, security and governance in Microsoft Fabric.
+A public static website. It reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026) about applied AI, security and governance in Microsoft Fabric.
+
+The current content is from the notes of one attendee. The notes of the second attendee (focus: data engineering) are not in it yet.
 
 Readers are a technical audience: CTO, developer leads, data leads, IT. The attendee presents the site live. Readers also explore it alone, and point AI agents at it.
 
