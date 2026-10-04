@@ -124,6 +124,11 @@ function runChecks() {
         if (!claims.has(id)) errors.push(`${p.file}: claim "${id}" is not in content/claims.json`);
       }
     }
+    for (const m of p.body.matchAll(/^::diagram[ \t]+([\w-]+)[ \t]*$/gm)) {
+      for (const ext of ['svg', 'txt']) {
+        if (!existsSync(join(content, 'diagrams', `${m[1]}.${ext}`))) errors.push(`${p.file}: content/diagrams/${m[1]}.${ext} does not exist`);
+      }
+    }
     for (const s of sentencesOf(p.body)) {
       const n = wordCount(s);
       if (n > SENTENCE_WARN) warnings.push(`${p.file}: a sentence has ${n} words (more than ${SENTENCE_WARN}): "${s}"`);
@@ -225,20 +230,40 @@ function sourceText(ref) {
 
 const chip = (label, tip, cls) => `<span class="chip ${cls}" tabindex="0">${esc(label)}<span class="tip" role="tooltip">${esc(tip)}</span></span>`;
 
-function citeHtml(group, notes, seen) {
-  return citeIds(group).map((id) => {
+const shortDate = site.statusAsOf.replace(/([A-Za-z]{3})[a-z]+/, '$1');
+
+// Note numbers first, then the labels. `state` is for one page.
+function citeHtml(group, notes, state) {
+  const shown = new Set();
+  let sups = '';
+  let labels = '';
+  for (const id of citeIds(group)) {
     const c = claims.get(id);
-    const [label, meaning] = EVIDENCE[c.evidence];
-    const first = !seen.has(id);
-    seen.add(id);
-    let h = `<span class="cite"${first ? ` id="${id}"` : ''} data-claim="${id}">${chip(label, meaning, `ev-${c.evidence}`)}`;
-    if (c.product_status) h += chip(STATUS[c.product_status], `Product status as of ${site.statusAsOf}.`, `st-${c.product_status}`);
+    const first = !state.claims.has(id);
+    state.claims.add(id);
+    let s = '';
     for (const ref of c.sources) {
       const n = noteOf(notes, ref).n;
-      h += `<sup><a href="#note-${n}" aria-label="Note ${n}">${n}</a></sup>`;
+      if (shown.has(n)) continue;
+      shown.add(n);
+      s += `<sup><a href="#note-${n}" aria-label="Note ${n}">${n}</a></sup>`;
     }
-    return `${h}</span>`;
-  }).join(' ');
+    sups += `<span class="claim"${first ? ` id="${id}"` : ''} data-claim="${id}">${s}</span>`;
+    const [label, meaning] = EVIDENCE[c.evidence];
+    if (!shown.has(label)) {
+      shown.add(label);
+      labels += chip(label, meaning, `ev-${c.evidence}`);
+    }
+    if (c.product_status && !shown.has(c.product_status)) {
+      shown.add(c.product_status);
+      labels += chip(STATUS[c.product_status], `Product status as of ${site.statusAsOf}.`, `st-${c.product_status}`);
+      if (!state.dated) {
+        state.dated = true;
+        labels += `<span class="chip-date">as of ${shortDate}</span>`;
+      }
+    }
+  }
+  return `<span class="cite">${sups}<span class="labels">${labels}</span></span>`;
 }
 
 function citeMd(group, notes) {
@@ -294,10 +319,15 @@ function threadMapMd(link) {
   return lines.join('\n');
 }
 
+// A diagram is <name>.svg and <name>.txt. The .txt file has "title:", "text:" and "credit:" lines.
 function diagramParts(name) {
   const svg = readFileSync(join(content, 'diagrams', `${name}.svg`), 'utf8').trim();
-  const text = readFileSync(join(content, 'diagrams', `${name}.txt`), 'utf8').trim();
-  return { svg, text };
+  const meta = {};
+  for (const line of readFileSync(join(content, 'diagrams', `${name}.txt`), 'utf8').split('\n')) {
+    const i = line.indexOf(':');
+    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim();
+  }
+  return { svg, ...meta };
 }
 
 // ---------- page render ----------
@@ -305,14 +335,14 @@ function diagramParts(name) {
 const DIRECTIVE = /^::(thread-map|diagram[ \t]+([\w-]+))[ \t]*$/m;
 
 function bodyHtml(page, notes) {
-  const seen = new Set();
+  const state = { claims: new Set(), dated: false };
   const env = {};
   const parts = page.body.split(new RegExp(DIRECTIVE.source, 'm'));
   // split gives: text, directive, diagram name, text, ...
   let out = '';
   for (let i = 0; i < parts.length; i += 3) {
     const text = parts[i]
-      .replace(CITE, (_, g) => citeHtml(g, notes, seen))
+      .replace(new RegExp(`[ \\t]*${CITE.source}`, 'g'), (_, g) => citeHtml(g, notes, state))
       .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${href(page, path)}${frag})`);
     out += md.render(text, env);
     const directive = parts[i + 1];
@@ -320,10 +350,12 @@ function bodyHtml(page, notes) {
     if (directive === 'thread-map') out += threadMapHtml(page);
     else {
       const d = diagramParts(parts[i + 2]);
-      out += `<figure class="diagram" id="diagram-${parts[i + 2]}">${d.svg}<figcaption>${esc(d.text)}</figcaption></figure>`;
+      const credit = d.credit ? `<span class="credit">${esc(d.credit)}</span>` : '';
+      out += `<figure class="diagram" id="diagram-${parts[i + 2]}"><p class="diagram-title">${esc(d.title)}</p>${d.svg}<figcaption><span>${esc(d.text)}</span>${credit}</figcaption></figure>`;
     }
   }
-  return out;
+  // "For practice" is a band: the heading and all that follows it, to the next heading.
+  return out.replace(/<h2 id="for-practice">[\s\S]*?(?=<h2|$)/, (m) => `<section class="practice">${m}</section>\n`);
 }
 
 function notesHtml(page, notes) {
@@ -337,6 +369,8 @@ function notesHtml(page, notes) {
   return `<section class="notes"><h2 id="notes">Notes</h2>\n<ol>\n${items}\n</ol></section>`;
 }
 
+const diagramMd = (d) => `**Diagram: ${d.title}.** ${d.text}${d.credit ? ` *${d.credit}.*` : ''}`;
+
 // Markdown twin. `link` makes the link to the twin of a site path.
 function twinMd(page, link) {
   const notes = collectNotes(page.body);
@@ -344,7 +378,11 @@ function twinMd(page, link) {
     .replace(CITE, (_, g) => citeMd(g, notes))
     .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${link(path)}${frag})`)
     .replace(new RegExp(DIRECTIVE.source, 'gm'), (_, directive, name) =>
-      directive === 'thread-map' ? threadMapMd(link) : `**Diagram.** ${diagramParts(name).text}`);
+      directive === 'thread-map' ? threadMapMd(link) : diagramMd(diagramParts(name)))
+    // A "Go deeper" section is a heading in the twin.
+    .replace(/<details[^>]*>\s*<summary>(.*?)<\/summary>/g, '### $1')
+    .replace(/<\/details>\n?/g, '')
+    .replace(/\n{3,}/g, '\n\n');
   const out = [`# ${page.title}`, ''];
   if (page.message) out.push(`**${page.message}**`, '');
   out.push(body, '');
@@ -368,12 +406,24 @@ function navHtml(page) {
   return `<details class="menu"><summary>Threads</summary><ol>${list}</ol></details>${item(bySlug('sources'))}${item(bySlug('for-agents'))}`;
 }
 
+const two = (n) => String(n).padStart(2, '0');
+
 function pagerHtml(page) {
   const i = pages.indexOf(page);
-  const prev = pages[i - 1];
-  const next = pages[i + 1];
-  return (prev ? `<a rel="prev" href="${href(page, prev.path)}">Previous: ${esc(prev.title)}</a>` : '<span></span>')
-    + (next ? `<a rel="next" href="${href(page, next.path)}">Next: ${esc(next.title)}</a>` : '<span></span>');
+  const link = (p, rel, label) => {
+    const no = two(site.pages.findIndex((x) => x.slug === p.slug));
+    const text = rel === 'prev' ? `\u2190 ${label} \u00b7 ${no}` : `${label} \u00b7 ${no} \u2192`;
+    return `<a rel="${rel}" href="${href(page, p.path)}"><span class="pager-label">${text}</span><span class="pager-title">${esc(p.title)}</span></a>`;
+  };
+  return (pages[i - 1] ? link(pages[i - 1], 'prev', 'Previous') : '<span></span>')
+    + (pages[i + 1] ? link(pages[i + 1], 'next', 'Next') : '<span></span>');
+}
+
+function kickerHtml(page) {
+  if (!page.group) return '';
+  const g = site.groups.find((x) => x.id === page.group);
+  const n = threads.findIndex((t) => t.slug === page.slug) + 1;
+  return `<p class="kicker g-${g.id}"><span class="marker" aria-hidden="true"></span>${esc(g.title)} \u00b7 Thread ${two(n)} of ${two(threads.length)}</p>`;
 }
 
 // ---------- write ----------
@@ -396,6 +446,8 @@ for (const page of pages) {
     home: href(page, '/'),
     siteName: esc(site.name),
     nav: navHtml(page),
+    bodyClass: page.slug === 'home' ? 'page-home' : page.group ? 'page-thread' : 'page-plain',
+    kicker: kickerHtml(page),
     title: esc(page.title),
     message: page.message ? `<p class="message">${esc(page.message)}</p>` : '',
     body: bodyHtml(page, notes),

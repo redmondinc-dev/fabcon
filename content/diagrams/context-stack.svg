@@ -1,0 +1,39 @@
+<svg viewBox="0 0 364 420" role="img" aria-labelledby="context-stack-title" xmlns="http://www.w3.org/2000/svg">
+<title id="context-stack-title">From data to agent</title>
+<defs>
+<marker id="context-stack-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" style="fill:var(--g-context)"/></marker>
+</defs>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="20" y="10" width="190" height="50" rx="12" style="fill:var(--mark)"/>
+<rect x="20" y="120" width="190" height="60" rx="6"/>
+<rect x="20" y="240" width="190" height="60" rx="6"/>
+<rect x="20" y="360" width="190" height="50" rx="6"/>
+<rect x="236" y="250" width="122" height="92" rx="6" stroke-dasharray="5 4"/>
+<path d="M115 332h26M115 212h26M115 92h26" stroke-dasharray="3 3"/>
+<path d="M297 250V35h-63" stroke-dasharray="5 4"/>
+<path d="M234 27v16"/>
+</g>
+<g fill="none" stroke-width="2" style="stroke:var(--g-context)">
+<path d="M115 360v-58" marker-end="url(#context-stack-arrow)"/>
+<path d="M115 240v-58" marker-end="url(#context-stack-arrow)"/>
+<path d="M115 120V62" marker-end="url(#context-stack-arrow)"/>
+</g>
+<g fill="currentColor" text-anchor="middle" font-size="15" font-weight="650">
+<text x="115" y="41" font-size="16" font-weight="700" style="fill:var(--on-mark)">Agent</text>
+<text x="115" y="147">Ontology</text>
+<text x="115" y="267">Semantic model</text>
+<text x="115" y="390">Data in OneLake</text>
+<text x="297" y="275" font-size="12.5">What the model</text>
+<text x="297" y="291" font-size="12.5">excludes:</text>
+</g>
+<g text-anchor="middle" font-size="12" style="fill:var(--muted)">
+<text x="115" y="166">entities and relationships</text>
+<text x="115" y="286">measures</text>
+<text x="297" y="312">exceptions,</text>
+<text x="297" y="328">dissent</text>
+</g>
+<g fill="currentColor" font-size="12">
+<text x="147" y="209">Each translation</text>
+<text x="147" y="224">removes some context</text>
+</g>
+</svg>

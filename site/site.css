@@ -158,7 +158,16 @@ h3 { margin: 0; font-size: 1.125rem; }
 li { margin: 0.25rem 0; }
 
 /* Evidence and status labels */
-.cite { white-space: nowrap; }
+.labels { margin-left: 0.4em; }
+.chip-date {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
 .chip {
   position: relative;
   display: inline-block;
@@ -229,9 +238,12 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
 .group { padding-top: 0.75rem; border-top: 3px solid var(--g); }
 .group h3 { color: var(--g); }
 .g-context { --g: var(--g-context); }
-.g-limits { --g: var(--g-limits); border-top-style: dashed; }
-.g-proof { --g: var(--g-proof); border-top-style: dotted; }
-.g-reality { --g: var(--g-reality); border-top-style: double; border-top-width: 6px; }
+.g-limits { --g: var(--g-limits); }
+.g-proof { --g: var(--g-proof); }
+.g-reality { --g: var(--g-reality); }
+.group.g-limits { border-top-style: dashed; }
+.group.g-proof { border-top-style: dotted; }
+.group.g-reality { border-top-style: double; border-top-width: 6px; }
 .map-band { margin-top: 2rem; }
 .gloss { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9375rem; }
 .group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
@@ -253,7 +265,69 @@ a.card .card-title { color: var(--accent); text-decoration: underline; text-unde
 .card-msg { display: block; font-size: 0.9375rem; line-height: 1.4; }
 .card-note { display: block; margin-top: 0.25rem; font-size: 0.8125rem; }
 
+/* Thread page */
+.kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 3rem 0 0;
+  color: var(--g);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.kicker .marker { width: 1rem; height: 1rem; background: var(--g); }
+.kicker + h1 { margin-top: 0.5rem; }
+body:not(.page-home) .message { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.08; }
+
+figure.diagram {
+  padding: var(--space-3);
+  background: var(--raise);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.diagram-title { margin: 0 0 var(--space-2); font-weight: 650; }
+.diagram svg { display: block; width: 100%; max-width: 26rem; height: auto; }
+.diagram svg text { font-family: var(--font-sans); }
+.diagram figcaption { display: grid; gap: 0.25rem; line-height: 1.45; }
+
+/* What the sessions said: the statement, then the labels at the right. */
+#what-the-sessions-said + ul { max-width: 57rem; margin: 1rem 0 0; padding: 0; list-style: none; }
+#what-the-sessions-said + ul li {
+  position: relative;
+  min-height: 3.25rem;
+  margin: 0;
+  padding: 0.75rem 15rem 0.75rem 0;
+  border-top: 1px solid var(--line);
+}
+#what-the-sessions-said + ul .labels {
+  position: absolute;
+  top: 0.75rem;
+  right: 0;
+  width: 14rem;
+  margin: 0;
+  text-align: right;
+}
+#what-the-sessions-said + ul .labels .chip { margin: 0 0 0 0.2rem; }
+
+/* Go deeper */
+details:not(.menu) { margin-top: -1px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+details:not(.menu) > summary { padding: 0.6rem 0; font-weight: 650; cursor: pointer; }
+details:not(.menu) > :last-child { margin-bottom: 1.25rem; }
+details:not(.menu) > summary:last-child { margin-bottom: 0; }
+
+.practice { margin-top: 3rem; padding: var(--space-3); background: var(--sunk); border-radius: var(--radius-md); }
+.practice h2 { margin-top: 0; }
+.practice > :last-child { margin-bottom: 0; }
+
 @media (max-width: 44rem) {
+  figure.diagram, .practice { padding: var(--space-2); }
+  #what-the-sessions-said + ul li { padding-right: 0; }
+  #what-the-sessions-said + ul .labels { position: static; display: block; width: auto; margin-top: 0.25rem; text-align: left; }
+  #what-the-sessions-said + ul .labels .chip { margin: 0 0.2rem 0 0; }
   .map-lines { display: none; }
   .map-agent { margin-bottom: 1.5rem; }
   .map-groups, .map-band .group ul { grid-template-columns: 1fr; }
@@ -264,7 +338,19 @@ a.card .card-title { color: var(--accent); text-decoration: underline; text-unde
 .notes h2 { font-size: 1rem; margin-top: 1rem; }
 .notes li { overflow-wrap: anywhere; }
 .foot { margin-top: 4rem; padding-bottom: 3rem; font-size: 0.9375rem; }
-.pager { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 1px solid var(--line); }
+.pager { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 2px solid var(--ink); }
+.pager a { display: block; text-decoration: none; }
+.pager a[rel="next"] { text-align: right; }
+.pager-label {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pager-title { font-weight: 650; text-decoration: underline; text-underline-offset: 0.15em; }
 .tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
 .fine { color: var(--muted); }
 
