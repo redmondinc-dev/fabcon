@@ -9,15 +9,21 @@ Simple wins. If a rule and clarity disagree, choose clarity.
 
 Each thread page has the same parts, in this order:
 
-1. **Message.** One sentence. 12 words maximum. A reader who reads only this line must get the idea.
-2. **Why it matters.** 2 sentences maximum.
-3. **Diagram.** One. It shows the mechanism, not decoration.
-4. **What the sessions said.** 3 to 5 short points. Each point has an endnote.
-5. **Go deeper.** Collapsed by default. Evidence, tables, speaker limits, product status.
-6. **For practice.** 2 or 3 points: what an engineering or governance team does with this.
-7. **Not confirmed.** What is open. Link to the Open questions page.
+1. **Message.** 12 words maximum for each sentence. A reader who reads only this line must get the idea. A message does not state a speaker's estimate or our reading as a fact.
+2. **Lead.** 1 or 2 sentences, 30 words maximum, with its claims. It is correct without the rest of the page.
+3. **Diagram.** One, directly after the lead. It shows the mechanism, not decoration.
+4. **What the sessions said.** About 4 short points. Each point names its presenter and has a source marker. The best example goes here, with the limit that changes its meaning in the same point (for example "on synthetic data, with maker credentials").
+5. **Go deeper.** Collapsed by default. 6 blocks maximum; 3 is the usual number. Evidence, tables, speaker limits, product status. A block does not repeat a point from part 4.
+6. **For practice.** The line "These points are our reading." and then 3 points maximum.
+7. **Not confirmed.** 1 or 2 sentences and a link to the Open questions page.
+
+The visible text of a thread page is about 250 words. The detail that does not fit is on the All findings page: each claim is public there, so a thread page does not need to hold each claim.
+
+The two pages that came from a merge (Access and identity, Evidence and governance) have a second diagram. It is lower on the page, below its own heading that states its point.
 
 A reader must understand the page from parts 1 to 3 alone.
+
+When a result comes from a demo, give its date and its route. Different runs of one demo are different results.
 
 ## 2. Sentence rules
 
@@ -68,7 +74,7 @@ Product names keep the vendor's spelling: Microsoft Fabric, OneLake, Fabric IQ, 
 
 ## 4. Evidence labels
 
-Each point in "What the sessions said" and "Go deeper" shows one label. The label comes from the `evidence` field of the claim.
+The label comes from the `evidence` field of the claim. In the HTML, a statement from a slide has no label, and each other statement shows its label. The home page and the For agents page state this rule. The Markdown twins, `claims.json` and the All findings page give a label for each claim, also "Slide". In one list or one paragraph, the same label shows one time only.
 
 | Label on the site | Claim value | Meaning |
 |---|---|---|
@@ -85,7 +91,8 @@ Each status chip carries the date "as of 1 October 2026" in its tooltip and in t
 Rules:
 
 - Do not turn a speaker statement into a fact. Write "The speaker showed…" or "The slide said…".
-- Keep the speaker's own limits. If the claim has a `caveat`, show the caveat in "Go deeper".
+- Keep the speaker's own limits. If a caveat changes the meaning of a statement, put it in the same sentence or the next one. The All findings page shows each caveat.
+- Do not write an absolute statement about what a source does not have. Write "We found no…".
 - Fictional or synthetic numbers stay labelled as fictional or synthetic each time they appear.
 - Nothing on the site was tested in our own tenant. The home page and the Open questions page say this.
 
@@ -94,14 +101,16 @@ Rules:
 - Credit a speaker by name where `content/sources.json` has the name. If it has no name, cite the session title and "FabCon Europe 2026".
 - Do not write "Microsoft said" for a community speaker.
 - Do not publish a slide image, a slide photo or a redrawn copy of a slide illustration. Draw new diagrams.
-- A direct quote is 25 words maximum, in quotation marks, with an endnote.
+- A direct quote is 25 words maximum, in quotation marks, with a source marker.
 - A diagram that follows a speaker's idea carries a credit line: "After <speaker>, <session>".
 
-## 6. Endnotes
+## 6. Source markers
 
-- Endnotes are numbers in the text. Each number links to an entry on the Sources page.
+- A source marker is a number (a session) or a letter (a web source) in the text. It links to a line at the foot of the page.
+- "Sessions on this page" is collapsed. Each line gives the presenter, the session code and the slides or photos used, and links to the Sources page.
+- "Documentation links" is visible. Each line gives the publisher and the title, with the public link.
 - The Sources entry links back to each place that cites it.
-- An endnote for a session gives: speaker or session title, session code if known, date, and the slide number or "photo".
+- The Markdown twin keeps the full numbered notes for each claim: speaker or session title, session code if known, date, and the slide number or "photo".
 
 ## 7. Diagrams
 

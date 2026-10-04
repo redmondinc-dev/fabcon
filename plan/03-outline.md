@@ -1,40 +1,41 @@
 # Page outlines
 
-Each outline gives the message, the diagram and the claims for one page.
+Each outline gives the message, the diagram and the claims for one page, as the page is now.
 Claim ids refer to `content/claims.json`. Source ids refer to `content/sources.json`.
-The outlines are a starting point. Change the wording, keep the evidence.
+The page text is in `content/pages/`. The titles, messages and page order are in `content/site.json`.
 
 Page pattern and writing rules: `plan/02-style-guide.md`.
+
+A thread page shows the main points only. Each claim is on the All findings page (`/findings/`), with its label, sources and caveat. A claim that is not in an outline below is on that page only.
+
+History: the first version had eight threads. On 4 October 2026, Identity joined Access, and Evidence joined Governance. The paths `/identity/` and `/evidence/` are redirect stubs.
 
 ---
 
 ## 0. Home
 
-**Main message:** An agent needs context, limits and proof.
+**Message:** Fabric gives agents context. Control and proof are a work in progress.
 
-**Second line:** Microsoft Fabric now has a feature for each. The work to join them is ours. *(Our reading.)*
+**Order of the page:**
 
-**Thread map (the main diagram and the main navigation).** Four groups, eight threads. Each node is a link.
+1. **Thread map** (the main diagram and the main navigation), directly below the message. Four groups, six threads. Each node is a link.
+2. **Our reading.** Six points. Each point is a bold line, one sentence, and links to its threads. A line below links to All findings (C001, C002).
+3. **Where to start, by role.** IT and security, governance, data and analytics.
+4. **About this site.** The scope (two attendees, one focus, data engineering notes not in yet), "Nothing here was tested in our own tenant", and the label rule. This block stays at the foot of the page.
+5. **More.** Where Fabric goes next, Open questions, All findings, For agents.
 
-| Group | Thread | One-line message |
+| Group | Thread | Message |
 |---|---|---|
 | **Context** | 1. Context | An agent can use only the context that you give it. |
-| **Limits** | 2. Identity | Each route to the data uses a different identity. |
-| | 3. Access | Access is a path, not a permission. |
-| | 4. Untrusted input | The model cannot separate instructions from data. |
-| **Proof** | 5. Evidence | A correct answer is not proof. |
-| | 6. Governance in the loop | Governance moves into the development loop. |
-| **Reality check** | 7. Production reality | The prototype is 10% of the work. |
-| | 8. Concentration | Benefits and lock-in grow together. |
+| **Limits** | 2. Access and identity | Access is a path, not a permission. |
+| | 3. Untrusted input | The model cannot fully separate instructions from data. |
+| **Proof** | 4. Evidence and governance | A correct answer is not proof. |
+| **Reality check** | 5. Production reality | In one speaker's estimate, the prototype is 10% of the work. |
+| | 6. Concentration | Benefits and concentration can grow together. |
 
-Diagram idea: an agent in the centre. Three things point at it: Context (what it knows), Limits (what it can reach and do), Proof (what it leaves behind). A fourth band below, "Reality check", holds cost and dependency.
+Diagram: an agent in the centre. Three things point at it: Context (what it knows), Limits (what it can reach and do), Proof (what it leaves behind). A band below, "Reality check", holds cost and dependency.
 
-**Also on the home page:**
-
-- **The focus.** "I went to FabCon with one focus: applied AI in the Microsoft stack, and the security and governance of it. This site reports that part of the conference. It does not cover the full event." Link to Sessions.
-- **The limit.** "Each statement here is from a speaker, from Microsoft or from a third party. We did not test it in our own tenant." (C957)
-- **How to read.** Read the message on each page. Open "Go deeper" for the evidence. Each number links to a source.
-- Links: Where Fabric goes next, Open questions, For agents.
+The six points of "Our reading": data is still the base (understand your data first); context is now a product layer; limits; proof; reality; it is early.
 
 ---
 
@@ -42,320 +43,197 @@ Diagram idea: an agent in the centre. Three things point at it: Context (what it
 
 **Message:** An agent can use only the context that you give it.
 
-**Why it matters:** Microsoft now treats business context as the product. The semantic model was the top layer. Now there is a layer above it.
+**Lead:** Fabric IQ adds an ontology, bound to data in OneLake. The ontology item is in preview. (C103, C108)
 
-**Diagram:** A stack, bottom to top: Data in OneLake → Semantic model (measures) → Ontology (entities and relationships) → Agent. At each arrow, show a small loss: "each translation removes some context" (after Luise Freese). At the side, a box "What the model excludes: exceptions, dissent" with a dashed line that does not reach the agent.
+**Diagram:** `context-stack`. A stack, bottom to top: Data in OneLake → Semantic model (measures) → Ontology (preview; entities and relationships) → Agent. "Each translation removes some context." At the side: "What the model excludes: exceptions, dissent". Credit: after Luise Freese, INSPIRE01.
 
-**What the sessions said:**
-- Microsoft put "your context" at the centre of the keynote. (C101, C102)
-- The ontology holds business entities and relationships, and binds them to data. (C103) `Preview`
-- Keep measures in the semantic model. Add an ontology when agents must navigate related concepts. (C104)
-- Each translation from people to model removes context. The agent cannot see what the model excludes. (C110, C111)
-- AI-ready data makes assumptions executable. (C112)
+**What the sessions said:** C104, C106, C110, C111, C107.
 
 **Go deeper:**
-- Fabric IQ status and the preview limits of the ontology. (C108, C106, C105)
-- Prep data for AI and "Approved for Copilot". (C107)
-- How Microsoft describes data agents: "context engineering". (C109)
-- The ontology demo and its description field. (C114, C115)
-- Readiness is organizational work. (C113)
+- `ontology-status`: what the ontology does, and its preview limits. The limits are dated 18 September 2026. Microsoft Learn changed on 1 October 2026. (C103, C108, C106)
+- `prep-data-for-ai`: Prep data for AI and "Approved for Copilot". (C107)
+- `readiness`: readiness is organizational work. (C113, C112)
 
-**For practice:**
-- Treat the quality of the semantic model as a control. Descriptions, AI instructions and verified answers decide what each AI surface says.
-- Name an owner for each definition. The tool is easy. The agreement on what "customer" means is hard.
-- Do not put an ontology in a production plan while it is in preview.
+**For practice:** "Understand your data first." is the first point. It is our reading, with no speaker and no claim.
 
-**Not confirmed:** How the ontology applies row-level security. (C951)
+**Not confirmed:** row-level security through an ontology. Learn documents it; we did not test it. (C951)
 
 ---
 
-## 2. Identity
-
-**Message:** Each route to the data uses a different identity.
-
-**Why it matters:** An agent answers with the access of the identity that runs the query. If that identity is the builder, each reader sees the builder's data.
-
-**Diagram (can be interactive):** One reader on the right, the data on the left. Four routes between them: Foundry data agent tool, Foundry Fabric IQ tool, Copilot Studio, direct MCP client. For each route, show "runs as": the reader, a delegated user, reader **or** maker, reader **or** service principal. Mark the status of each. Credit: after Leon Gordon, TH14.
-
-**What the sessions said:**
-- Four routes, four identity contracts. (C201)
-- The settings pane shows a choice. It is not proof of the caller. (C202)
-- In the demo, 4 of 4 answers were correct. The caller was proved in 0 of 4. (C203)
-- A reader with one region received a different region's figure. (C204)
-- A tool call that runs as a service principal skips row-level security. (C205)
-
-**Go deeper:**
-- The route table with status and dates. (C201)
-- Model row-level security does not bind editors. (C206)
-- How to prove the caller from the operation log. (C207)
-- Passthrough and delegated engine modes in OneLake. (C213)
-- Entra Agent ID: what it is, and where the sessions named it. (C209, C210)
-- Eligibility is not access: the PIM test. (C211)
-- Five isolation controls. (C212)
-- Service principals and data agents: the sources and what each says. (C201, C208)
-
-**For practice:**
-- For each agent, write down each route and the identity that each tool uses.
-- Treat a route as maker access until a log names the reader.
-- Decide the identity model for each workload: on behalf of the reader for interactive use, a narrow agent identity for unattended use.
-
-**Not confirmed:** A pattern for unattended agents. (C214, C952) How Entra Agent ID works with Fabric. (C210)
-
----
-
-## 3. Access
+## 2. Access and identity
 
 **Message:** Access is a path, not a permission.
 
-**Why it matters:** A user can reach the same data through different paths. To know what an agent can reach, you must compute the paths.
+**Lead:** A user can reach the same data through different paths. (C301, C302)
 
-**Diagram (interactive):** A small graph. Alice → Finance Users (group) → Finance Workspace → Finance Report → Semantic Model → Lakehouse → Customer Data. A second, direct path: Alice → Finance Report. The reader selects a path, and the page states the answer to "Why can Alice see this?". Static fallback: both paths visible with labels "direct" and "through a group". Credit: after Cristian Urbina Guerra, TH30.
+**Diagram 1 (interactive):** `access-paths`. Alice → Finance Users (group) → Finance Workspace → Semantic model → Lakehouse → Customer data, and a direct path through Finance Report. The reader selects a path. Static fallback: both paths visible. Credit: after Cristian Urbina Guerra, TH30.
 
-**What the sessions said:**
-- Access comes from six layers. A permission is not effective access. (C301, C302)
-- No single source of truth exists. You collect it from four API families. (C303)
-- OneLake roles are who, what, target. Multiple roles give the union. (C307)
-- Workspace Admins, Members and Contributors read all OneLake data. Only Viewers are limited by roles. (C308)
-- A delegated shortcut can narrow access. It cannot widen it. (C309)
+**What the sessions said:** C301, C302, C201, C204 with C202, C308, C206. The London answer carries its limits in the same point: 24 September, synthetic data, maker credentials.
+
+**Second section, "Each route runs as an identity":** diagram 2, `identity-routes`. One reader, four routes, and the identity that each route runs as. Credit: after Leon Gordon, TH14. (C201)
 
 **Go deeper:**
-- The five-step method: capture, normalize, relate, query, explain. (C306)
-- What to collect from Microsoft Graph and from the Fabric APIs, and the 200 requests per hour limit. (C304, C305)
-- Shortcuts: passthrough, delegated, external, cross-tenant. A second small diagram for the rule "consumer roles ∩ target roles". (C309, C310)
-- The new permissions view. (C311)
-- OneLake security status by engine. (C312)
-- Column-level security and the lack of data masking. (C313)
-- Column metadata becomes searchable. (C314)
-- Engine choice as a security decision. (C315) `Third party`
+- `six-layers`: build the security graph. (C306, C303, C304)
+- `onelake-roles`: OneLake roles and shortcuts, the permissions view, and the Learn exception for workspace roles. (C307, C308, C309, C310, C311)
+- `routes`: the route table, the tests and the customer case. The 4-of-4 result is stated here only: 15 September, Fabric IQ route in Teams. (C201, C203, C205)
+- `prove-the-caller`: the operation log and the PIM test. (C207, C211)
 
-**For practice:**
-- Build the security graph first. Collect identities and groups, then workspaces, items and roles.
-- Review who holds an editor role. Editors are outside row-level and OneLake role limits.
-- Check each engine and each shortcut for the identity that it uses.
-
-**Not confirmed:** C315 needs a check against Microsoft Learn.
+**Not confirmed:** an identity for an unattended agent. (C214, C952)
 
 ---
 
-## 4. Untrusted input
+## 3. Untrusted input
 
-**Message:** The model cannot separate instructions from data.
+**Message:** The model cannot fully separate instructions from data.
 
-**Why it matters:** SQL injection has a full fix: parameterised queries. Prompt injection has no full fix. You limit what the agent can do.
+**Lead:** There is no "sanitized" natural language. (C402)
 
-**Diagram:** Two columns. Left, "SQL": code and data in two channels (a query with a parameter slot). Right, "LLM": instructions and data in one channel (one stream into the model). Under the right column, the controls that sit outside the model: least privilege, approved actions, server-side authorization, output validation, sandbox. Credit: after Mariusz Wójcik and Piotr Balik, W21.
+**Diagram:** `injection-channels`. Left, "SQL": code and data in two channels. Right, "LLM": instructions and data in one channel. Below: the controls that sit outside the model. Credit: after Mariusz Wójcik and Piotr Balik, W21.
 
-**What the sessions said:**
-- Both attacks use the same fault: no separation of code and data. (C401)
-- There is no "sanitized" natural language. (C402)
-- Prompt injection is number 1 in the OWASP list for LLM applications. (C403)
-- Never execute model output directly. Authorize each action on the server. (C406)
+**What the sessions said:** C401, C404, C406. "Limit what the agent can do" is our summary of the defence list.
 
 **Go deeper:**
-- The SQL injection defence table. (C404)
-- The five prompt injection attack types. (C405)
-- The full defence list. (C406)
-- How Microsoft limits its own SQL agent: a fixed tool set and a constitution file. (C407) `Preview`
-- "All users are a source of attack surface." (C408) `Notes`
+- `defences`: the 9 defences. (C406)
+- `attack-types`: the 5 attack types. (C405)
+- `sql-agent`: Copilot agent mode in SQL Server Management Studio, generally available. (C407)
 
-**For practice:**
-- Treat retrieved documents, tool results and user text as untrusted input.
-- Give each agent the least access that the task needs. This is the control that still works when the model is fooled.
-- Keep parameterised queries for all SQL that an agent generates or triggers.
-
-**Not confirmed:** What a "database constitution" contains in practice. (C954)
+**Not confirmed:** the database constitution. (C954)
 
 ---
 
-## 5. Evidence
+## 4. Evidence and governance
 
 **Message:** A correct answer is not proof.
 
-**Why it matters:** An agent can give the correct number with the incorrect identity. A status of "Resolved" can hide an empty answer. You need a record of what the agent did.
+**Lead:** In our reading, three sessions ask for evidence of what the agent did. (C514)
 
-**Diagram:** One answer in the centre with three questions around it, taken from the Purview test: "What data did the AI use?", "Was it allowed?", "What happened next?". Each question links to the record that answers it: query log, caller log, audit and outcome. A red mark where the record is missing by default.
+**Diagram 1:** `evidence-questions`. One answer, three questions from the Purview session, and the record that answers each question. The records are our reading.
 
-**What the sessions said:**
-- Microsoft's test: "Can you explain what data AI used, whether it was allowed, and what happened next?" (C501)
-- Gate each answer: meaning, access, retrieval, calculation, response. (C502)
-- Rules validate figures. Models review wording. (C503)
-- "Resolved" is not a correct answer. (C504)
-- "100% approved" counts clicks, not judgment. (C509)
+**What the sessions said:** C504, C503, C505, C507. The "Resolved" capture is a session of 14 September on an older route (the "Standard route"), which is not in the route table.
+
+**Second section, "Governance moves into the development loop":** diagram 2, `governance-loop`. Shared repository → development agent → pull request → human review → dev, test, production → governance agent → new pull request. Credit: after "Data Governance for Trust, Scale, and AI". (C604, C605)
 
 **Go deeper:**
-- The five gates with what each does on failure. Keep the speaker's status for each gate. (C502)
-- Tracing: Foundry gives one trace; Copilot Studio needs a designed identifier. (C505)
-- The evidence record and when to repeat a test. (C506)
-- Allowed and denied tests. (C512)
-- A release is a version, checks, an owner and a rehearsed recovery. (C513)
-- Purview: DSPM for AI, audit, insider risk. What to turn on. (C507, C508)
-- A metric needs an obligation. Contestability needs infrastructure. (C510, C511)
-- Three sessions, one demand. (C514) `Our reading`
+- `gates`: the test, the 5 gates (a design) and the evidence record. (C501, C502, C506, C505)
+- `purview`: records, labels and licences. (C610, C508, C507, C608)
+- `risks-and-controls`: the 8 risks and the 8 controls, with Entra Agent ID. (C601, C210)
+- `obligation`: a metric needs an obligation, and contestability. Luise Freese. (C509, C510, C511)
 
-**For practice:**
-- For each agent, keep four fields for each answer: the question, the generated query, the caller, the result.
-- Add a correlation identifier before go-live.
-- Use rules for numbers. Use a model judge for wording only.
-- Make human review real: give the reviewer time, evidence and the authority to stop.
-
-**Not confirmed:** How Purview records a custom agent. (C953)
+**Not confirmed:** how Purview sees a custom agent. (C953)
 
 ---
 
-## 6. Governance in the loop
+## 5. Production reality
 
-**Message:** Governance moves into the development loop.
+**Message:** In one speaker's estimate, the prototype is 10% of the work.
 
-**Why it matters:** A committee cannot keep pace with agents. The sessions put governance into domains, labels, Git and pull requests.
+**Lead:** the estimate, with the speaker's name in the sentence. (C701)
 
-**Diagram:** A loop. Shared repository (context, MCP servers, skills) → development agent → pull request → human review → dev, test, production → governance agent reviews the tenant → new pull request. Mark the human review step clearly. Credit: after "Data Governance for Trust, Scale, and AI", FabCon Europe 2026.
+**Diagram:** `effort-split`. Expected and actual effort for four categories. Credit: after Hasan Savran, W41. The caption says that it is the speaker's estimate and that the slide gave no data source.
 
-**What the sessions said:**
-- Eight AI risks, eight controls. Show as a table. (C601)
-- One governed repository for what agents know and can do. (C604)
-- A governance agent proposes fixes. A human approves. (C605)
-- Start with sensitivity labels. Keep the set small. (C608)
-- Some controls are in Fabric. Some need a Purview licence. (C610)
+**What the sessions said:** C701, C706, C703, C707.
 
 **Go deeper:**
-- Two modes: conversational analytics and agentic development. (C602)
-- Four AI maturity steps. (C603)
-- Domains and guardrails. (C607)
-- Data loss prevention that contains, not only alerts. (C609)
-- The five Purview tools. (C611)
-- The Govern tab in the OneLake catalog. (C612)
-- Fabric Atlas. (C606)
-- What research says about agent-written code. (C613) `Research`
-- "Architecture and governance is what will make AI work." (C614) `Notes`
+- `cost`: cost for each useful answer, on a fictional workload. The two figures are not like for like. (C706)
+- `capacity`: smoothing and throttling. (C707)
+- `gateway`: the AI gateway, and retrieval. (C702, C704)
 
-**For practice:**
-- Put agent context, MCP servers and skills in one reviewed repository.
-- Use pull requests as the control point for agent work.
-- Map each control to "in Fabric" or "needs Purview" before a licence discussion.
-
-**Not confirmed:** The status of data loss prevention "restrict access" for Fabric. (C609)
+**Not confirmed:** the cost of Copilot Studio for each request. (C955)
 
 ---
 
-## 7. Production reality
+## 6. Concentration
 
-**Message:** The prototype is 10% of the work.
+**Message:** Benefits and concentration can grow together.
 
-**Why it matters:** Teams plan for the prototype. The effort and the cost are in evaluation, data and operations.
+**Lead:** usefulness can become dependency, and then lock-in. (C801, C803)
 
-**Diagram:** A bar chart with two series, "Expected" and "Actual", for four categories: Prototype 70 / 10, Evaluation 10 / 30, Data preparation and RAG 10 / 40, Infrastructure 10 / 20. Credit: after Hasan Savran, W41. Label it as the speaker's estimate.
+**Diagram:** `benefit-and-cost`. Four rows with a benefit and a cost: OneLake, semantic models, Copilots, integrated governance. Credit: after Luise Freese, INSPIRE01.
 
-**What the sessions said:**
-- Expected effort and actual effort. (C701)
-- You pay for each attempt, not for each answer. (C706)
-- Applications talk to an AI gateway, not to a model. (C702)
-- Most RAG failures happen at retrieval. Latency kills adoption. (C704)
+**What the sessions said:** C801, C802, C805, C806.
 
 **Go deeper:**
-- Cost per useful answer, with the speaker's limits. Fictional workload. (C706)
-- Capacity: smoothing and throttling. (C707)
-- Agent loops, budget guards and cost alerts. (C703, C709)
-- Three layers of responsible AI. (C705)
-- The speaker's six decisions for AI development. (C708)
-- A note on old statistics. (C710)
+- `both-true`: both things are true. (C801)
+- `six-questions`: the 6 questions, and when the vendor changes the model. (C802, C804)
+- `open-formats`: open engines, and what they do not cover. "This is how Microsoft answers the lock-in question" is our reading. (C805, C806)
 
-**For practice:**
-- Plan evaluation and data work as the main effort.
-- Measure cost per useful answer. Include retries.
-- Put a gateway between applications and models: routing, logging, limits, cost.
-
-**Not confirmed:** The cost of Copilot Studio for each request. (C955)
+**Not confirmed:** export of AI instructions and agent definitions. Learn documents an export for the ontology only. (C956)
 
 ---
 
-## 8. Concentration
-
-**Message:** Benefits and lock-in grow together.
-
-**Why it matters:** The platform that holds your context becomes hard to leave. This is a design choice to make with open eyes, not a reason to stop.
-
-**Diagram:** A table of four rows with a benefit on the left and a cost on the right: OneLake (less fragmentation / more data gravity), semantic models (shared meaning / fixed assumptions), Copilots (wider access / assumptions at scale), integrated governance (more visibility / more control). Draw it new. Credit: after Luise Freese, INSPIRE01.
-
-**What the sessions said:**
-- Both things are true. (C801)
-- Six questions test what you can still choose. (C802)
-- Useful, adopt, depend, lock-in. (C803)
-- Microsoft's answer: open formats and open engines. (C805)
-
-**Go deeper:**
-- When the vendor changes the model. (C804)
-- OneLake security APIs for any engine. (C806) `Preview`
-- Sovereign private cloud. (C807)
-- What open formats do not cover. (C805 caveat, C956)
-- Custom agents and Purview coverage. (C808)
-
-**For practice:**
-- Keep definitions, instructions and history in a form that you can export.
-- Keep agent context in a repository that you own, not only in a vendor interface.
-- Record model and platform changes, and name who checks them.
-
-**Not confirmed:** Export of ontologies, AI instructions and agent definitions. (C956)
-
----
-
-## 9. Where Fabric goes next
+## 7. Where Fabric goes next
 
 **Message:** Fabric becomes the place where agents get context.
 
-**Why it matters:** The announcements point one way: agents in each layer, with one security and governance layer below them. *(Our reading; see C913 for the press quote.)*
+**Lead:** the announcements point one way. Our reading, with the press quote. (C914, C913)
 
-**Main element:** A status table that the reader can filter by status. Each row has an "as of 1 October 2026" date.
+**Main element:** a status table that the reader can filter by status. Each status is "as of 1 October 2026".
 
 | Area | Item | Claim |
 |---|---|---|
 | Context | Fabric IQ and the ontology | C108, C103 |
 | Context | Fabric IQ for agents outside Fabric | C910 |
 | Agents | Fabric data agents and operations agents | C908 |
-| Agents | Data engineering agent (from Osmos) | C905 |
-| Agents | Database agents and the Database Hub | C902, C909 |
+| Agents | Data engineering agent | C905 |
+| Agents | Database agents | C902 |
+| Agents | Database Hub | C909 |
 | Security | OneLake security | C312 |
 | Security | Table Read API for agents | C906 |
 | Security | Dynamic row-level security | C907 |
 | Security | Data masking | C313 |
+| Governance | Column metadata search | C314 |
 | Governance | Insider risk for Fabric | C508 |
 | Governance | AI-guided governance in the OneLake catalog | C912 |
+| Governance | Fabric Atlas (community tool) | C606 |
 | SQL | Live vector index | C901 |
 | SQL | Developer tools | C903 |
 | SQL | Automatic index compaction | C911 |
 | Skills | DP-800 certification | C904 |
 | Sovereignty | Sovereign private cloud | C807 |
 
+**Go deeper:** the limits of these statements, and more detail on some rows.
+
 ---
 
-## 10. Open questions
+## 8. Open questions
 
 **Message:** These are the things that we could not confirm.
 
-List C951 to C957. For each: the question, why it matters, and what would answer it.
-State clearly: nothing here was tested in our own tenant (C957).
-Also list the product-status disagreements (C108, C312) and the claims that rest on notes only (C115, C408, C614, C912, C954).
+- The questions: C951 to C956. For each: the question, why it matters, and what would answer it. State that nothing was tested in our own tenant (C957).
+- **First tests:** the tests that can answer each question in our own tenant. Our reading.
+- A status that the sources disagree on (C108). OneLake security is not in this list: Learn and the speakers agree (C312).
+- Research that does not agree (C613).
+- Statements that rest on notes only (C115, C408, C614, C912, C954), with links to All findings.
 
 ---
 
-## 11. Sessions and focus
+## 9. All findings
 
-**Message:** One attendee, one focus: applied AI, security and governance.
+**Message:** Each claim, with its label, source and caveat.
 
-- The focus statement.
-- A table of the 12 sessions from `content/sources.json`: title, speaker where known, date, and the threads that it feeds.
-- What this debrief does not cover: Power BI authoring, Real-Time Intelligence, data engineering practice, most SQL sessions.
-- The evidence base in numbers: 12 sessions across 3 days, 6 slide decks with about 250 slides, 77 photos of slides, and 34 web sources.
+Generated from `content/claims.json` by the `::findings-list` directive. One group for each thread page, then Where Fabric goes next, Open questions and Home. Each claim has the anchor `#C###`, each evidence label (also "Slide"), the status, the caveat, the sources, and the pages that cite it.
 
 ---
 
-## 12. Sources
+## 10. Sessions and focus
 
-Generate from `content/sources.json`. Group by: sessions, Microsoft, third party, research.
-Each entry lists the pages that cite it.
+**Message:** One focus: applied AI, security and governance.
+
+- The focus statement: two attendees, and this version holds the notes of one.
+- A table of the 12 sessions from `content/sources.json`: title, speaker where known ("Not named" where not), date, and the pages that use it.
+- What this site does not cover: Power BI authoring, Real-Time Intelligence, data engineering practice, most SQL sessions.
+- The evidence base in numbers. Keep the count of web sources equal to `content/sources.json`.
+
+---
+
+## 11. Sources
+
+Generated from `content/sources.json` by the `::sources-list` directive. Groups: sessions, Microsoft, third party, research.
+Each entry lists the pages and the claims that cite it. If no thread page cites it, the entry links to All findings.
 State: "Slide content is paraphrased. Short quotes are marked. Slide images are not published."
 
 ---
 
-## 13. For agents
+## 12. For agents
 
 See `plan/01-site-spec.md`, section 6.

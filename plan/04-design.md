@@ -51,7 +51,7 @@ Token values: `plan/design-tokens.css`. Merge them into `site/site.css`. Do not 
 
 These are monochrome. Colour does not carry their meaning.
 
-**Evidence label** (`SLIDE`, `NOTES`, `MICROSOFT`, `THIRD PARTY`, `RESEARCH`, `OUR READING`):
+**Evidence label** (`NOTES`, `MICROSOFT`, `THIRD PARTY`, `RESEARCH`, `OUR READING`; `SLIDE` shows on the All findings page only):
 `--font-mono`, 0.75rem, weight 500, uppercase, `letter-spacing: 0.08em`, `--muted` text, 1px solid `--border`, `--radius-sm`, padding `0 0.5rem`.
 
 **Status chip**: same type and shape. The line style gives the status.
@@ -88,14 +88,15 @@ One family for text, one for labels. No web fonts.
 
 Top to bottom. Each part is already in the page pattern of `plan/02-style-guide.md`.
 
-1. **Kicker.** A 1rem square in the group colour, then a label: `LIMITS · THREAD 02 OF 08` in the group colour.
-2. **Message** (`h1` content), then **Why it matters**.
+1. **Kicker and title on one line.** A 1rem square in the group colour, a label in the group colour (`LIMITS · 02 OF 06 ·`), then the page title (the `h1`) in the label style. If the group name and the title are the same word, the group name does not show.
+2. **Message**, then the **lead**.
 3. **Diagram** in a frame: `--raise` ground, 1px `--border`, `--radius-md`, padding `--space-3`. A title above. A caption below with the credit line on the left and "AS OF 1 OCT 2026" on the right when the diagram shows a status.
-4. **What the sessions said.** A list. Each row: the statement with its endnote number, then the evidence label at the right. A `--line` hairline between rows.
+4. **What the sessions said.** A bulleted list. Each point: the statement with its source marker, then a label in the same line where the statement is not from a slide. On the two merged pages, the second diagram comes after this list, below its own `h2`.
 5. **Go deeper.** A stack of `<details>`. A 1px `--border` line between them. The `summary` is 44px high at minimum and weight 650.
 6. **For practice.** A band on `--sunk` with `--radius-md` and padding `--space-3`.
 7. **Not confirmed.** Plain text and one link to Open questions.
-8. **Previous and next.** A 2px `--ink` line above. Each link has a label (`← PREVIOUS · 01`) and the page title.
+8. **Sources.** A collapsed "Sessions on this page" block and a visible "Documentation links" list, in the `.sources` style.
+9. **Previous and next.** A 2px `--ink` line above. Each link has a label (`← PREVIOUS · 01`) and the page title. Only the six thread pages have a number. The link to the home page has the title "Home".
 
 On the home page the thread list reads as four rows, one for each group: the group marker and gloss on the left, the thread messages on the right as large links with their numbers. The current card grid under the agent node is also acceptable. Choose the one that reads better at phone width.
 
