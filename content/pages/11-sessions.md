@@ -27,6 +27,6 @@ Data engineering was the focus of the second attendee. Those notes can add that 
 - 12 sessions across 3 days.
 - 6 slide decks with about 250 slides.
 - 77 photos of slides.
-- 34 web sources.
+- 39 web sources.
 
 See [Sources](/sources/) for each one.
