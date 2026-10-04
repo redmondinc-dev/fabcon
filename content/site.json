@@ -2,7 +2,7 @@
   "_about": "Site configuration. The page order here is the order for Previous and Next. The title and the message of each page are set here only.",
   "name": "FabCon Europe 2026 debrief",
   "event": "FabCon Europe 2026",
-  "baseUrl": "",
+  "baseUrl": "https://redmondinc-dev.github.io/fabcon/",
   "statusAsOf": "1 October 2026",
   "summary": [
     "This site reports what one attendee learned at FabCon Europe 2026 about applied AI, security and governance in Microsoft Fabric.",
