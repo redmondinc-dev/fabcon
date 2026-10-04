@@ -2,7 +2,7 @@
 // Check dist/ after a build. Exit 1 on a failure.
 //   scripts/check-dist                 check <repo>/dist against <repo>/content
 //   scripts/check-dist --root <dir>    check <dir>/dist against <dir>/content (old pages still come from this repo's git)
-// Reads git (read-only): `git show master:content/pages/<file>` gives the claim ids of each retired page.
+// Reads git (read-only): `git show <OLD_REF>:content/pages/<file>` gives the claim ids of each retired page.
 
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, dirname, resolve, relative, sep } from 'node:path';
@@ -15,7 +15,8 @@ const rootArg = args.indexOf('--root');
 const root = rootArg >= 0 ? resolve(args[rootArg + 1]) : repo;
 const dist = join(root, 'dist');
 const content = join(root, 'content');
-const OLD_REF = 'master';
+// The last commit that holds the retired pages (before the merge of eight threads into six).
+const OLD_REF = 'b06a897fff9b';
 
 const failures = [];
 const fail = (section, msg) => failures.push(`[${section}] ${msg}`);
