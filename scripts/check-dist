@@ -131,7 +131,7 @@ console.log(`4. Claims: ${claimIds.size} in claims.json, ${claimIds.size - missi
 
 // ---------- 5. Go deeper and diagram counts ----------
 const article = (html) => (html.match(/<article>([\s\S]*?)<\/article>/) || [, ''])[1];
-const MAX_DEEPER = 3;
+const MAX_DEEPER = 6;
 const MAX_DIAGRAMS = 2;
 console.log(`5. Thread pages (max ${MAX_DEEPER} Go deeper, max ${MAX_DIAGRAMS} diagrams):`);
 for (const p of site.pages.filter((x) => x.group)) {

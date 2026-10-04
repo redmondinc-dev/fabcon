@@ -36,7 +36,7 @@ Leon Gordon said that Foundry documents one trace for each turn: the agent run, 
 
 </details>
 
-<details id="purview"><summary>Purview records and licences</summary>
+<details id="purview"><summary>Purview: records, labels and licences</summary>
 
 The session "Purview and data security protections" showed these controls as built into Fabric: the Govern tab, OneLake security, domains, endorsement, lineage and monitoring. Sensitivity labels, data loss prevention, audit, insider risk and DSPM for AI need a Microsoft Purview licence. [C610]
 
@@ -44,11 +44,42 @@ The same session said that Insider Risk Management for Fabric is generally avail
 
 Microsoft Learn says that without the collection policy, Purview records the event but not the prompt and response. Learn now calls this version "DSPM for AI (classic)", and a new version replaces it. [C507]
 
+The session "Purview security solutions" gave this advice: start with sensitivity labels. Set a default label at the domain level. Make labels mandatory on save. Use programmatic labelling to start. Labels pass to downstream items. [C608]
+
 </details>
 
 <details id="repository"><summary>The governance agent</summary>
 
 In the demo of "Data Governance for Trust, Scale, and AI", each fix reaches development, test or production only after human review. The demo used a tool with the name "onelake-catalog-govern-cli". [C605]
+
+</details>
+
+<details id="risks-and-controls"><summary>The 8 risks and the 8 controls</summary>
+
+The session "Data Governance for Trust, Scale, and AI" paired 8 AI risks with 8 controls. [C601]
+
+| AI risk | Control |
+|---|---|
+| Oversharing | Domains, item permissions, row and column security, access review |
+| Bad data | Prep for AI, endorsed items, lineage |
+| Regulatory exposure | Purview audit, sensitivity labels, automatic classification |
+| Trust | Approved for Copilot, lineage and Git history |
+| Agents as a new identity | Entra Agent ID |
+| Accountability | Git, pull requests, human review |
+| Speed against control | Self-service inside domain guardrails |
+| Shadow AI | One governed mono-repo for context, MCP servers and skills |
+
+Entra Agent ID was one line on one slide. No session showed how to use it with Fabric. [C210]
+
+</details>
+
+<details id="obligation"><summary>A metric needs an obligation</summary>
+
+Luise Freese (INSPIRE01) said that "100% approved" counts clicks. It does not show that the reviewer had time, evidence or authority. [C509]
+
+She said that a metric needs an obligation: alert, owner, threshold, action, review. An alert without an obligation is decoration. [C510]
+
+She said that contestability needs infrastructure: decision, pause, appeal, review, change. The question is whether disagreement can change the outcome. [C511]
 
 </details>
 
