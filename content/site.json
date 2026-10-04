@@ -22,7 +22,7 @@
   ],
   "threadMapText": "An agent needs three things: context (what it knows), limits (what it can reach and do) and proof (what it leaves behind). A reality check on cost and dependency applies to all three.",
   "pages": [
-    { "slug": "home", "path": "/", "title": "FabCon Europe 2026 debrief", "message": "An agent needs context, limits and proof." },
+    { "slug": "home", "path": "/", "title": "FabCon Europe 2026: AI, security and governance", "message": "Fabric now gives agents context. The limits and the proof are not finished." },
     { "slug": "context", "path": "/context/", "title": "Context", "group": "context", "message": "An agent can use only the context that you give it." },
     { "slug": "access", "path": "/access/", "title": "Access and identity", "group": "limits", "message": "Access is a path, not a permission." },
     { "slug": "untrusted-input", "path": "/untrusted-input/", "title": "Untrusted input", "group": "limits", "message": "The model cannot separate instructions from data." },
