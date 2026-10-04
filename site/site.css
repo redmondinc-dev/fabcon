@@ -236,7 +236,7 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
 .map-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: start; }
 /* Each group has a line style and a colour. The line style works without colour. */
 .group { padding-top: 0.75rem; border-top: 3px solid var(--g); }
-.group h3 { color: var(--g); }
+.group h3 { margin-top: 0; color: var(--g); }
 .g-context { --g: var(--g-context); }
 .g-limits { --g: var(--g-limits); }
 .g-proof { --g: var(--g-proof); }
