@@ -17,7 +17,7 @@ Each page also has a "Copy page as Markdown" button and a "Copy prompt" button.
 
 ## The evidence labels
 
-Each statement on the site shows one label. Keep the label when you repeat a statement.
+In the HTML pages, an unmarked statement is from a speaker's slide. Each other statement shows its label: Microsoft, Third party, Research, Notes or Our reading. The Markdown twins and claims.json give a label for each claim. Keep the label when you repeat a statement.
 
 | Label | Value in claims.json | Meaning |
 |---|---|---|
@@ -30,14 +30,25 @@ Each statement on the site shows one label. Keep the label when you repeat a sta
 
 A second label gives the product status where it applies: GA, Preview, Announced, Roadmap or Not available.
 
+## The sources
+
+Each HTML page ends with 2 source blocks:
+
+- "Sessions on this page" is collapsed. It gives one line for each session, with a link to the [Sources](/sources/) page.
+- "Documentation links" is visible. It lists the public web links on that page.
+
+The Markdown twin keeps the full numbered notes for each claim.
+
 ## The limits
 
-- Speaker statements are not tested facts. Nothing here was tested in our own tenant. [C957]
-- Each product status is as of 1 October 2026. Check it against Microsoft Learn before you use it.
-- The web sources were found on 4 October 2026.
+- Product status as of 1 October 2026. Web sources checked 4 October 2026. Speaker statements are not tested facts.
+- Nothing here was tested in our own tenant. [C957]
+- Check each product status against Microsoft Learn before you use it.
 - Fictional and synthetic numbers are labelled. Keep that label.
 - If a claim has a caveat, give the caveat with the claim.
 
 ## Anchors
 
 Each claim has a stable anchor on the page that cites it, for example `#C201`. Each source has an anchor on the [Sources](/sources/) page, for example `#W03`.
+
+The old paths `/identity/` and `/evidence/` now redirect to `/access/` and `/governance/`. Claim anchors such as `#C201` still work through the redirect.

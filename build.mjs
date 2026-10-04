@@ -285,7 +285,8 @@ function citeHtml(group, srcs, state) {
     }
     sups += `<span class="claim"${first ? ` id="${id}"` : ''} data-claim="${id}">${s}</span>`;
     const [label, meaning] = EVIDENCE[c.evidence];
-    if (!shown.has(label)) {
+    // The HTML leaves a slide statement unmarked (see unmarkedHtml). The twin labels it.
+    if (c.evidence !== 'slide' && !shown.has(label)) {
       shown.add(label);
       labels += chip(label, meaning, `ev-${c.evidence}`);
     }
@@ -463,6 +464,32 @@ function diagramParts(name) {
 
 const DIRECTIVE = /^::(thread-map|sessions-table|sources-list|diagram[ \t]+([\w-]+))[ \t]*$/m;
 
+// One evidence label for each paragraph or list (all items of the outer list): a repeat of the
+// same label is dropped. Table rows keep each label. Status chips are not touched.
+function collapseLabels(html) {
+  let depth = 0;
+  let inTable = 0;
+  let seen = null;
+  return html.replace(/<(\/?)(p|ul|ol|table)\b[^>]*>|<span class="chip (ev-[\w-]+)" tabindex="0">[\s\S]*?<\/span><\/span>/g, (m, close, tag, ev) => {
+    if (ev) {
+      if (!seen || inTable) return m;
+      if (seen.has(ev)) return '';
+      seen.add(ev);
+      return m;
+    }
+    if (tag === 'table') { inTable += close ? -1 : 1; return m; }
+    if (inTable) return m;
+    if (close) { if (--depth === 0) seen = null; } else if (depth++ === 0) seen = new Set();
+    return m;
+  });
+}
+
+// Said once at the top of a page that has unmarked (slide) statements.
+function unmarkedHtml(page) {
+  const slide = [...page.body.matchAll(CITE)].some((m) => citeIds(m[1]).some((id) => claims.get(id).evidence === 'slide'));
+  return slide ? '<p class="unmarked">Unmarked statements are from a speaker\'s slide. Speaker statements are not tested facts.</p>' : '';
+}
+
 function bodyHtml(page, srcs) {
   const state = { claims: new Set(), dated: false };
   const env = {};
@@ -485,6 +512,7 @@ function bodyHtml(page, srcs) {
       out += `<figure class="diagram" id="diagram-${parts[i + 2]}"><p class="diagram-title">${esc(d.title)}</p>${d.svg}<figcaption><span>${esc(d.text)}</span>${credit}</figcaption></figure>`;
     }
   }
+  out = collapseLabels(out).replace(/<span class="labels"><\/span>/g, '');
   // A table row gets the status of its first status chip, for the status filter.
   out = out.replace(/<tr>(?=((?:(?!<\/tr>)[\s\S])*?)<\/tr>)/g, (tr, row) => {
     const st = row.match(/class="chip st-([\w-]+)"/);
@@ -633,6 +661,7 @@ for (const page of pages) {
     title: esc(page.title),
     // A word with a hyphen stays on one line.
     message: page.message ? `<p class="message">${esc(page.message).replace(/\S+-\S+/g, '<span class="nb">$&</span>')}</p>` : '',
+    unmarked: unmarkedHtml(page),
     body: bodyHtml(page, srcs),
     notes: notesHtml(page, srcs),
     pager: pagerHtml(page),

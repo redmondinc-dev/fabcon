@@ -152,7 +152,9 @@ h1 {
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
-.message + p { font-size: 1.3125rem; line-height: 1.45; }
+.message + p:not(.unmarked), .message + .unmarked + p { font-size: 1.3125rem; line-height: 1.45; }
+/* The one line that explains the unmarked statements. */
+.unmarked { margin: 0 0 1.5rem; color: var(--muted); font-size: 0.9375rem; line-height: 1.45; }
 h2 { margin: 3rem 0 0.5rem; font-size: 1.375rem; line-height: 1.25; }
 h3 { margin: 0; font-size: 1.125rem; }
 li { margin: 0.25rem 0; }
