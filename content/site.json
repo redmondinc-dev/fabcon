@@ -4,6 +4,7 @@
   "event": "FabCon Europe 2026",
   "baseUrl": "https://redmondinc-dev.github.io/fabcon/",
   "statusAsOf": "1 October 2026",
+  "webCheckedOn": "4 October 2026",
   "redirects": [
     { "from": "/identity/", "to": "/access/" },
     { "from": "/evidence/", "to": "/governance/" }

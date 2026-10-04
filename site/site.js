@@ -78,7 +78,7 @@
     copyPrompt.hidden = false;
     copyPrompt.addEventListener('click', () => {
       const url = new URL(copyPrompt.dataset.full, location.href).href;
-      copy(`Read ${url}. Then answer my questions about the FabCon Europe 2026 debrief. Keep the evidence labels.`);
+      copy(`Read ${url}. Then answer my questions about this FabCon Europe 2026 site. Keep the evidence labels.`);
     });
   }
 })();

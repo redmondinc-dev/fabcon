@@ -147,6 +147,8 @@ function runChecks() {
     if (wordCount(s) > SENTENCE_WARN) warnings.push(`site.json: a summary sentence has ${wordCount(s)} words`);
   }
 
+  for (const k of ['statusAsOf', 'webCheckedOn']) if (!site[k]) errors.push(`site.json: no "${k}"`);
+
   // No claim lost: each claim is cited on a page.
   const cited = new Set(pages.flatMap((p) => [...p.body.matchAll(CITE)].flatMap((m) => citeIds(m[1]))));
   for (const id of claims.keys()) {
@@ -266,6 +268,8 @@ function sourceText(ref) {
 const chip = (label, tip, cls) => `<span class="chip ${cls}" tabindex="0">${esc(label)}<span class="tip" role="tooltip">${esc(tip)}</span></span>`;
 
 const shortDate = site.statusAsOf.replace(/([A-Za-z]{3})[a-z]+/, '$1');
+// The same line as the footer of each page (site/layout.html).
+const fineText = `Product status as of ${site.statusAsOf}. Web sources checked ${site.webCheckedOn}. Speaker statements are not tested facts.`;
 
 // Source numbers first, then the labels. `state` is for one page.
 function citeHtml(group, srcs, state) {
@@ -666,6 +670,7 @@ for (const page of pages) {
     notes: notesHtml(page, srcs),
     pager: pagerHtml(page),
     statusAsOf: esc(site.statusAsOf),
+    webCheckedOn: esc(site.webCheckedOn),
   };
   const dir = page.path.slice(1);
   write(`${dir}index.html`, layout.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? ''));
@@ -714,7 +719,7 @@ write('llms.txt', [
 
 write('llms-full.txt', [
   `# ${site.name}`, '', `> ${summary}`, '',
-  `Product status values are as of ${site.statusAsOf}.`, '',
+  fineText, '',
   ...pages.flatMap((p) => ['---', '', twinMd(p, rootTwinHref)]),
 ].join('\n'));
 

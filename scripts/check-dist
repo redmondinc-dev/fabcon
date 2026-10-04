@@ -1,0 +1,181 @@
+#!/usr/bin/env node
+// Check dist/ after a build. Exit 1 on a failure.
+//   scripts/check-dist                 check <repo>/dist against <repo>/content
+//   scripts/check-dist --root <dir>    check <dir>/dist against <dir>/content (old pages still come from this repo's git)
+// Reads git (read-only): `git show master:content/pages/<file>` gives the claim ids of each retired page.
+
+import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { join, dirname, resolve, relative, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+
+const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const args = process.argv.slice(2);
+const rootArg = args.indexOf('--root');
+const root = rootArg >= 0 ? resolve(args[rootArg + 1]) : repo;
+const dist = join(root, 'dist');
+const content = join(root, 'content');
+const OLD_REF = 'master';
+
+const failures = [];
+const fail = (section, msg) => failures.push(`[${section}] ${msg}`);
+const read = (f) => readFileSync(f, 'utf8');
+const site = JSON.parse(read(join(content, 'site.json')));
+const claimIds = new Set(JSON.parse(read(join(dist, 'claims.json'))).claims.map((c) => c.id));
+const CITE = /\[(C\d{3}(?:\s*,\s*C\d{3})*)\](?!\()/g;
+const git = (...a) => execFileSync('git', ['-C', repo, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+
+const walk = (d) => readdirSync(d).flatMap((f) => {
+  const p = join(d, f);
+  return statSync(p).isDirectory() ? walk(p) : [p];
+});
+const files = walk(dist);
+const htmlFiles = files.filter((f) => f.endsWith('index.html'));
+const mdFiles = files.filter((f) => f.endsWith('index.md'));
+const rel = (f) => `/${relative(dist, f).split(sep).join('/')}`;
+const pathOf = (slugPath) => join(dist, slugPath.slice(1), 'index.html');
+const stubDirs = (site.redirects || []).map((r) => join(dist, r.from.slice(1)) + sep);
+const isStub = (f) => stubDirs.some((d) => f.startsWith(d));
+
+const decode = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+const idCache = new Map();
+const idsOf = (f) => {
+  if (!idCache.has(f)) idCache.set(f, new Set([...read(f).matchAll(/\sid="([^"]+)"/g)].map((m) => decode(m[1]))));
+  return idCache.get(f);
+};
+const external = (u) => /^[a-z][a-z0-9+.-]*:/i.test(u) || u.startsWith('//');
+
+// ---------- 1. internal links and fragments ----------
+let linkCount = 0;
+for (const f of htmlFiles) {
+  const html = read(f);
+  const urls = [...html.matchAll(/\shref="([^"]*)"/g)].map((m) => decode(m[1]));
+  for (const m of html.matchAll(/http-equiv="refresh" content="\d+;\s*url=([^"]+)"/g)) urls.push(decode(m[1]));
+  for (const u of urls) {
+    if (external(u)) continue;
+    linkCount++;
+    const [pathPart, frag] = u.split('#');
+    let target = pathPart ? resolve(dirname(f), pathPart.split('?')[0]) : f;
+    if (pathPart.endsWith('/') || (existsSync(target) && statSync(target).isDirectory())) target = join(target, 'index.html');
+    if (!existsSync(target)) { fail('1 links', `${rel(f)}: "${u}" does not resolve to a file`); continue; }
+    if (frag && target.endsWith('.html')) {
+      let id = frag;
+      try { id = decodeURIComponent(frag); } catch { /* keep */ }
+      if (!idsOf(target).has(id)) fail('1 links', `${rel(f)}: "${u}" has no id="${id}" in ${rel(target)}`);
+    }
+  }
+}
+console.log(`1. Links: ${linkCount} internal links checked in ${htmlFiles.length} HTML files.`);
+
+// ---------- 2. redirect stubs ----------
+const where = (id) => htmlFiles.filter((f) => !isStub(f) && idsOf(f).has(id)).map(rel);
+const oldFiles = git('ls-tree', '--name-only', OLD_REF, 'content/pages/').trim().split('\n');
+for (const r of site.redirects || []) {
+  const slug = r.from.replace(/\//g, '');
+  const stub = pathOf(r.from);
+  if (!existsSync(stub)) { fail('2 stubs', `${r.from}: no stub file`); continue; }
+  const s = read(stub);
+  const to = r.to.slice(1);
+  if (!new RegExp(`<meta http-equiv="refresh" content="0; url=[^"]*${to}"`).test(s)) fail('2 stubs', `${r.from}: no meta refresh to ${r.to}`);
+  if (!s.includes('<meta name="robots" content="noindex">')) fail('2 stubs', `${r.from}: no noindex`);
+  if (!new RegExp(`<body[\\s\\S]*<a href="[^"]*${to}">`).test(s)) fail('2 stubs', `${r.from}: no visible link to ${r.to}`);
+  if (!/<script>[^<]*location\.replace\([^<]*location\.hash[^<]*<\/script>/.test(s)) fail('2 stubs', `${r.from}: no hash-forwarding script`);
+  if (!existsSync(join(dist, r.from.slice(1), 'index.md'))) fail('2 stubs', `${r.from}: no index.md stub`);
+
+  const oldFile = oldFiles.find((p) => new RegExp(`^page: ${slug}$`, 'm').test(git('show', `${OLD_REF}:${p}`)));
+  if (!oldFile) { fail('2 stubs', `${r.from}: no page "${slug}" on ${OLD_REF}`); continue; }
+  const ids = [...new Set([...git('show', `${OLD_REF}:${oldFile}`).matchAll(CITE)].flatMap((m) => m[1].split(',').map((x) => x.trim())))];
+  const newIds = idsOf(pathOf(r.to));
+  const moved = [];
+  for (const id of ids) {
+    if (newIds.has(id)) continue;
+    const at = where(id);
+    if (at.length) moved.push(`${id} -> ${at.join(', ')}`);
+    else fail('2 stubs', `${r.from}#${id}: no id="${id}" on ${r.to} or on any other page`);
+  }
+  console.log(`2. Stub ${r.from} -> ${r.to}: ${ids.length} old claim anchors (from ${OLD_REF}:${oldFile}), ${ids.length - moved.length} on ${r.to}.`);
+  for (const m of moved) console.log(`   moved on purpose? ${m}`);
+}
+
+// ---------- 3. banned strings ----------
+const scan = [...htmlFiles, ...mdFiles, ...files.filter((f) => /\/llms[^/]*\.txt$/.test(f)), join(dist, 'claims.json')].filter((f) => !isStub(f));
+const RETIRED = new RegExp(`(^|/)(${(site.redirects || []).map((r) => r.from.replace(/\//g, '')).join('|') || '$^'})/(index\\.(html|md))?(#|$)`);
+let banned = 0;
+for (const f of scan) {
+  const t = read(f);
+  const hit = (msg) => { banned++; fail('3 banned', `${rel(f)}: ${msg}`); };
+  for (const m of t.matchAll(/Thread 0\d of 08/g)) hit(`"${m[0]}"`);
+  if (t.includes('now has a feature for each')) hit('"now has a feature for each"');
+  const targets = [...t.matchAll(/\shref="([^"]*)"/g), ...t.matchAll(/\]\(([^)\s]+)\)/g)].map((m) => decode(m[1]));
+  for (const u of targets) if (RETIRED.test(u.split('?')[0])) hit(`link target "${u}"`);
+  if (f.endsWith('claims.json')) for (const r of site.redirects || []) if (t.includes(r.from)) hit(`"${r.from}"`);
+}
+console.log(`3. Banned strings: ${banned} hit(s) in ${scan.length} files.`);
+
+// ---------- 4. claims ----------
+const seen = new Set();
+for (const f of htmlFiles) {
+  for (const m of read(f).matchAll(/data-claim="([^"]+)"|\sid="(C\d{3})"/g)) {
+    const id = m[1] || m[2];
+    seen.add(id);
+    if (!claimIds.has(id)) fail('4 claims', `${rel(f)}: claim ${id} is not in claims.json`);
+  }
+}
+const lost = [...claimIds].filter((id) => !seen.has(id));
+for (const id of lost) fail('4 claims', `claim ${id} is on no HTML page (lost)`);
+console.log(`4. Claims: ${seen.size} ids in the HTML, ${claimIds.size} in claims.json, ${lost.length} lost.`);
+
+// ---------- 5. Go deeper counts ----------
+const article = (html) => (html.match(/<article>([\s\S]*?)<\/article>/) || [, ''])[1];
+const merged = new Set((site.redirects || []).map((r) => r.to));
+console.log('5. Go deeper blocks:');
+for (const p of site.pages.filter((x) => x.group)) {
+  const f = pathOf(p.path);
+  if (!existsSync(f)) { fail('5 go deeper', `${p.path}: not built`); continue; }
+  const n = [...article(read(f)).matchAll(/<details id="([^"]+)"/g)].filter((m) => m[1] !== 'sessions-on-this-page').length;
+  const max = merged.has(p.path) ? 6 : 7;
+  console.log(`   ${p.path.padEnd(18)} ${n} (max ${max})${n > max ? '  FAIL' : ''}`);
+  if (n > max) fail('5 go deeper', `${p.path}: ${n} Go deeper blocks (max ${max})`);
+}
+
+// ---------- 6. twin and HTML headings ----------
+const norm = (s) => decode(s.replace(/<[^>]+>/g, '')).replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '').replace(/\\/g, '').replace(/\s+/g, ' ').trim();
+const SOURCE_HEADS = new Set(['Sessions on this page', 'Documentation links', 'Notes']);
+let mismatched = 0;
+for (const p of site.pages) {
+  const f = pathOf(p.path);
+  const twin = join(dirname(f), 'index.md');
+  if (!existsSync(f) || !existsSync(twin)) continue;
+  // HTML: h2, h3 and Go deeper summaries in the article, not in the thread map or the sources block.
+  const body = article(read(f)).replace(/<figure class="map"[\s\S]*?<\/figure>/g, '').replace(/<section class="notes"[\s\S]*?<\/section>/g, '');
+  const hHtml = [...body.matchAll(/<h([23])[^>]*>([\s\S]*?)<\/h\1>|<details id="[^"]+"[^>]*>\s*<summary>([\s\S]*?)<\/summary>/g)]
+    .map((m) => norm(m[2] ?? m[3])).filter((t) => !SOURCE_HEADS.has(t));
+  const tmd = read(twin);
+  const hMd = [...tmd.slice(0, tmd.search(/^## Notes$/m) >>> 0).matchAll(/^#{2,3} (.+)$/gm)].map((m) => norm(m[1])).filter((t) => !SOURCE_HEADS.has(t));
+  const n = Math.max(hHtml.length, hMd.length);
+  for (let i = 0; i < n; i++) {
+    if (hHtml[i] !== hMd[i]) {
+      mismatched++;
+      fail('6 twin', `${p.path}: heading ${i + 1}: HTML "${hHtml[i] ?? '(none)'}" / twin "${hMd[i] ?? '(none)'}"`);
+      break;
+    }
+  }
+}
+console.log(`6. Twin headings: ${mismatched} page(s) differ.`);
+
+// ---------- 7. one sources block and one documentation list ----------
+let over = 0;
+for (const f of htmlFiles.filter((x) => !isStub(x))) {
+  const h = read(f);
+  const a = (h.match(/<details id="sessions-on-this-page"/g) || []).length;
+  const b = (h.match(/<h2 id="documentation-links"/g) || []).length;
+  if (a > 1 || b > 1) { over++; fail('7 sources blocks', `${rel(f)}: ${a} sessions block(s), ${b} documentation list(s)`); }
+}
+console.log(`7. Sources blocks: ${over} page(s) with more than one.`);
+
+if (failures.length) {
+  console.log(`\n${failures.length} failure(s):`);
+  for (const f of failures) console.log(`  ${f}`);
+  process.exit(1);
+}
+console.log('\nAll checks passed.');
