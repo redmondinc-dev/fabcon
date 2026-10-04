@@ -1,0 +1,3 @@
+title: Each benefit comes with a cost
+text: Four parts of the platform each give a benefit and a cost. OneLake gives less fragmentation and more data gravity. Semantic models, Copilots and integrated governance follow the same pattern.
+credit: After Luise Freese, "The AI-Ready Data Trap" (INSPIRE01)

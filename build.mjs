@@ -452,7 +452,8 @@ for (const page of pages) {
     bodyClass: page.slug === 'home' ? 'page-home' : page.group ? 'page-thread' : 'page-plain',
     kicker: kickerHtml(page),
     title: esc(page.title),
-    message: page.message ? `<p class="message">${esc(page.message)}</p>` : '',
+    // A word with a hyphen stays on one line.
+    message: page.message ? `<p class="message">${esc(page.message).replace(/\S+-\S+/g, '<span class="nb">$&</span>')}</p>` : '',
     body: bodyHtml(page, notes),
     notes: notesHtml(page, notes),
     pager: pagerHtml(page),
