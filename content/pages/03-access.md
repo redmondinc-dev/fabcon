@@ -19,7 +19,7 @@ A user can reach the same data through different paths. A permission is not the 
 
 ::diagram identity-routes
 
-Only the Copilot Studio route was demonstrated. The other routes are from documentation that the speaker checked. [C201]
+Of these 4 routes, only the Copilot Studio route was demonstrated. The other routes are from documentation that the speaker checked. [C201]
 
 ## Go deeper
 
@@ -29,13 +29,13 @@ Cristian Urbina Guerra's method has 5 steps: capture, normalize, relate, query a
 
 No single source holds the full picture: collect it from the Fabric REST, Power BI REST, OneLake and Microsoft Graph APIs. Start with Microsoft Graph, and flatten nested groups so that each user links to each group. [C303, C304]
 
-Workspace Admins, Members and Contributors read all OneLake data. Microsoft Learn names one exception: in the user's identity mode of the SQL analytics endpoint, row-level security applies to all users. [C308]
-
 </details>
 
 <details id="onelake-roles"><summary>OneLake roles and shortcuts</summary>
 
 Aaron Merrill and Cristian Petculescu (OneLake security session) showed that a OneLake security role has 3 parts: who (members), what (permission) and target. The target is a schema, table, column, row or folder. A user in more than one role gets the union of the roles. [C307]
+
+Microsoft Learn names one exception to the rule for workspace Admins, Members and Contributors. In the user's identity mode of the SQL analytics endpoint, row-level security applies to all users. [C308]
 
 A passthrough shortcut checks the user at the target. A delegated shortcut reads the target with a fixed identity. Then the consumer roles narrow the result. They cannot widen it. [C309]
 

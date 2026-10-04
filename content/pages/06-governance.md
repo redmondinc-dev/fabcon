@@ -9,7 +9,7 @@ In our reading, three sessions ask for the same thing: evidence of what the agen
 
 ## What the sessions said
 
-- Leon Gordon (TH14) showed a Copilot Studio capture of a session of 14 September, on an older route. The outcome was "Resolved", and the reader got no figures. AI assigns the "Resolved implied" outcome after the session ends. [C504]
+- Leon Gordon (TH14) showed a Copilot Studio capture of a session of 14 September. It used an older route, which his slides call the "Standard route" (preview, Teams only). It is not one of the 4 routes on [Access and identity](/access/#routes). The outcome was "Resolved", and the reader got no figures. AI assigns the "Resolved implied" outcome after the session ends. [C504]
 - He said that rules validate figures, and models review wording. A model judge cannot prove arithmetic or identity. [C503]
 - He said that Copilot Studio has no documented join between a chat turn and the Fabric query. Thus you must design the identifier in. [C505]
 - Purview Data Security Posture Management (DSPM) for AI can record prompts and responses. Microsoft Learn says that you must first turn on Purview Audit, a collection policy and a tenant setting. [C507]
@@ -45,12 +45,6 @@ The same session said that Insider Risk Management for Fabric is generally avail
 Microsoft Learn says that without the collection policy, Purview records the event but not the prompt and response. Learn now calls this version "DSPM for AI (classic)", and a new version replaces it. [C507]
 
 The session "Purview security solutions" gave this advice: start with sensitivity labels. Set a default label at the domain level. Make labels mandatory on save. Use programmatic labelling to start. Labels pass to downstream items. [C608]
-
-</details>
-
-<details id="repository"><summary>The governance agent</summary>
-
-In the demo of "Data Governance for Trust, Scale, and AI", each fix reaches development, test or production only after human review. The demo used a tool with the name "onelake-catalog-govern-cli". [C605]
 
 </details>
 

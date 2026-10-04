@@ -48,7 +48,7 @@ The speaker said that the quantity of Copilot credits for each request is not pu
 
 Ontology export is now documented. Microsoft Learn says that an ontology item can export definitions in RDF or Turtle formats, and can import RDF, Turtle and OWL definitions. We did not test this. Whether AI instructions and agent definitions can move to a different platform is not confirmed. [C956]
 
-- **Why it matters.** Open data formats cover tables, and the ontology now has an export. AI instructions and agent definitions have no documented export.
+- **Why it matters.** Open data formats cover tables, and the ontology now has an export. We found no documented export for AI instructions and agent definitions.
 - **What would answer it.** Export documentation from Microsoft, or a test export.
 
 ## First tests
