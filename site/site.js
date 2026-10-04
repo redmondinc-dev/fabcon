@@ -1,5 +1,6 @@
 // All content is in the HTML. This script adds: theme toggle, arrow keys,
-// copy buttons, and "open the <details> that holds the link target".
+// copy buttons, "open the <details> that holds the link target", and the move
+// of a claim anchor that is not on the page to the findings page.
 (() => {
   const root = document.documentElement;
 
@@ -23,11 +24,17 @@
     if (link) location.href = link.href;
   });
 
+  // A claim that left this page is on the findings page. Old deep links go there.
+  const findings = document.body.dataset.findings;
   const openTarget = () => {
     let id = location.hash.slice(1);
     try { id = decodeURIComponent(id); } catch (e) { /* keep the raw id */ }
     const target = id && document.getElementById(id);
-    if (!target) return;
+    if (!target) {
+      const to = findings && new URL(findings, location.href);
+      if (to && /^C\d{3}$/.test(id) && to.pathname !== location.pathname) location.replace(to.href.split('#')[0] + location.hash);
+      return;
+    }
     let opened = false;
     for (let d = target.closest('details'); d; d = d.parentElement.closest('details')) {
       if (!d.open) { d.open = true; opened = true; }

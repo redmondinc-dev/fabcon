@@ -83,6 +83,10 @@ const pages = loadPages();
 const built = new Set(pages.map((p) => p.slug));
 const pageByPath = new Map(site.pages.map((p) => [p.path, p]));
 
+// The thread of a claim gives the page that it belongs to.
+const THREAD_PAGE = { signals: 'signals', open: 'open-questions' };
+const threadPage = (c) => site.pages.find((p) => p.slug === (THREAD_PAGE[c.thread] || c.thread));
+
 // ---------- checks ----------
 
 const plain = (s) => s.replace(CITE, '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/[*_`]/g, '');
@@ -111,6 +115,7 @@ function runChecks() {
     }
     if (!EVIDENCE[c.evidence]) errors.push(`claim ${c.id}: evidence "${c.evidence}" has no label`);
     if (c.product_status && !STATUS[c.product_status]) errors.push(`claim ${c.id}: product status "${c.product_status}" has no label`);
+    if (!threadPage(c)) errors.push(`claim ${c.id}: thread "${c.thread}" maps to no page in content/site.json`);
   }
 
   for (const p of site.pages) {
@@ -148,12 +153,6 @@ function runChecks() {
   }
 
   for (const k of ['statusAsOf', 'webCheckedOn']) if (!site[k]) errors.push(`site.json: no "${k}"`);
-
-  // No claim lost: each claim is cited on a page.
-  const cited = new Set(pages.flatMap((p) => [...p.body.matchAll(CITE)].flatMap((m) => citeIds(m[1]))));
-  for (const id of claims.keys()) {
-    if (!cited.has(id)) errors.push(`claim ${id}: no page cites it`);
-  }
 
   // A redirect goes from a retired path to a page.
   for (const r of site.redirects || []) {
@@ -289,7 +288,7 @@ function citeHtml(group, srcs, state) {
     }
     sups += `<span class="claim"${first ? ` id="${id}"` : ''} data-claim="${id}">${s}</span>`;
     const [label, meaning] = EVIDENCE[c.evidence];
-    // The HTML leaves a slide statement unmarked (see unmarkedHtml). The twin labels it.
+    // The HTML leaves a slide statement unmarked (the findings list labels it). The twin labels it.
     if (c.evidence !== 'slide' && !shown.has(label)) {
       shown.add(label);
       labels += chip(label, meaning, `ev-${c.evidence}`);
@@ -319,7 +318,7 @@ function citeMd(group, notes) {
 // ---------- thread map ----------
 
 const threads = site.pages.filter((p) => p.group);
-const threadNo = (p) => threads.indexOf(p) + 1;
+const threadNo = (p) => threads.findIndex((t) => t.slug === p.slug) + 1;
 
 function threadMapHtml(from) {
   const group = (g) => {
@@ -361,14 +360,11 @@ function threadMapMd(link) {
 
 // ---------- sessions table and sources list ----------
 
-// The thread of a claim gives the page that uses it.
-const THREAD_PAGE = { signals: 'signals', open: 'open-questions' };
-
 function sessionRows() {
   return sourcesFile.sessions.map((s) => {
     const slugs = new Set(claimsFile.claims
       .filter((c) => c.sources.some((r) => r.id === s.id))
-      .map((c) => THREAD_PAGE[c.thread] || c.thread));
+      .map((c) => threadPage(c).slug));
     return { s, fed: site.pages.filter((p) => slugs.has(p.slug) && p.slug !== 'home') };
   });
 }
@@ -421,15 +417,21 @@ function sourceEntryText(s) {
   return `${s.publisher}, "${s.title}".`;
 }
 
+// [page, claim ids] for each page that cites a source. A source that no page cites
+// points to its claims on the findings page.
+function citedOn(s, cited) {
+  if (cited.has(s.id)) return [...cited.get(s.id)].map(([slug, ids]) => [pages.find((x) => x.slug === slug), ids]);
+  const ids = claimsFile.claims.filter((c) => c.sources.some((r) => r.id === s.id)).map((c) => c.id);
+  return ids.length && built.has('findings') ? [[pageByPath.get('/findings/'), ids]] : [];
+}
+
 function sourcesHtml(from) {
   const cited = citations();
   return SOURCE_GROUPS.map(([title, test]) => {
     const items = [...sources.values()].filter(test).map((s) => {
       const url = s.type === 'web' ? ` <a href="${esc(s.url)}">${esc(s.url)}</a>` : '';
-      const back = [...(cited.get(s.id) || [])].map(([slug, ids]) => {
-        const p = pages.find((x) => x.slug === slug);
-        return `${esc(p.title)} (${[...ids].map((id) => `<a href="${href(from, p.path)}#${id}">${id}</a>`).join(', ')})`;
-      }).join('; ');
+      const back = citedOn(s, cited).map(([p, ids]) =>
+        `${esc(p.title)} (${[...ids].map((id) => `<a href="${href(from, p.path)}#${id}">${id}</a>`).join(', ')})`).join('; ');
       return `<li id="${s.id}">${esc(sourceEntryText(s))}${url}<br><span class="cited">${back ? `Cited on: ${back}` : 'Not cited on a page.'}</span></li>`;
     }).join('\n');
     return `<h2 id="${slugify(title)}">${title}</h2>\n<ul class="sources">\n${items}\n</ul>\n`;
@@ -440,13 +442,85 @@ function sourcesMd(link) {
   const cited = citations();
   return SOURCE_GROUPS.map(([title, test]) => {
     const items = [...sources.values()].filter(test).map((s) => {
-      const back = [...(cited.get(s.id) || [])].map(([slug, ids]) => {
-        const p = pages.find((x) => x.slug === slug);
-        return `[${p.title}](${link(p.path)}) (${[...ids].join(', ')})`;
-      }).join('; ');
+      const back = citedOn(s, cited).map(([p, ids]) => `[${p.title}](${link(p.path)}) (${[...ids].join(', ')})`).join('; ');
       return `- **${s.id}.** ${sourceEntryText(s)}${s.type === 'web' ? ` ${s.url}` : ''} ${back ? `Cited on: ${back}.` : 'Not cited on a page.'}`;
     });
     return [`## ${title}`, '', ...items].join('\n');
+  }).join('\n\n');
+}
+
+// ---------- findings list ----------
+
+// Each claim under the page of its thread: the thread pages, then the other pages, then Home.
+function findingGroups() {
+  const order = [...threads, ...site.pages.filter((p) => !p.group && p.slug !== 'home'), ...site.pages.filter((p) => p.slug === 'home')];
+  return order.map((p) => ({
+    title: p.slug === 'home' ? 'Home' : p.title,
+    list: claimsFile.claims.filter((c) => threadPage(c) === p),
+  })).filter((g) => g.list.length);
+}
+
+// Claim id -> the pages that cite it, in site order.
+function claimPages() {
+  const map = new Map();
+  for (const p of pages) {
+    for (const m of p.body.matchAll(CITE)) {
+      for (const id of citeIds(m[1])) {
+        if (!map.has(id)) map.set(id, []);
+        if (!map.get(id).includes(p)) map.get(id).push(p);
+      }
+    }
+  }
+  return map;
+}
+const pageName = (p) => (p.slug === 'home' ? 'Home' : p.title);
+
+// This list is the one place where a slide statement has a label.
+function findingsHtml(from) {
+  const on = claimPages();
+  const src = (ref) => {
+    const s = sources.get(ref.id);
+    const loc = ref.loc ? `, ${esc(ref.loc)}` : '';
+    if (s.type === 'web') return `${esc(s.publisher)}: <a href="${esc(s.url)}">${esc(s.title)}</a>${loc}`;
+    const name = esc(sessionLabel(s));
+    return `${built.has('sources') ? `<a href="${href(from, '/sources/')}#${s.id}">${name}</a>` : name}${loc}`;
+  };
+  return findingGroups().map((g) => {
+    const items = g.list.map((c) => {
+      const [label, meaning] = EVIDENCE[c.evidence];
+      let chips = chip(label, meaning, `ev-${c.evidence}`);
+      if (c.product_status) chips += `${chip(STATUS[c.product_status], `Product status as of ${site.statusAsOf}.`, `st-${c.product_status}`)}<span class="chip-date">as of ${shortDate}</span>`;
+      const where = (on.get(c.id) || []).map((p) => `<a href="${href(from, p.path)}#${c.id}">${esc(pageName(p))}</a>`).join(', ');
+      return `<li id="${c.id}"><p><span class="claim-id">${c.id}</span> ${esc(c.text)}<span class="labels">${chips}</span></p>`
+        + (c.caveat ? `<p class="claim-meta">Caveat: ${esc(c.caveat)}</p>` : '')
+        + `<p class="claim-meta">${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.</p>`
+        + (where ? `<p class="claim-meta">On page: ${where}.</p>` : '')
+        + '</li>';
+    }).join('\n');
+    return `<h2 id="${slugify(g.title)}">${esc(g.title)}</h2>\n<ul class="findings">\n${items}\n</ul>\n`;
+  }).join('');
+}
+
+function findingsMd(link) {
+  const on = claimPages();
+  const src = (ref) => {
+    const s = sources.get(ref.id);
+    const loc = ref.loc ? `, ${ref.loc}` : '';
+    return s.type === 'web' ? `${s.publisher}, "${s.title}"${loc}, ${s.url}` : `${sessionLabel(s)}${loc}`;
+  };
+  return findingGroups().map((g) => {
+    const items = g.list.flatMap((c) => {
+      let t = `- **${c.id}.** ${c.text} *(${EVIDENCE[c.evidence][0]})*`;
+      if (c.product_status) t += ` *(${STATUS[c.product_status]}, as of ${site.statusAsOf})*`;
+      const where = (on.get(c.id) || []).map((p) => `[${pageName(p)}](${link(p.path)}#${c.id})`).join(', ');
+      return [
+        t,
+        ...(c.caveat ? [`  - Caveat: ${c.caveat}`] : []),
+        `  - ${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.`,
+        ...(where ? [`  - On page: ${where}.`] : []),
+      ];
+    });
+    return [`## ${g.title}`, '', ...items].join('\n');
   }).join('\n\n');
 }
 
@@ -466,7 +540,7 @@ function diagramParts(name) {
 
 // ---------- page render ----------
 
-const DIRECTIVE = /^::(thread-map|sessions-table|sources-list|diagram[ \t]+([\w-]+))[ \t]*$/m;
+const DIRECTIVE = /^::(thread-map|sessions-table|sources-list|findings-list|diagram[ \t]+([\w-]+))[ \t]*$/m;
 
 // One evidence label for each paragraph or list (all items of the outer list): a repeat of the
 // same label is dropped. Table rows keep each label. Status chips are not touched.
@@ -488,12 +562,6 @@ function collapseLabels(html) {
   });
 }
 
-// Said once at the top of a page that has unmarked (slide) statements.
-function unmarkedHtml(page) {
-  const slide = [...page.body.matchAll(CITE)].some((m) => citeIds(m[1]).some((id) => claims.get(id).evidence === 'slide'));
-  return slide ? '<p class="unmarked">Unmarked statements are from a speaker\'s slide. Speaker statements are not tested facts.</p>' : '';
-}
-
 function bodyHtml(page, srcs) {
   const state = { claims: new Set(), dated: false };
   const env = {};
@@ -504,19 +572,21 @@ function bodyHtml(page, srcs) {
     const text = parts[i]
       .replace(new RegExp(`[ \\t]*${CITE.source}`, 'g'), (_, g) => citeHtml(g, srcs, state))
       .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${href(page, path)}${frag})`);
-    out += md.render(text, env);
+    // The labels of the Markdown collapse. A directive keeps its own labels.
+    out += collapseLabels(md.render(text, env));
     const directive = parts[i + 1];
     if (!directive) continue;
     if (directive === 'thread-map') out += threadMapHtml(page);
     else if (directive === 'sessions-table') out += sessionsHtml(page);
     else if (directive === 'sources-list') out += sourcesHtml(page);
+    else if (directive === 'findings-list') out += findingsHtml(page);
     else {
       const d = diagramParts(parts[i + 2]);
       const credit = d.credit ? `<span class="credit">${esc(d.credit)}</span>` : '';
       out += `<figure class="diagram" id="diagram-${parts[i + 2]}"><p class="diagram-title">${esc(d.title)}</p>${d.svg}<figcaption><span>${esc(d.text)}</span>${credit}</figcaption></figure>`;
     }
   }
-  out = collapseLabels(out).replace(/<span class="labels"><\/span>/g, '');
+  out = out.replace(/<span class="labels"><\/span>/g, '');
   // A table row gets the status of its first status chip, for the status filter.
   out = out.replace(/<tr>(?=((?:(?!<\/tr>)[\s\S])*?)<\/tr>)/g, (tr, row) => {
     const st = row.match(/class="chip st-([\w-]+)"/);
@@ -590,7 +660,8 @@ function twinMd(page, link) {
       directive === 'thread-map' ? threadMapMd(link)
         : directive === 'sessions-table' ? sessionsMd(link)
           : directive === 'sources-list' ? sourcesMd(link)
-            : diagramMd(diagramParts(name)))
+            : directive === 'findings-list' ? findingsMd(link)
+              : diagramMd(diagramParts(name)))
     // A filter control has no meaning in the twin.
     .replace(/<fieldset[\s\S]*?<\/fieldset>\n?/g, '')
     // A "Go deeper" section is a heading in the twin.
@@ -624,20 +695,24 @@ const two = (n) => String(n).padStart(2, '0');
 
 function pagerHtml(page) {
   const i = pages.indexOf(page);
+  // Only a thread page has a number.
   const link = (p, rel, label) => {
-    const no = two(site.pages.findIndex((x) => x.slug === p.slug));
-    const text = rel === 'prev' ? `\u2190 ${label} \u00b7 ${no}` : `${label} \u00b7 ${no} \u2192`;
-    return `<a rel="${rel}" href="${href(page, p.path)}"><span class="pager-label">${text}</span><span class="pager-title">${esc(p.title)}</span></a>`;
+    const no = p.group ? ` \u00b7 ${two(threadNo(p))}` : '';
+    const text = rel === 'prev' ? `\u2190 ${label}${no}` : `${label}${no} \u2192`;
+    return `<a rel="${rel}" href="${href(page, p.path)}"><span class="pager-label">${text}</span><span class="pager-title">${esc(pageName(p))}</span></a>`;
   };
   return (pages[i - 1] ? link(pages[i - 1], 'prev', 'Previous') : '<span></span>')
     + (pages[i + 1] ? link(pages[i + 1], 'next', 'Next') : '<span></span>');
 }
 
-function kickerHtml(page) {
-  if (!page.group) return '';
+// A thread page: group, number and title on one line ("Limits \u00b7 02 of 06 \u00b7 Access and identity").
+// The group name is left out when it is the title.
+function headingHtml(page) {
+  const h1 = `<h1>${esc(page.title)}</h1>`;
+  if (!page.group) return h1;
   const g = site.groups.find((x) => x.id === page.group);
-  const n = threads.findIndex((t) => t.slug === page.slug) + 1;
-  return `<p class="kicker g-${g.id}"><span class="marker" aria-hidden="true"></span>${esc(g.title)} \u00b7 Thread ${two(n)} of ${two(threads.length)}</p>`;
+  const lead = [g.title === page.title ? '' : esc(g.title), `${two(threadNo(page))} of ${two(threads.length)}`].filter(Boolean).join(' \u00b7 ');
+  return `<div class="kicker g-${g.id}"><span class="marker" aria-hidden="true"></span><span class="kicker-text">${lead} \u00b7</span>${h1}</div>`;
 }
 
 // ---------- write ----------
@@ -658,14 +733,14 @@ for (const page of pages) {
     description: esc(page.description),
     rel: relOf(page),
     home: href(page, '/'),
+    // site.js sends a claim anchor that is not on the page (#C123) here.
+    findings: built.has('findings') ? href(page, '/findings/') : '',
     siteName: esc(site.name),
     nav: navHtml(page),
     bodyClass: page.slug === 'home' ? 'page-home' : page.group ? 'page-thread' : 'page-plain',
-    kicker: kickerHtml(page),
-    title: esc(page.title),
+    heading: headingHtml(page),
     // A word with a hyphen stays on one line.
     message: page.message ? `<p class="message">${esc(page.message).replace(/\S+-\S+/g, '<span class="nb">$&</span>')}</p>` : '',
-    unmarked: unmarkedHtml(page),
     body: bodyHtml(page, srcs),
     notes: notesHtml(page, srcs),
     pager: pagerHtml(page),

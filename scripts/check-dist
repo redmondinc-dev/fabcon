@@ -68,7 +68,9 @@ for (const f of htmlFiles) {
 console.log(`1. Links: ${linkCount} internal links checked in ${htmlFiles.length} HTML files.`);
 
 // ---------- 2. redirect stubs ----------
-const where = (id) => htmlFiles.filter((f) => !isStub(f) && idsOf(f).has(id)).map(rel);
+// An old claim anchor resolves on the new page, or (by site.js) on /findings/.
+const findingsFile = pathOf('/findings/');
+const findingsIds = existsSync(findingsFile) ? idsOf(findingsFile) : new Set();
 const oldFiles = git('ls-tree', '--name-only', OLD_REF, 'content/pages/').trim().split('\n');
 for (const r of site.redirects || []) {
   const slug = r.from.replace(/\//g, '');
@@ -86,15 +88,14 @@ for (const r of site.redirects || []) {
   if (!oldFile) { fail('2 stubs', `${r.from}: no page "${slug}" on ${OLD_REF}`); continue; }
   const ids = [...new Set([...git('show', `${OLD_REF}:${oldFile}`).matchAll(CITE)].flatMap((m) => m[1].split(',').map((x) => x.trim())))];
   const newIds = idsOf(pathOf(r.to));
-  const moved = [];
+  const onPage = ids.filter((id) => newIds.has(id));
+  const onFindings = ids.filter((id) => !newIds.has(id) && findingsIds.has(id));
   for (const id of ids) {
-    if (newIds.has(id)) continue;
-    const at = where(id);
-    if (at.length) moved.push(`${id} -> ${at.join(', ')}`);
-    else fail('2 stubs', `${r.from}#${id}: no id="${id}" on ${r.to} or on any other page`);
+    if (!newIds.has(id) && !findingsIds.has(id)) fail('2 stubs', `${r.from}#${id}: no id="${id}" on ${r.to} or on /findings/`);
   }
-  console.log(`2. Stub ${r.from} -> ${r.to}: ${ids.length} old claim anchors (from ${OLD_REF}:${oldFile}), ${ids.length - moved.length} on ${r.to}.`);
-  for (const m of moved) console.log(`   moved on purpose? ${m}`);
+  console.log(`2. Stub ${r.from} -> ${r.to}: ${ids.length} old claim anchors (from ${OLD_REF}:${oldFile}), ${onPage.length} on ${r.to}, ${onFindings.length} on /findings/ only.`);
+  if (onPage.length) console.log(`   on ${r.to}: ${onPage.join(' ')}`);
+  if (onFindings.length) console.log(`   on /findings/: ${onFindings.join(' ')}`);
 }
 
 // ---------- 3. banned strings ----------
@@ -106,6 +107,7 @@ for (const f of scan) {
   const hit = (msg) => { banned++; fail('3 banned', `${rel(f)}: ${msg}`); };
   for (const m of t.matchAll(/Thread 0\d of 08/g)) hit(`"${m[0]}"`);
   if (t.includes('now has a feature for each')) hit('"now has a feature for each"');
+  if (t.includes('<p class="unmarked">')) hit('the retired "unmarked statements" line');
   const targets = [...t.matchAll(/\shref="([^"]*)"/g), ...t.matchAll(/\]\(([^)\s]+)\)/g)].map((m) => decode(m[1]));
   for (const u of targets) if (RETIRED.test(u.split('?')[0])) hit(`link target "${u}"`);
   if (f.endsWith('claims.json')) for (const r of site.redirects || []) if (t.includes(r.from)) hit(`"${r.from}"`);
@@ -113,6 +115,10 @@ for (const f of scan) {
 console.log(`3. Banned strings: ${banned} hit(s) in ${scan.length} files.`);
 
 // ---------- 4. claims ----------
+// Each claim has its anchor on /findings/. Each claim id in a page is in claims.json.
+if (!existsSync(findingsFile)) fail('4 claims', '/findings/ is not built');
+const missing = [...claimIds].filter((id) => !findingsIds.has(id));
+for (const id of missing) fail('4 claims', `claim ${id} has no id="${id}" on /findings/`);
 const seen = new Set();
 for (const f of htmlFiles) {
   for (const m of read(f).matchAll(/data-claim="([^"]+)"|\sid="(C\d{3})"/g)) {
@@ -121,21 +127,23 @@ for (const f of htmlFiles) {
     if (!claimIds.has(id)) fail('4 claims', `${rel(f)}: claim ${id} is not in claims.json`);
   }
 }
-const lost = [...claimIds].filter((id) => !seen.has(id));
-for (const id of lost) fail('4 claims', `claim ${id} is on no HTML page (lost)`);
-console.log(`4. Claims: ${seen.size} ids in the HTML, ${claimIds.size} in claims.json, ${lost.length} lost.`);
+console.log(`4. Claims: ${claimIds.size} in claims.json, ${claimIds.size - missing.length} on /findings/, ${seen.size} ids in the HTML.`);
 
-// ---------- 5. Go deeper counts ----------
+// ---------- 5. Go deeper and diagram counts ----------
 const article = (html) => (html.match(/<article>([\s\S]*?)<\/article>/) || [, ''])[1];
-const merged = new Set((site.redirects || []).map((r) => r.to));
-console.log('5. Go deeper blocks:');
+const MAX_DEEPER = 3;
+const MAX_DIAGRAMS = 2;
+console.log(`5. Thread pages (max ${MAX_DEEPER} Go deeper, max ${MAX_DIAGRAMS} diagrams):`);
 for (const p of site.pages.filter((x) => x.group)) {
   const f = pathOf(p.path);
-  if (!existsSync(f)) { fail('5 go deeper', `${p.path}: not built`); continue; }
-  const n = [...article(read(f)).matchAll(/<details id="([^"]+)"/g)].filter((m) => m[1] !== 'sessions-on-this-page').length;
-  const max = merged.has(p.path) ? 6 : 7;
-  console.log(`   ${p.path.padEnd(18)} ${n} (max ${max})${n > max ? '  FAIL' : ''}`);
-  if (n > max) fail('5 go deeper', `${p.path}: ${n} Go deeper blocks (max ${max})`);
+  if (!existsSync(f)) { fail('5 budget', `${p.path}: not built`); continue; }
+  const a = article(read(f));
+  const n = [...a.matchAll(/<details id="([^"]+)"/g)].filter((m) => m[1] !== 'sessions-on-this-page').length;
+  const d = (a.match(/<figure class="diagram"/g) || []).length;
+  const bad = n > MAX_DEEPER || d > MAX_DIAGRAMS;
+  console.log(`   ${p.path.padEnd(18)} ${n} Go deeper, ${d} diagram(s)${bad ? '  FAIL' : ''}`);
+  if (n > MAX_DEEPER) fail('5 budget', `${p.path}: ${n} Go deeper blocks (max ${MAX_DEEPER})`);
+  if (d > MAX_DIAGRAMS) fail('5 budget', `${p.path}: ${d} diagrams (max ${MAX_DIAGRAMS})`);
 }
 
 // ---------- 6. twin and HTML headings ----------
