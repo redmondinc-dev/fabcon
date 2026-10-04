@@ -208,9 +208,9 @@ li { margin: 0.25rem 0; }
   text-transform: none;
   text-decoration: none;
   white-space: normal;
-  visibility: hidden;
+  display: none;
 }
-.chip:hover .tip, .chip:focus .tip { visibility: visible; }
+.chip:hover .tip, .chip:focus .tip { display: block; }
 sup { line-height: 0; font-size: 0.75rem; }
 sup a { padding: 0 0.15em; }
 
@@ -333,12 +333,18 @@ article > table { max-width: 57rem; }
   text-align: right;
 }
 #what-the-sessions-said + ul .labels .chip { margin: 0 0 0 0.2rem; }
+#what-the-sessions-said + ul .labels .tip { left: auto; right: 0; text-align: left; }
 
 table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.45; }
 th, td { padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 th { font-weight: 650; }
 thead th { border-bottom-color: var(--border); }
 .nb { white-space: nowrap; }
+
+.sources { padding-left: 1.25rem; font-size: 0.9375rem; line-height: 1.5; }
+.sources li { margin: 0.75rem 0; overflow-wrap: anywhere; }
+.sources .cited { color: var(--muted); }
+h3 { margin-top: 2rem; }
 
 /* Go deeper */
 details:not(.menu) { margin-top: -1px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -351,6 +357,15 @@ details:not(.menu) > summary:last-child { margin-bottom: 0; }
 .practice > :last-child { margin-bottom: 0; }
 
 @media (max-width: 44rem) {
+  /* The meaning of a label shows at the foot of the screen, so that it cannot go off the side. */
+  .chip .tip { position: fixed; left: 1rem; right: 1rem; top: auto; bottom: 1rem; width: auto; max-width: none; }
+  #what-the-sessions-said + ul .labels .tip { left: 1rem; right: 1rem; }
+  /* Each session is a block, not a row. */
+  .sessions thead { position: absolute; left: -999rem; }
+  .sessions, .sessions tbody, .sessions tr, .sessions td { display: block; }
+  .sessions tr { padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  .sessions td { padding: 0; border: 0; }
+  .sessions td:first-child { font-weight: 650; }
   figure.diagram, .practice { padding: var(--space-2); }
   #what-the-sessions-said + ul li { padding-right: 0; }
   #what-the-sessions-said + ul .labels { position: static; display: block; width: auto; margin-top: 0.25rem; text-align: left; }

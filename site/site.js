@@ -17,7 +17,7 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
-    if (e.target.closest('input, textarea, select, [contenteditable]')) return;
+    if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
     const rel = e.key === 'ArrowLeft' ? 'prev' : e.key === 'ArrowRight' ? 'next' : null;
     const link = rel && document.querySelector(`a[rel="${rel}"]`);
     if (link) location.href = link.href;

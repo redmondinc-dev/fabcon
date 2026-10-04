@@ -52,6 +52,9 @@ const sources = new Map([
 
 // ---------- pages ----------
 
+// Published files that a page can link to.
+const FILES = new Set(['/llms.txt', '/llms-full.txt', '/claims.json', '/sources.json']);
+
 const CITE = /\[(C\d{3}(?:\s*,\s*C\d{3})*)\](?!\()/g;
 const citeIds = (group) => group.split(',').map((s) => s.trim());
 
@@ -135,6 +138,7 @@ function runChecks() {
     }
     for (const m of p.body.matchAll(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g)) {
       const target = pageByPath.get(m[1]);
+      if (FILES.has(m[1])) continue;
       if (!target) errors.push(`${p.file}: link to "${m[1]}", which is not a page in content/site.json`);
       else if (!built.has(target.slug)) warnings.push(`${p.file}: link to "${m[1]}", which is not written yet`);
     }
@@ -197,10 +201,10 @@ const depth = (page) => (page.path === '/' ? 0 : 1);
 const relOf = (page) => '../'.repeat(depth(page));
 // Relative link from a page to a site path such as "/sessions/".
 const href = (from, path) => (relOf(from) + path.slice(1)) || './';
-const twinHref = (from, path) => `${relOf(from)}${path.slice(1)}index.md`;
+const twinHref = (from, path) => `${relOf(from)}${path.slice(1)}${FILES.has(path) ? '' : 'index.md'}`;
 // Link from a file at the site root (llms.txt, llms-full.txt).
 const base = site.baseUrl ? site.baseUrl.replace(/\/?$/, '/') : '';
-const rootTwinHref = (path) => `${base}${path.slice(1)}index.md`;
+const rootTwinHref = (path) => `${base}${path.slice(1)}${FILES.has(path) ? '' : 'index.md'}`;
 
 // One note for each source and location that a page cites, in the order of first use.
 function collectNotes(body) {
@@ -319,6 +323,97 @@ function threadMapMd(link) {
   return lines.join('\n');
 }
 
+// ---------- sessions table and sources list ----------
+
+// The thread of a claim gives the page that uses it.
+const THREAD_PAGE = { signals: 'signals', open: 'open-questions' };
+
+function sessionRows() {
+  return sourcesFile.sessions.map((s) => {
+    const slugs = new Set(claimsFile.claims
+      .filter((c) => c.sources.some((r) => r.id === s.id))
+      .map((c) => THREAD_PAGE[c.thread] || c.thread));
+    return { s, fed: site.pages.filter((p) => slugs.has(p.slug) && p.slug !== 'home') };
+  });
+}
+const sessionWho = (s) => (s.speakers?.length ? joinNames(s.speakers) : 'Not recorded');
+const sessionName = (s) => `${s.title}${s.session_code ? ` (${s.session_code})` : ''}`;
+
+function sessionsHtml(from) {
+  const rows = sessionRows().map(({ s, fed }) => {
+    const links = fed.map((p) => (built.has(p.slug) ? `<a href="${href(from, p.path)}">${esc(p.title)}</a>` : esc(p.title))).join(', ');
+    return `<tr><td>${esc(sessionName(s))}</td><td>${esc(sessionWho(s))}</td><td>${fmtDate(s.date)}</td><td>${links}</td></tr>`;
+  }).join('\n');
+  return `<table class="sessions">\n<thead><tr><th scope="col">Session</th><th scope="col">Speaker</th><th scope="col">Date</th><th scope="col">Pages that use it</th></tr></thead>\n<tbody>\n${rows}\n</tbody>\n</table>\n`;
+}
+
+function sessionsMd(link) {
+  const rows = sessionRows().map(({ s, fed }) =>
+    `| ${sessionName(s)} | ${sessionWho(s)} | ${fmtDate(s.date)} | ${fed.map((p) => (built.has(p.slug) ? `[${p.title}](${link(p.path)})` : p.title)).join(', ')} |`);
+  return ['| Session | Speaker | Date | Pages that use it |', '|---|---|---|---|', ...rows].join('\n');
+}
+
+// Source id -> the pages and the claims that cite it.
+function citations() {
+  const map = new Map();
+  for (const p of pages) {
+    for (const m of p.body.matchAll(CITE)) {
+      for (const id of citeIds(m[1])) {
+        for (const ref of claims.get(id).sources) {
+          if (!map.has(ref.id)) map.set(ref.id, new Map());
+          const byPage = map.get(ref.id);
+          if (!byPage.has(p.slug)) byPage.set(p.slug, new Set());
+          byPage.get(p.slug).add(id);
+        }
+      }
+    }
+  }
+  return map;
+}
+
+const SOURCE_GROUPS = [
+  ['Sessions', (s) => s.type === 'session'],
+  ['Microsoft', (s) => s.kind === 'microsoft'],
+  ['Third party', (s) => ['third-party', 'community', 'press'].includes(s.kind)],
+  ['Research', (s) => s.kind === 'research'],
+];
+
+function sourceEntryText(s) {
+  if (s.type === 'session') {
+    return `${s.speakers?.length ? `${joinNames(s.speakers)}, ` : ''}"${s.title}"${s.session_code ? ` (${s.session_code})` : ''}, ${site.event}, ${fmtDate(s.date)}. Basis: ${s.basis.replace(/\.$/, '')}.`;
+  }
+  return `${s.publisher}, "${s.title}".`;
+}
+
+function sourcesHtml(from) {
+  const cited = citations();
+  return SOURCE_GROUPS.map(([title, test]) => {
+    const items = [...sources.values()].filter(test).map((s) => {
+      const url = s.type === 'web' ? ` <a href="${esc(s.url)}">${esc(s.url)}</a>` : '';
+      const back = [...(cited.get(s.id) || [])].map(([slug, ids]) => {
+        const p = pages.find((x) => x.slug === slug);
+        return `${esc(p.title)} (${[...ids].map((id) => `<a href="${href(from, p.path)}#${id}">${id}</a>`).join(', ')})`;
+      }).join('; ');
+      return `<li id="${s.id}">${esc(sourceEntryText(s))}${url}<br><span class="cited">${back ? `Cited on: ${back}` : 'Not cited on a page.'}</span></li>`;
+    }).join('\n');
+    return `<h2 id="${slugify(title)}">${title}</h2>\n<ul class="sources">\n${items}\n</ul>\n`;
+  }).join('');
+}
+
+function sourcesMd(link) {
+  const cited = citations();
+  return SOURCE_GROUPS.map(([title, test]) => {
+    const items = [...sources.values()].filter(test).map((s) => {
+      const back = [...(cited.get(s.id) || [])].map(([slug, ids]) => {
+        const p = pages.find((x) => x.slug === slug);
+        return `[${p.title}](${link(p.path)}) (${[...ids].join(', ')})`;
+      }).join('; ');
+      return `- **${s.id}.** ${sourceEntryText(s)}${s.type === 'web' ? ` ${s.url}` : ''} ${back ? `Cited on: ${back}.` : 'Not cited on a page.'}`;
+    });
+    return [`## ${title}`, '', ...items].join('\n');
+  }).join('\n\n');
+}
+
 // A diagram is <name>.svg and <name>.txt. The .txt file has "title:", "text:" and "credit:" lines.
 // <name>.html in place of <name>.svg is for a diagram that has controls around its SVG.
 const diagramFile = (name) => ['html', 'svg'].map((ext) => join(content, 'diagrams', `${name}.${ext}`)).find(existsSync);
@@ -335,7 +430,7 @@ function diagramParts(name) {
 
 // ---------- page render ----------
 
-const DIRECTIVE = /^::(thread-map|diagram[ \t]+([\w-]+))[ \t]*$/m;
+const DIRECTIVE = /^::(thread-map|sessions-table|sources-list|diagram[ \t]+([\w-]+))[ \t]*$/m;
 
 function bodyHtml(page, notes) {
   const state = { claims: new Set(), dated: false };
@@ -351,6 +446,8 @@ function bodyHtml(page, notes) {
     const directive = parts[i + 1];
     if (!directive) continue;
     if (directive === 'thread-map') out += threadMapHtml(page);
+    else if (directive === 'sessions-table') out += sessionsHtml(page);
+    else if (directive === 'sources-list') out += sourcesHtml(page);
     else {
       const d = diagramParts(parts[i + 2]);
       const credit = d.credit ? `<span class="credit">${esc(d.credit)}</span>` : '';
@@ -386,7 +483,10 @@ function twinMd(page, link) {
     .replace(CITE, (_, g) => citeMd(g, notes))
     .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${link(path)}${frag})`)
     .replace(new RegExp(DIRECTIVE.source, 'gm'), (_, directive, name) =>
-      directive === 'thread-map' ? threadMapMd(link) : diagramMd(diagramParts(name)))
+      directive === 'thread-map' ? threadMapMd(link)
+        : directive === 'sessions-table' ? sessionsMd(link)
+          : directive === 'sources-list' ? sourcesMd(link)
+            : diagramMd(diagramParts(name)))
     // A filter control has no meaning in the twin.
     .replace(/<fieldset[\s\S]*?<\/fieldset>\n?/g, '')
     // A "Go deeper" section is a heading in the twin.
