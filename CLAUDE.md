@@ -35,5 +35,4 @@ If the folder `private/` exists on this machine, read `private/README.md` at the
 
 ## What is not decided
 
-- The static generator (a short Node script or Eleventy).
 - The final wording of each message. The outline gives a first version.
