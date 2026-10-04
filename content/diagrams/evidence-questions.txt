@@ -1,0 +1,3 @@
+title: One answer, three questions, three records
+text: One answer raises 3 questions: what data the AI used, whether it was allowed, and what happened next. A record answers each question. The dashed lines show that each record needs setup before it exists.
+credit: The 3 questions are after "Purview and data security protections", FabCon Europe 2026. The records are our reading.

@@ -1,0 +1,33 @@
+<svg viewBox="0 0 364 280" role="img" aria-labelledby="evidence-questions-title" xmlns="http://www.w3.org/2000/svg">
+<title id="evidence-questions-title">One answer, three questions, three records</title>
+<defs>
+<marker id="evidence-questions-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="currentColor"/></marker>
+</defs>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="31" y="8" width="140" height="38" rx="12" style="fill:var(--mark)"/>
+<rect x="8" y="82" width="186" height="44" rx="6"/>
+<rect x="8" y="154" width="186" height="44" rx="6"/>
+<rect x="8" y="226" width="186" height="44" rx="6"/>
+<rect x="236" y="82" width="120" height="44" rx="6" style="stroke:var(--g-proof)" stroke-width="2"/>
+<rect x="236" y="154" width="120" height="44" rx="6" style="stroke:var(--g-proof)" stroke-width="2"/>
+<rect x="236" y="226" width="120" height="44" rx="6" style="stroke:var(--g-proof)" stroke-width="2"/>
+<g marker-end="url(#evidence-questions-arrow)">
+<path d="M101 46v34"/>
+<path d="M101 126v26"/>
+<path d="M101 198v26"/>
+<path d="M194 104h40" stroke-dasharray="5 4"/>
+<path d="M194 176h40" stroke-dasharray="5 4"/>
+<path d="M194 248h40" stroke-dasharray="5 4"/>
+</g>
+</g>
+<g fill="currentColor" text-anchor="middle" font-size="12.5" font-weight="650">
+<text x="101" y="32" font-size="14" font-weight="700" style="fill:var(--on-mark)">One answer</text>
+<text x="101" y="108">What data did the AI use?</text>
+<text x="101" y="180">Was it allowed?</text>
+<text x="101" y="252">What happened next?</text>
+<text x="296" y="108">Query record</text>
+<text x="296" y="180">Caller record</text>
+<text x="296" y="245" font-size="11.5">Audit and</text>
+<text x="296" y="260" font-size="11.5">outcome record</text>
+</g>
+</svg>
