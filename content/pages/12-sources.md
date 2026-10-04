@@ -1,6 +1,6 @@
 ---
 page: sources
-description: The bibliography of the debrief: sessions, Microsoft sources, third-party sources and research, with links back to each page that cites them.
+description: The bibliography of the site: sessions, Microsoft sources, third-party sources and research, with links back to each page that cites them.
 ---
 
 Slide content is paraphrased. Short quotes are marked. Slide images are not published.

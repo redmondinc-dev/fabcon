@@ -1,6 +1,6 @@
 {
   "_about": "Site configuration. The page order here is the order for Previous and Next. The title and the message of each page are set here only.",
-  "name": "FabCon Europe 2026 debrief",
+  "name": "FabCon Europe 2026: AI, security and governance",
   "event": "FabCon Europe 2026",
   "baseUrl": "https://redmondinc-dev.github.io/fabcon/",
   "statusAsOf": "1 October 2026",
