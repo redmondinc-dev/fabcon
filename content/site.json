@@ -1,0 +1,35 @@
+{
+  "_about": "Site configuration. The page order here is the order for Previous and Next. The title and the message of each page are set here only.",
+  "name": "FabCon Europe 2026 debrief",
+  "event": "FabCon Europe 2026",
+  "baseUrl": "",
+  "statusAsOf": "1 October 2026",
+  "summary": [
+    "This site reports what one attendee learned at FabCon Europe 2026 about applied AI, security and governance in Microsoft Fabric.",
+    "Each statement has an evidence label: Slide, Notes, Microsoft, Third party, Research or Our reading.",
+    "Speaker statements are not tested facts, and nothing here was tested in the attendee's own tenant."
+  ],
+  "groups": [
+    { "id": "context", "title": "Context", "gloss": "What the agent knows" },
+    { "id": "limits", "title": "Limits", "gloss": "What the agent can reach and do" },
+    { "id": "proof", "title": "Proof", "gloss": "What the agent leaves behind" },
+    { "id": "reality", "title": "Reality check", "gloss": "Cost and dependency" }
+  ],
+  "threadMapText": "An agent needs three things: context (what it knows), limits (what it can reach and do) and proof (what it leaves behind). A reality check on cost and dependency applies to all three.",
+  "pages": [
+    { "slug": "home", "path": "/", "title": "FabCon Europe 2026 debrief", "message": "An agent needs context, limits and proof." },
+    { "slug": "context", "path": "/context/", "title": "Context", "group": "context", "message": "An agent can use only the context that you give it." },
+    { "slug": "identity", "path": "/identity/", "title": "Identity", "group": "limits", "message": "Each route to the data uses a different identity." },
+    { "slug": "access", "path": "/access/", "title": "Access", "group": "limits", "message": "Access is a path, not a permission." },
+    { "slug": "untrusted-input", "path": "/untrusted-input/", "title": "Untrusted input", "group": "limits", "message": "The model cannot separate instructions from data." },
+    { "slug": "evidence", "path": "/evidence/", "title": "Evidence", "group": "proof", "message": "A correct answer is not proof." },
+    { "slug": "governance", "path": "/governance/", "title": "Governance in the loop", "group": "proof", "message": "Governance moves into the development loop." },
+    { "slug": "production", "path": "/production/", "title": "Production reality", "group": "reality", "message": "The prototype is 10% of the work." },
+    { "slug": "concentration", "path": "/concentration/", "title": "Concentration", "group": "reality", "message": "Benefits and lock-in grow together." },
+    { "slug": "signals", "path": "/signals/", "title": "Where Fabric goes next", "message": "Fabric becomes the place where agents get context." },
+    { "slug": "open-questions", "path": "/open-questions/", "title": "Open questions", "message": "These are the things that we could not confirm." },
+    { "slug": "sessions", "path": "/sessions/", "title": "Sessions and focus", "message": "One attendee, one focus: applied AI, security and governance." },
+    { "slug": "sources", "path": "/sources/", "title": "Sources" },
+    { "slug": "for-agents", "path": "/for-agents/", "title": "For agents" }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "fabcon-review",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check"
+  },
+  "devDependencies": {
+    "markdown-it": "^15.0.2"
+  }
+}

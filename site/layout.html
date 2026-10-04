@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{headTitle}}</title>
+<meta name="description" content="{{description}}">
+<link rel="alternate" type="text/markdown" href="index.md">
+<link rel="stylesheet" href="{{rel}}assets/site.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="top">
+<a class="site-name" href="{{home}}">{{siteName}}</a>
+<nav aria-label="Site">{{nav}}</nav>
+<button type="button" id="theme-toggle" hidden>Change theme</button>
+</header>
+<main id="main">
+<article>
+<h1>{{title}}</h1>
+{{message}}
+{{body}}
+{{notes}}
+</article>
+</main>
+<footer class="foot">
+<nav class="pager" aria-label="Previous and next page">{{pager}}</nav>
+<p class="tools">
+<a href="index.md">This page as Markdown</a>
+<button type="button" id="copy-md" data-src="index.md" hidden>Copy page as Markdown</button>
+<button type="button" id="copy-prompt" data-full="{{rel}}llms-full.txt" hidden>Copy prompt</button>
+<span id="copy-status" role="status"></span>
+</p>
+<p class="fine">Product status values are as of {{statusAsOf}}. Speaker statements are not tested facts.</p>
+</footer>
+<script src="{{rel}}assets/site.js" defer></script>
+</body>
+</html>
