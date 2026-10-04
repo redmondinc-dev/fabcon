@@ -11,7 +11,7 @@ For each question, "Why it matters" and "What would answer it" are our reading.
 
 ### How does an ontology apply row-level security?
 
-The preview documentation did not say. [C951]
+On 18 September 2026, the preview documentation did not say. Since 1 October 2026, Microsoft Learn says that querying respects row-level security at the source. We did not test it. [C951]
 
 - **Why it matters.** An agent that reads through an ontology must not see more rows than the reader.
 - **What would answer it.** Microsoft documentation for the ontology, or a test with 2 reader accounts.
@@ -61,12 +61,11 @@ This list is our reading. Each test could answer one question above in our own t
 - **A measured bill.** It answers what Copilot Studio costs for each request.
 - **A test export.** It answers whether an ontology, AI instructions and agent definitions can move.
 
-## Statuses that the sources disagree on
+## A status that the sources disagree on
 
 - **Fabric IQ.** Microsoft announced Fabric IQ as generally available at Build 2026. Microsoft Learn still showed a preview label on the workload in September 2026. [C108]
-- **OneLake security.** The speakers said that OneLake security is generally available. Microsoft Learn pages still used the word "preview" on 4 October 2026. [C312]
 
-Check each status against Microsoft Learn before you use it.
+Check each status against Microsoft Learn before you use it. We checked OneLake security on 4 October 2026: Learn and the speakers agree. [C312]
 
 ## Research that does not agree
 
@@ -79,10 +78,10 @@ Both are preprints. They show that a human review gate needs design. They do not
 
 ## Statements that rest on notes only
 
-No slide is held for these statements.
+No slide is held for these statements. The detail of each one is on the All findings page.
 
-- An ontology makes sense only for the business context. See [Context](/context/#C115). [C115]
-- All users are a source of attack surface. See [Untrusted input](/untrusted-input/#C408). [C408]
-- Architecture and governance are what will make AI work. See [Evidence and governance](/governance/#C614). [C614]
+- An ontology makes sense only for the business context. See [All findings](/findings/#C115). [C115]
+- All users are a source of attack surface. See [All findings](/findings/#C408). [C408]
+- Architecture and governance are what will make AI work. See [All findings](/findings/#C614). [C614]
 - The keynote covered AI-guided governance in the OneLake catalog. See [Where Fabric goes next](/signals/#C912). [C912]
-- The notes name a "database constitution". See [Untrusted input](/untrusted-input/#C954). [C954]
+- The notes name a "database constitution". See [All findings](/findings/#C954). [C954]

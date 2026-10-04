@@ -1,3 +1,3 @@
 title: From data to agent
-text: Data goes up to the agent through a semantic model and an ontology. Each translation removes some context. The agent cannot see what the model excludes, such as exceptions and dissent.
+text: Data goes up to the agent through a semantic model and an ontology. The ontology is in preview. Each translation removes some context. The agent cannot see what the model excludes, such as exceptions and dissent.
 credit: After Luise Freese, "The AI-Ready Data Trap" (INSPIRE01)

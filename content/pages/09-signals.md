@@ -24,10 +24,10 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Area | Item | What the source says |
 |---|---|---|
 | Context | Fabric IQ and the ontology | Microsoft announced Fabric IQ as generally available. The ontology item stayed in preview. [C108, C103] |
-| Context | Fabric IQ for agents outside Fabric | Fabric IQ context is available to Foundry, Copilot Studio, Microsoft 365 Copilot and MCP clients. [C910] |
+| Context | Fabric IQ for agents outside Fabric | Fabric IQ in Microsoft 365 Copilot Chat and Cowork is generally available. Fabric IQ context also reaches Foundry, Copilot Studio and MCP clients. [C910] |
 | Agents | Fabric data agents and operations agents | Fabric data agents are generally available. Operations agents monitor real-time data and act. [C908] |
 | Agents | Data engineering agent | Microsoft acquired Osmos in January 2026. Its technology is now a data engineering agent in Fabric. [C905] |
-| Agents | Database agents | Database agents work across Azure SQL, SQL Server, Azure HorizonDB and Azure Database for PostgreSQL. [C902] |
+| Agents | Database agents | Microsoft said that database agents for SQL and PostgreSQL on Azure will soon be in preview. The keynote slide also named SQL Server and Azure HorizonDB. [C902] |
 | Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. [C909] |
 | Security | OneLake security | The speakers said that OneLake security is generally available. Eventhouse and external engines are in preview. [C312] |
 | Security | Table Read API for agents | An agent reads a Delta or Iceberg table without SQL. OneLake applies table, column and row security on each read. [C906] |
@@ -39,8 +39,8 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Governance | Fabric Atlas (community tool) | A community tool by Frederic Gisbert, not a Microsoft product. It gives one view of the catalog, lineage, governance, access and operations of a workspace. It stores metadata only. [C606] |
 | SQL | Live vector index | Azure SQL Database has vector compression and a live vector index. [C901] |
 | SQL | Developer tools | Copilot chat in SQL Server Management Studio, Schema Compare, SQL Projects and a SQL formatter. [C903] |
-| SQL | Automatic index compaction | It removes the need for scheduled index maintenance jobs. [C911] |
-| Skills | DP-800 certification | A new certification: SQL AI Database Developer Associate. [C904] |
+| SQL | Automatic index compaction | It removes the need for scheduled index maintenance jobs. Microsoft said on 29 September 2026 that it is generally available. [C911] |
+| Skills | DP-800 certification | A new certification: SQL AI Developer Associate. [C904] |
 | Sovereignty | Sovereign private cloud | The keynote showed Foundry Local, data platform services and customer applications on Azure Local. [C807] |
 
 Three rows have no status chip, because their sources state no status. They show only when the filter is "All".
@@ -50,11 +50,14 @@ Three rows have no status chip, because their sources state no status. They show
 <details id="limits"><summary>The limits of these statements</summary>
 
 - **Fabric IQ.** The sources disagree on the label of the workload. This site states a status for the ontology only. [C108]
-- **OneLake security.** Microsoft Learn pages still used the word "preview" on 4 October 2026. [C312]
+- **OneLake security.** Microsoft Learn lists the same status for each engine. For the SQL analytics endpoint, Learn names the user's identity access mode. [C312]
+- **Fabric IQ outside Fabric.** The "generally available" statement is for Copilot Chat and Cowork only. We did not confirm the status of the other routes. [C910]
+- **Database agents.** The Microsoft text of 28 September 2026 does not name Azure HorizonDB. [C902]
+- **The ontology.** Microsoft Learn changed its ontology pages on 1 October 2026. See [Context](/context/). [C103]
 - **Live vector index.** Microsoft Learn says that index maintenance runs in the background. [C901]
 - **Table Read API.** Billing is by rows scanned. [C906]
 - **Dynamic row-level security.** The slide had the mark "NOT available yet". [C907]
-- **DP-800.** Conference attendees get a free exam and 3 vouchers to share. The slide gave no expiry date. [C904]
+- **DP-800.** Conference attendees get a free exam and 3 vouchers to share. The slide gave no expiry date. We did not confirm the release date of the exam. [C904]
 - **AI-guided governance.** This is from the attendee's notes only. It is not confirmed in documentation. [C912]
 - **The press quote.** It is a press report of a spoken statement. [C913]
 - **Fabric Atlas.** It is a community accelerator, not a Microsoft product. [C606]
