@@ -44,11 +44,11 @@ The speaker said that the quantity of Copilot credits for each request is not pu
 - **Why it matters.** Without this figure, the cost for each useful answer is not complete.
 - **What would answer it.** A published rate from Microsoft, or a measured bill.
 
-### Can you export an ontology, AI instructions and agent definitions?
+### Can you export AI instructions and agent definitions?
 
-The question is whether these items can move to a different platform. [C956]
+Ontology export is now documented. Microsoft Learn says that an ontology item can export definitions in RDF or Turtle formats, and can import RDF, Turtle and OWL definitions. We did not test this. Whether AI instructions and agent definitions can move to a different platform is not confirmed. [C956]
 
-- **Why it matters.** Open data formats cover tables. They do not cover these items.
+- **Why it matters.** Open data formats cover tables, and the ontology now has an export. AI instructions and agent definitions have no documented export.
 - **What would answer it.** Export documentation from Microsoft, or a test export.
 
 ## First tests
@@ -59,7 +59,7 @@ This list is our reading. Each test could answer one question above in our own t
 - **A test with a service principal or an Entra Agent ID.** It answers how to give an unattended agent a narrow identity.
 - **A test with Purview audit turned on.** It answers how Purview sees a custom agent.
 - **A measured bill.** It answers what Copilot Studio costs for each request.
-- **A test export.** It answers whether an ontology, AI instructions and agent definitions can move.
+- **A test export.** It answers whether the ontology export works, and whether AI instructions and agent definitions can move.
 
 ## A status that the sources disagree on
 

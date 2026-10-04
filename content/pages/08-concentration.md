@@ -43,7 +43,7 @@ When the vendor changes the model, she asked: is there a change log? Who noticed
 
 The OneLake session showed one copy of the data for all compute engines. [C805]
 
-In our reading, this is how Microsoft answers the lock-in question. Open data formats do not make ontologies, AI instructions or agent definitions portable. No session that we attended covered export of those.
+In our reading, this is how Microsoft answers the lock-in question. Open data formats do not make AI instructions or agent definitions portable. No session that we attended covered export of those. Microsoft Learn documents RDF and Turtle export for the ontology only. We did not test this.
 
 Aaron Merrill and Cristian Petculescu said that Microsoft plans open-source security interoperability. [C806]
 
@@ -59,6 +59,6 @@ These points are our reading.
 
 ## Not confirmed
 
-Can you export an ontology, AI instructions and agent definitions to a different platform? [C956]
+Can you export AI instructions and agent definitions to a different platform? Microsoft Learn documents an export for the ontology only. [C956]
 
 See [Open questions](/open-questions/#C956).
