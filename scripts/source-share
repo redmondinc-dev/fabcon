@@ -1,0 +1,59 @@
+#!/usr/bin/env node
+// Share of the numbered notes on each page, by source.
+// A note is one distinct source and location that the page cites, as in the Markdown twin (build.mjs, collectNotes).
+//   scripts/source-share            print the report, exit 0
+//   scripts/source-share --strict   exit 1 if one session has more than 50% of the notes on a page
+//   scripts/source-share --root <dir>   read <dir>/content
+
+import { readFileSync, readdirSync } from 'node:fs';
+import { join, dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const args = process.argv.slice(2);
+const strict = args.includes('--strict');
+const rootArg = args.indexOf('--root');
+const root = rootArg >= 0 ? resolve(args[rootArg + 1]) : join(dirname(fileURLToPath(import.meta.url)), '..');
+const content = join(root, 'content');
+const LIMIT = 0.5;
+
+const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'));
+const claims = new Map(readJson(join(content, 'claims.json')).claims.map((c) => [c.id, c]));
+const sourcesFile = readJson(join(content, 'sources.json'));
+const sessions = new Set(sourcesFile.sessions.map((s) => s.id));
+const order = readJson(join(content, 'site.json')).pages.map((p) => p.slug);
+
+// Same pattern as build.mjs.
+const CITE = /\[(C\d{3}(?:\s*,\s*C\d{3})*)\](?!\()/g;
+const citeIds = (group) => group.split(',').map((s) => s.trim());
+
+const dir = join(content, 'pages');
+const pages = readdirSync(dir).filter((f) => f.endsWith('.md') && f !== 'README.md').map((file) => {
+  const raw = readFileSync(join(dir, file), 'utf8');
+  const slug = (raw.match(/^page:\s*(\S+)/m) || [])[1] || file;
+  return { file, slug, body: raw.replace(/^---\n[\s\S]*?\n---\n?/, '') };
+}).sort((a, b) => order.indexOf(a.slug) - order.indexOf(b.slug));
+
+let flagged = 0;
+for (const p of pages) {
+  const notes = new Map();
+  for (const m of p.body.matchAll(CITE)) {
+    for (const id of citeIds(m[1])) {
+      const c = claims.get(id);
+      if (!c) { console.log(`${p.file}: claim ${id} is not in claims.json`); continue; }
+      for (const ref of c.sources) notes.set(`${ref.id}|${ref.loc || ''}`, ref.id);
+    }
+  }
+  const total = notes.size;
+  console.log(`\n${p.slug} (${p.file}): ${total} note(s)`);
+  if (!total) continue;
+  const count = new Map();
+  for (const id of notes.values()) count.set(id, (count.get(id) || 0) + 1);
+  for (const [id, n] of [...count].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))) {
+    const share = n / total;
+    const over = sessions.has(id) && share > LIMIT;
+    if (over) flagged++;
+    console.log(`  ${String(n).padStart(3)}  ${(share * 100).toFixed(0).padStart(3)}%  ${id}${over ? '   <<< OVER 50%: one session' : ''}`);
+  }
+}
+console.log(`\n${flagged} page(s) where one session has more than 50% of the notes.`);
+process.exit(strict && flagged ? 1 : 0);

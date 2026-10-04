@@ -147,11 +147,26 @@ function runChecks() {
     if (wordCount(s) > SENTENCE_WARN) warnings.push(`site.json: a summary sentence has ${wordCount(s)} words`);
   }
 
+  // No claim lost: each claim is cited on a page.
+  const cited = new Set(pages.flatMap((p) => [...p.body.matchAll(CITE)].flatMap((m) => citeIds(m[1]))));
+  for (const id of claims.keys()) {
+    if (!cited.has(id)) errors.push(`claim ${id}: no page cites it`);
+  }
+
+  // A redirect goes from a retired path to a page.
+  for (const r of site.redirects || []) {
+    if (!pageByPath.has(r.to)) errors.push(`site.json, redirect "${r.from}": "${r.to}" is not a page in content/site.json`);
+    if (pageByPath.has(r.from)) errors.push(`site.json, redirect "${r.from}": "${r.from}" is still a page in content/site.json`);
+  }
+
   try {
     const tracked = execFileSync('git', ['-C', root, 'ls-files', '--', 'private'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
     if (tracked) errors.push(`Git tracks paths under private/:\n    ${tracked.split('\n').join('\n    ')}`);
   } catch (e) {
-    errors.push(`cannot confirm that private/ is not tracked: git ls-files failed (${String(e.stderr || e.message).trim()})`);
+    const msg = `cannot confirm that private/ is not tracked: git ls-files failed (${String(e.stderr || e.message).trim()})`;
+    // A test root (--root) need not be a repository. The real root must be.
+    if (root !== here) warnings.push(msg);
+    else errors.push(msg);
   }
 }
 
@@ -569,6 +584,34 @@ for (const page of pages) {
   const dir = page.path.slice(1);
   write(`${dir}index.html`, layout.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? ''));
   write(`${dir}index.md`, twinMd(page, (path) => twinHref(page, path)));
+}
+
+// A retired path forwards to its new page, with the claim anchor (#C123) kept by the script.
+// Without JavaScript, the meta refresh and the link still work, but the anchor is lost.
+for (const r of site.redirects || []) {
+  const to = pageByPath.get(r.to);
+  const from = { path: r.from };
+  const target = href(from, r.to);
+  const canonical = base ? `${base}${r.to.slice(1)}` : target;
+  const title = esc(`${to.title} - ${site.name}`);
+  write(`${r.from.slice(1)}index.html`, `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title}</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=${target}">
+<link rel="canonical" href="${esc(canonical)}">
+<link rel="stylesheet" href="${relOf(from)}assets/site.css">
+<script>location.replace(${JSON.stringify(target)} + location.hash);</script>
+</head>
+<body class="page-plain">
+<main id="main"><p>This page moved to <a href="${target}">${esc(to.title)}</a>.</p></main>
+</body>
+</html>
+`);
+  write(`${r.from.slice(1)}index.md`, `# Moved\n\nThis page moved to [${to.title}](${twinHref(from, r.to)}).\n`);
 }
 
 const summary = site.summary.join(' ');

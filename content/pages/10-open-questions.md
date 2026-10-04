@@ -3,7 +3,7 @@ page: open-questions
 description: The questions that the sessions did not answer, the statuses that the sources disagree on, and the statements that rest on notes only.
 ---
 
-Nothing in this debrief was tested in our own tenant. Each statement is from a speaker, from Microsoft or from a third party. [C957]
+Nothing on this site was tested in our own tenant. Each statement is from a speaker, from Microsoft or from a third party. [C957]
 
 ## The questions
 
@@ -51,6 +51,16 @@ The question is whether these items can move to a different platform. [C956]
 - **Why it matters.** Open data formats cover tables. They do not cover these items.
 - **What would answer it.** Export documentation from Microsoft, or a test export.
 
+## First tests
+
+This list is our reading. Each test could answer one question above in our own tenant.
+
+- **A test with 2 reader accounts.** It answers how an ontology applies row-level security.
+- **A test with a service principal or an Entra Agent ID.** It answers how to give an unattended agent a narrow identity.
+- **A test with Purview audit turned on.** It answers how Purview sees a custom agent.
+- **A measured bill.** It answers what Copilot Studio costs for each request.
+- **A test export.** It answers whether an ontology, AI instructions and agent definitions can move.
+
 ## Statuses that the sources disagree on
 
 - **Fabric IQ.** Microsoft announced Fabric IQ as generally available at Build 2026. Microsoft Learn still showed a preview label on the workload in September 2026. [C108]
@@ -58,12 +68,21 @@ The question is whether these items can move to a different platform. [C956]
 
 Check each status against Microsoft Learn before you use it.
 
+## Research that does not agree
+
+Research on agent-written code is mixed. [C613]
+
+- One study found more corrective maintenance and more security weaknesses than in human code.
+- A different study found fewer security smells.
+
+Both are preprints. They show that a human review gate needs design. They do not rank agents.
+
 ## Statements that rest on notes only
 
 No slide is held for these statements.
 
 - An ontology makes sense only for the business context. See [Context](/context/#C115). [C115]
 - All users are a source of attack surface. See [Untrusted input](/untrusted-input/#C408). [C408]
-- Architecture and governance are what will make AI work. See [Governance in the loop](/governance/#C614). [C614]
+- Architecture and governance are what will make AI work. See [Evidence and governance](/governance/#C614). [C614]
 - The keynote covered AI-guided governance in the OneLake catalog. See [Where Fabric goes next](/signals/#C912). [C912]
 - The notes name a "database constitution". See [Untrusted input](/untrusted-input/#C954). [C954]

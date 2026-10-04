@@ -4,6 +4,10 @@
   "event": "FabCon Europe 2026",
   "baseUrl": "https://redmondinc-dev.github.io/fabcon/",
   "statusAsOf": "1 October 2026",
+  "redirects": [
+    { "from": "/identity/", "to": "/access/" },
+    { "from": "/evidence/", "to": "/governance/" }
+  ],
   "summary": [
     "This site reports on applied AI, security and governance in Microsoft Fabric, from FabCon Europe 2026.",
     "Two of us attended, and this version holds the notes of one.",
@@ -20,11 +24,9 @@
   "pages": [
     { "slug": "home", "path": "/", "title": "FabCon Europe 2026 debrief", "message": "An agent needs context, limits and proof." },
     { "slug": "context", "path": "/context/", "title": "Context", "group": "context", "message": "An agent can use only the context that you give it." },
-    { "slug": "identity", "path": "/identity/", "title": "Identity", "group": "limits", "message": "Each route to the data uses a different identity." },
-    { "slug": "access", "path": "/access/", "title": "Access", "group": "limits", "message": "Access is a path, not a permission." },
+    { "slug": "access", "path": "/access/", "title": "Access and identity", "group": "limits", "message": "Access is a path, not a permission." },
     { "slug": "untrusted-input", "path": "/untrusted-input/", "title": "Untrusted input", "group": "limits", "message": "The model cannot separate instructions from data." },
-    { "slug": "evidence", "path": "/evidence/", "title": "Evidence", "group": "proof", "message": "A correct answer is not proof." },
-    { "slug": "governance", "path": "/governance/", "title": "Governance in the loop", "group": "proof", "message": "Governance moves into the development loop." },
+    { "slug": "governance", "path": "/governance/", "title": "Evidence and governance", "group": "proof", "message": "A correct answer is not proof." },
     { "slug": "production", "path": "/production/", "title": "Production reality", "group": "reality", "message": "The prototype is 10% of the work." },
     { "slug": "concentration", "path": "/concentration/", "title": "Concentration", "group": "reality", "message": "Benefits and lock-in grow together." },
     { "slug": "signals", "path": "/signals/", "title": "Where Fabric goes next", "message": "Fabric becomes the place where agents get context." },

@@ -32,16 +32,18 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Security | OneLake security | The speakers said that OneLake security is generally available. Eventhouse and external engines are in preview. [C312] |
 | Security | Table Read API for agents | An agent reads a Delta or Iceberg table without SQL. OneLake applies table, column and row security on each read. [C906] |
 | Security | Dynamic row-level security | Rules can use the name of the user and can join other tables. The estimate is the first quarter of 2027. [C907] |
-| Security | Data masking | Data masking is not available. [C313] |
+| Security | Data masking | Data masking is not available. For column-level security, see the detail below. [C313] |
+| Governance | Column metadata search | Column metadata will become searchable in the OneLake catalog by default. Read permission on an item will show its table names, column names and descriptions. A tenant setting controls this. [C314] |
 | Governance | Insider risk for Fabric | Insider Risk Management for Fabric is generally available. It needs a separate Purview purchase. [C508] |
 | Governance | AI-guided governance in the OneLake catalog | The keynote covered AI-guided, policy-based governance in the OneLake catalog. No slide is held. [C912] |
+| Governance | Fabric Atlas (community tool) | A community tool by Frederic Gisbert, not a Microsoft product. It gives one view of the catalog, lineage, governance, access and operations of a workspace. It stores metadata only. [C606] |
 | SQL | Live vector index | Azure SQL Database has vector compression and a live vector index. [C901] |
 | SQL | Developer tools | Copilot chat in SQL Server Management Studio, Schema Compare, SQL Projects and a SQL formatter. [C903] |
 | SQL | Automatic index compaction | It removes the need for scheduled index maintenance jobs. [C911] |
 | Skills | DP-800 certification | A new certification: SQL AI Database Developer Associate. [C904] |
 | Sovereignty | Sovereign private cloud | The keynote showed Foundry Local, data platform services and customer applications on Azure Local. [C807] |
 
-Two rows have no status chip, because their sources state no status. They show only when the filter is "All".
+Three rows have no status chip, because their sources state no status. They show only when the filter is "All".
 
 ## Go deeper
 
@@ -55,12 +57,15 @@ Two rows have no status chip, because their sources state no status. They show o
 - **DP-800.** Conference attendees get a free exam and 3 vouchers to share. The slide gave no expiry date. [C904]
 - **AI-guided governance.** This is from the attendee's notes only. It is not confirmed in documentation. [C912]
 - **The press quote.** It is a press report of a spoken statement. [C913]
+- **Fabric Atlas.** It is a community accelerator, not a Microsoft product. [C606]
 
 </details>
 
 <details id="more-detail"><summary>More detail on some rows</summary>
 
 Database agents follow 5 steps: detect, understand, verify, learn, automate. They have skills, tools and connectors. [C902]
+
+Column-level security removes hidden columns in Spark and Power BI. In SQL, the query must leave out the hidden columns. [C313]
 
 The Table Read API returns Apache Arrow. [C906]
 
