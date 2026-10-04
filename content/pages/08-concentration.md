@@ -9,7 +9,7 @@ Usefulness can become dependency. This is a design choice to make with full know
 
 ## What the sessions said
 
-- Luise Freese said that both things are true. Benefits and concentration can grow together. [C801]
+- Luise Freese (INSPIRE01) said that both things are true. Benefits and concentration can grow together. [C801]
 - The speaker gave 6 questions that test what you can still choose. [C802]
 - Usefulness can become dependency: useful, adopt, depend, lock-in. [C803]
 - Microsoft's answer to lock-in is open formats and open engines. [C805]
@@ -18,7 +18,7 @@ Usefulness can become dependency. This is a design choice to make with full know
 
 <details id="both-true"><summary>Both things are true</summary>
 
-OneLake gives less fragmentation and more data gravity. Semantic models give shared meaning and fixed assumptions. Copilots give wider access and assumptions at scale. Integrated governance gives more visibility and more control. [C801]
+Luise Freese (INSPIRE01) showed that OneLake gives less fragmentation and more data gravity. Semantic models give shared meaning and fixed assumptions. Copilots give wider access and assumptions at scale. Integrated governance gives more visibility and more control. [C801]
 
 The speaker showed this slide in the session, and the attendee holds a photo of it. It is not in the deck of 70 slides that the speaker shared.
 
@@ -26,7 +26,7 @@ The speaker showed this slide in the session, and the attendee holds a photo of 
 
 <details id="six-questions"><summary>The 6 questions</summary>
 
-The 6 questions test what you can still choose: [C802]
+Luise Freese (INSPIRE01) gave 6 questions that test what you can still choose: [C802]
 
 - Can we export data, definitions and history?
 - Does knowledge exist outside one vendor interface?
@@ -41,13 +41,13 @@ This slide is in the attendee's photo. It is not in the shared deck.
 
 <details id="model-change"><summary>When the vendor changes the model</summary>
 
-When the vendor changes the model, ask 2 questions. Is there a change log? Who noticed? [C804]
+Luise Freese (INSPIRE01) gave 2 questions for when the vendor changes the model. Is there a change log? Who noticed? [C804]
 
 </details>
 
 <details id="open-formats"><summary>Open formats and open engines, and what they do not cover</summary>
 
-OneLake stores tables as Delta or Iceberg. The keynote showed many engines that can read OneLake data, such as Databricks, Snowflake, Spark, Trino and DuckDB. [C805]
+The opening keynote showed many engines that can read OneLake data, such as Databricks, Snowflake, Spark, Trino and DuckDB. OneLake stores tables as Delta or Iceberg. [C805]
 
 Open data formats do not make ontologies, AI instructions or agent definitions portable. No session covered export of those.
 
@@ -55,13 +55,13 @@ Open data formats do not make ontologies, AI instructions or agent definitions p
 
 <details id="security-apis"><summary>OneLake security APIs for any engine</summary>
 
-OneLake security has APIs that let any engine read and enforce its rules. Microsoft plans open-source security interoperability. [C806]
+Aaron Merrill and Cristian Petculescu presented "OneLake security – deep dive and what's new". They showed that OneLake security has APIs that let any engine read and enforce its rules. Microsoft plans open-source security interoperability. [C806]
 
 </details>
 
 <details id="sovereign"><summary>Sovereign private cloud</summary>
 
-The keynote showed a "Sovereign Private Cloud": Foundry Local, data platform services and customer applications on Azure Local. [C807]
+The opening keynote showed a "Sovereign Private Cloud": Foundry Local, data platform services and customer applications on Azure Local. [C807]
 
 </details>
 

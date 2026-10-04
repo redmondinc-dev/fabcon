@@ -236,6 +236,22 @@ function collectNotes(body) {
 }
 const noteOf = (notes, ref) => notes.get(`${ref.id}|${ref.loc || ''}`);
 
+// HTML only: one number for each source that a page cites, in the order of first use,
+// with the distinct locations of that source on the page. The twin keeps collectNotes.
+function collectSources(body) {
+  const srcs = new Map();
+  for (const m of body.matchAll(CITE)) {
+    for (const id of citeIds(m[1])) {
+      for (const ref of claims.get(id).sources) {
+        if (!srcs.has(ref.id)) srcs.set(ref.id, { n: srcs.size + 1, locs: [] });
+        const e = srcs.get(ref.id);
+        if (ref.loc && !e.locs.includes(ref.loc)) e.locs.push(ref.loc);
+      }
+    }
+  }
+  return srcs;
+}
+
 function sourceText(ref) {
   const s = sources.get(ref.id);
   const loc = ref.loc ? `, ${ref.loc}` : '';
@@ -251,8 +267,8 @@ const chip = (label, tip, cls) => `<span class="chip ${cls}" tabindex="0">${esc(
 
 const shortDate = site.statusAsOf.replace(/([A-Za-z]{3})[a-z]+/, '$1');
 
-// Note numbers first, then the labels. `state` is for one page.
-function citeHtml(group, notes, state) {
+// Source numbers first, then the labels. `state` is for one page.
+function citeHtml(group, srcs, state) {
   const shown = new Set();
   let sups = '';
   let labels = '';
@@ -262,10 +278,10 @@ function citeHtml(group, notes, state) {
     state.claims.add(id);
     let s = '';
     for (const ref of c.sources) {
-      const n = noteOf(notes, ref).n;
+      const n = srcs.get(ref.id).n;
       if (shown.has(n)) continue;
       shown.add(n);
-      s += `<sup><a href="#note-${n}" aria-label="Note ${n}">${n}</a></sup>`;
+      s += `<sup><a href="#src-${ref.id}" aria-label="Source ${n}">${n}</a></sup>`;
     }
     sups += `<span class="claim"${first ? ` id="${id}"` : ''} data-claim="${id}">${s}</span>`;
     const [label, meaning] = EVIDENCE[c.evidence];
@@ -447,7 +463,7 @@ function diagramParts(name) {
 
 const DIRECTIVE = /^::(thread-map|sessions-table|sources-list|diagram[ \t]+([\w-]+))[ \t]*$/m;
 
-function bodyHtml(page, notes) {
+function bodyHtml(page, srcs) {
   const state = { claims: new Set(), dated: false };
   const env = {};
   const parts = page.body.split(new RegExp(DIRECTIVE.source, 'm'));
@@ -455,7 +471,7 @@ function bodyHtml(page, notes) {
   let out = '';
   for (let i = 0; i < parts.length; i += 3) {
     const text = parts[i]
-      .replace(new RegExp(`[ \\t]*${CITE.source}`, 'g'), (_, g) => citeHtml(g, notes, state))
+      .replace(new RegExp(`[ \\t]*${CITE.source}`, 'g'), (_, g) => citeHtml(g, srcs, state))
       .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${href(page, path)}${frag})`);
     out += md.render(text, env);
     const directive = parts[i + 1];
@@ -478,15 +494,56 @@ function bodyHtml(page, notes) {
   return out.replace(/<h2 id="for-practice">[\s\S]*?(?=<h2|$)/, (m) => `<section class="practice">${m}</section>\n`);
 }
 
-function notesHtml(page, notes) {
-  if (!notes.size) return '';
-  const items = [...notes.values()].map(({ n, ref }) => {
-    const s = sources.get(ref.id);
-    const link = s.type === 'web' ? ` <a href="${esc(s.url)}">${esc(s.url)}</a>` : '';
-    const entry = built.has('sources') ? ` <a href="${href(page, '/sources/')}#${ref.id}">Sources entry</a>` : '';
-    return `<li id="note-${n}">${esc(sourceText(ref))}${link}${entry}</li>`;
-  }).join('\n');
-  return `<section class="notes"><h2 id="notes">Notes</h2>\n<ol>\n${items}\n</ol></section>`;
+// The locations of one source on a page: slide numbers and photos merged, other locations as given.
+function locText(locs) {
+  const parts = new Map();
+  const add = (key, items) => {
+    if (!parts.has(key)) parts.set(key, []);
+    for (const x of items) if (!parts.get(key).includes(x)) parts.get(key).push(x);
+  };
+  for (const part of locs.flatMap((l) => l.split(/;\s*/))) {
+    const slides = part.match(/^slides? (\d+(?:, \d+)*)$/);
+    const photos = part.match(/^(?:photos? )?(IMG_\d+(?:, IMG_\d+)*)$/);
+    if (slides) add('slide', slides[1].split(', '));
+    else if (photos) add('photo', photos[1].split(', '));
+    else if (/^attendee notes\b/.test(part)) add('attendee notes', []);
+    else add(part, []);
+  }
+  return [...parts].map(([key, items]) => (items.length ? `${key}${items.length > 1 ? 's' : ''} ${items.join(', ')}` : key)).join('; ');
+}
+
+// A session has a speaker, a code, or only a title. The Sessions page says "Not recorded".
+function sessionLabel(s) {
+  const code = s.session_code ? ` (${s.session_code})` : '';
+  if (s.speakers?.length) return `${joinNames(s.speakers)}${code}`;
+  return s.session_code ? `Speaker not recorded${code}` : `${s.title} (speaker not recorded)`;
+}
+
+// The foot of a page: sessions (collapsed) and documentation links (open). Each line is a marker target.
+function notesHtml(page, srcs) {
+  if (!srcs.size) return '';
+  const entry = (id) => (built.has('sources') ? `${href(page, '/sources/')}#${id}` : '');
+  const num = (n) => `<span class="src-n">${n}</span> `;
+  const sessionLines = [];
+  const webLines = [];
+  for (const [id, { n, locs }] of srcs) {
+    const s = sources.get(id);
+    const where = locs.length ? `: ${esc(locText(locs))}` : '';
+    if (s.type === 'session') {
+      const name = entry(id) ? `<a href="${entry(id)}">${esc(sessionLabel(s))}</a>` : esc(sessionLabel(s));
+      sessionLines.push(`<li id="src-${id}">${num(n)}${name}${where}.</li>`);
+    } else {
+      const more = entry(id) ? ` <a class="src-entry" href="${entry(id)}">Sources entry</a>` : '';
+      webLines.push(`<li id="src-${id}">${num(n)}${esc(s.publisher)}: <a href="${esc(s.url)}">${esc(s.title)}</a>${where}.${more}</li>`);
+    }
+  }
+  const sessionsBlock = sessionLines.length
+    ? `<details id="sessions-on-this-page"><summary>Sessions on this page</summary>\n<ul class="sources page-sources">\n${sessionLines.join('\n')}\n</ul>\n</details>\n`
+    : '';
+  const docsBlock = webLines.length
+    ? `<h2 id="documentation-links">Documentation links</h2>\n<ul class="sources page-sources">\n${webLines.join('\n')}\n</ul>\n`
+    : '';
+  return `<section class="notes" aria-label="Sources on this page">\n${sessionsBlock}${docsBlock}</section>`;
 }
 
 const diagramMd = (d) => `**Diagram: ${d.title}.** ${d.text}${d.credit ? ` *${d.credit}.*` : ''}`;
@@ -563,7 +620,7 @@ rmSync(dist, { recursive: true, force: true });
 const layout = readFileSync(join(here, 'site', 'layout.html'), 'utf8');
 
 for (const page of pages) {
-  const notes = collectNotes(page.body);
+  const srcs = collectSources(page.body);
   const vars = {
     headTitle: esc(page.slug === 'home' ? site.name : `${page.title} - ${site.name}`),
     description: esc(page.description),
@@ -576,8 +633,8 @@ for (const page of pages) {
     title: esc(page.title),
     // A word with a hyphen stays on one line.
     message: page.message ? `<p class="message">${esc(page.message).replace(/\S+-\S+/g, '<span class="nb">$&</span>')}</p>` : '',
-    body: bodyHtml(page, notes),
-    notes: notesHtml(page, notes),
+    body: bodyHtml(page, srcs),
+    notes: notesHtml(page, srcs),
     pager: pagerHtml(page),
     statusAsOf: esc(site.statusAsOf),
   };

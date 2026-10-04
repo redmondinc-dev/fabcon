@@ -379,6 +379,17 @@ details:not(.menu) > summary:last-child { margin-bottom: 0; }
 .notes { margin-top: 4rem; padding-top: 0.5rem; border-top: 1px solid var(--line); font-size: 0.9375rem; }
 .notes h2 { font-size: 1rem; margin-top: 1rem; }
 .notes li { overflow-wrap: anywhere; }
+/* Sources on this page. The number matches the marker in the text. */
+.page-sources { padding-left: 0; list-style: none; }
+.page-sources li { margin: 0.5rem 0; }
+.src-n { display: inline-block; min-width: 1.75em; color: var(--muted); font-family: var(--font-mono); font-size: 0.75rem; }
+.src-entry { color: var(--muted); font-size: 0.8125rem; }
+.notes > details:first-child { margin-top: 0; border-top: 0; }
+
+@media print {
+  /* A closed <details> prints its content. The script also opens each one before print. */
+  details:not(.menu)::details-content { content-visibility: visible; display: contents; }
+}
 .foot { margin-top: 4rem; padding-bottom: 3rem; font-size: 0.9375rem; }
 .pager { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-top: 2px solid var(--ink); }
 .pager a { display: block; text-decoration: none; }

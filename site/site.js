@@ -36,6 +36,22 @@
   };
   addEventListener('hashchange', openTarget);
   openTarget();
+  // A second click on the same marker gives no hashchange.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest?.('a[href^="#"]');
+    if (a && a.hash === location.hash) openTarget();
+  });
+
+  // Print the content of each closed <details>, then close it again.
+  let printOpened = [];
+  addEventListener('beforeprint', () => {
+    printOpened = [...document.querySelectorAll('details:not(.menu):not([open])')];
+    for (const d of printOpened) d.open = true;
+  });
+  addEventListener('afterprint', () => {
+    for (const d of printOpened) d.open = false;
+    printOpened = [];
+  });
 
   const status = document.getElementById('copy-status');
   const copy = async (text) => {
