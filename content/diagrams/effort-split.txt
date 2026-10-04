@@ -1,0 +1,3 @@
+title: Expected effort and actual effort in an LLM project
+text: Teams expect the prototype to be 70% of the effort. In the speaker's estimate, the prototype is 10%, evaluation is 30%, data preparation and RAG are 40%, and infrastructure is 20%. The slide gave no data source.
+credit: After Hasan Savran, "RAG, Vector Stores, and Reality Checks: Building AI Systems That Stick" (W41). The speaker's estimate.
