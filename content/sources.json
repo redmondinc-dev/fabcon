@@ -1,0 +1,140 @@
+{
+  "_about": "Bibliography for the FabCon Europe 2026 debrief. Session sources are cited by speaker where the speaker is known, otherwise by session title. Web sources were found on 2026-10-04 and must be re-checked before publication. Slide content is paraphrased or quoted briefly; no slide images are published.",
+  "event": {
+    "name": "European Microsoft Fabric + SQL Community Conference (FabCon Europe / SQLCon Europe)",
+    "place": "Barcelona",
+    "dates": "2026-09-28 to 2026-10-01"
+  },
+  "sessions": [
+    {
+      "id": "S-KEYNOTE",
+      "title": "Opening keynote",
+      "speakers": [],
+      "date": "2026-09-29",
+      "basis": "attendee notes and 11 photos of slides",
+      "public_links": ["https://aka.ms/FabricSQLCerts", "https://aka.ms/dp800/exam"]
+    },
+    {
+      "id": "S-FREESE",
+      "title": "The AI-Ready Data Trap",
+      "session_code": "INSPIRE01",
+      "speakers": ["Luise Freese"],
+      "date": "2026-09-29",
+      "basis": "full slide deck (70 slides) and 10 photos",
+      "public_links": ["https://AImbivalence.com"]
+    },
+    {
+      "id": "S-PURVIEW-DATA",
+      "title": "Purview and data security protections",
+      "speakers": [],
+      "date": "2026-09-29",
+      "basis": "attendee notes and 13 photos of slides. Two presenters. Session title is from attendee notes."
+    },
+    {
+      "id": "S-GOVERNANCE",
+      "title": "Data Governance for Trust, Scale, and AI",
+      "speakers": [],
+      "date": "2026-09-29",
+      "basis": "attendee notes and 13 photos of slides. The talk has two sections: 'Conversational analytics' and 'Agentic development'. It shows Fabric Atlas by Frederic Gisbert.",
+      "public_links": ["https://github.com/fredgis/FabricAtlas"]
+    },
+    {
+      "id": "S-PURVIEW-SEC",
+      "title": "Purview security solutions",
+      "speakers": [],
+      "date": "2026-09-30",
+      "basis": "attendee notes and 2 photos of slides. Session title is from attendee notes."
+    },
+    {
+      "id": "S-SQLI",
+      "title": "SQL Injection in 2026: Live Exploitation, Modern Risks, and Practical Defenses",
+      "session_code": "W21",
+      "speakers": ["Mariusz Wójcik", "Piotr Balik"],
+      "date": "2026-09-30",
+      "basis": "full slide deck (17 slides) and 6 photos"
+    },
+    {
+      "id": "S-SAVRAN",
+      "title": "RAG, Vector Stores, and Reality Checks: Building AI Systems That Stick",
+      "session_code": "W41",
+      "speakers": ["Hasan Savran"],
+      "date": "2026-09-30",
+      "basis": "full slide deck (22 slides) and 6 photos"
+    },
+    {
+      "id": "S-ONELAKE",
+      "title": "OneLake security – deep dive and what's new",
+      "speakers": ["Aaron Merrill", "Cristian Petculescu"],
+      "date": "2026-09-30",
+      "basis": "full slide deck (90 slides) and 8 photos",
+      "public_links": ["https://aka.ms/OneLake-Security-Whitepaper", "https://aka.ms/OLSGetStartedIntegrating"]
+    },
+    {
+      "id": "S-SQLPERF",
+      "title": "SQL Performance with AI",
+      "speakers": [],
+      "date": "2026-10-01",
+      "basis": "attendee notes and 3 photos of slides. Session title is from attendee notes."
+    },
+    {
+      "id": "S-GORDON",
+      "title": "Building Enterprise AI Agents on Microsoft Fabric: Architecture, Security and Production Lessons",
+      "session_code": "TH14",
+      "speakers": ["Leon Gordon"],
+      "date": "2026-10-01",
+      "basis": "full slide deck (40 slides)",
+      "public_links": ["https://onyxdata.co.uk/fabcon"]
+    },
+    {
+      "id": "S-URBINA",
+      "title": "Talking with your security model",
+      "session_code": "TH30",
+      "speakers": ["Cristian Urbina Guerra"],
+      "date": "2026-10-01",
+      "basis": "full slide deck (17 slides) and 2 photos"
+    },
+    {
+      "id": "S-ONTOLOGY",
+      "title": "Ontology session (Fabric IQ)",
+      "speakers": [],
+      "date": "2026-10-01",
+      "basis": "attendee notes and 2 photos of a live demo. Session title is from attendee notes."
+    }
+  ],
+  "web": [
+    {"id": "W01", "title": "From Data Platform to Intelligence Platform: Introducing Microsoft Fabric IQ", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/From-Data-Platform-to-Intelligence-Platform-Introducing/ba-p/5172484", "kind": "microsoft"},
+    {"id": "W02", "title": "Fabric IQ Is GA. Your Ontology Isn't. Here's What That Actually Means.", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/blog/fiq_comm_blog/fabric-iq-is-ga-your-ontology-isnt-heres-what-that-actually-means-/5364087", "kind": "community"},
+    {"id": "W03", "title": "Fabric IQ and Ontology: when your data speaks the language of your business", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/t5/IQ-Community-Blog/Fabric-IQ-and-Ontology-when-your-data-speaks-the-language-of/ba-p/5176825", "kind": "community"},
+    {"id": "W04", "title": "Fabric IQ is Generally Available. The Advantage Now Belongs to the Data Ready.", "publisher": "MILL5", "url": "https://mill5.com/fabric-iq-general-availability/", "kind": "third-party"},
+    {"id": "W05", "title": "OneLake security roles, permissions, and scopes (data access control model)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/data-access-control-model", "kind": "microsoft"},
+    {"id": "W06", "title": "Secure and manage OneLake shortcuts", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/onelake-shortcut-security", "kind": "microsoft"},
+    {"id": "W07", "title": "OneLake Security Deep Dive", "publisher": "Medium (independent author)", "url": "https://medium.com/@alipouw/onelake-security-deep-dive-8cb2c0195524", "kind": "third-party"},
+    {"id": "W08", "title": "OneLake security for SQL analytics endpoints", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/sql-analytics-endpoint-onelake-security", "kind": "microsoft"},
+    {"id": "W09", "title": "Agent identities in Microsoft Entra Agent ID", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/entra/agent-id/agent-identities", "kind": "microsoft"},
+    {"id": "W10", "title": "Governing Agent Identities", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/entra/id-governance/agent-id-governance-overview", "kind": "microsoft"},
+    {"id": "W11", "title": "Manage Entra Agent IDs (Copilot Studio)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/admin-use-entra-agent-identities", "kind": "microsoft"},
+    {"id": "W12", "title": "Building a Foundry Agent That Queries Fabric Data, On Behalf of the User", "publisher": "DEV Community (independent author)", "url": "https://dev.to/jubinsoni/building-a-foundry-agent-that-queries-fabric-data-on-behalf-of-the-user-243h", "kind": "third-party"},
+    {"id": "W13", "title": "Audit logging for Fabric data agent with Microsoft Purview (preview)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-science/data-agent-purview-governance", "kind": "microsoft"},
+    {"id": "W14", "title": "Data Security Posture Management (DSPM) for AI", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/purview/dspm-for-ai", "kind": "microsoft"},
+    {"id": "W15", "title": "The OneLake catalog in Fabric: Explore, Govern, Secure", "publisher": "James Serra's blog", "url": "https://www.jamesserra.com/archive/2026/04/the-onelake-catalog-in-fabric-explore-govern-secure/", "kind": "third-party"},
+    {"id": "W16", "title": "OneLake Catalog Guide: Explore, Govern, and Secure Tabs", "publisher": "Atlan", "url": "https://atlan.com/know/microsoft-fabric/onelake-catalog/", "kind": "third-party"},
+    {"id": "W17", "title": "Prepare your data for AI to improve Copilot results (preview)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/copilot-prepare-data-ai", "kind": "microsoft"},
+    {"id": "W18", "title": "Microsoft updates Fabric for agentic transformation", "publisher": "CIO.com", "url": "https://www.cio.com/article/4227790/microsoft-updates-fabric-for-agentic-transformation.html", "kind": "press"},
+    {"id": "W19", "title": "What Osmos could bring to Fabric data engineering", "publisher": "Data Driven", "url": "https://data-driven.com/blog/microsoft-fabric-agentic-ai-osmos-acquisition/", "kind": "third-party"},
+    {"id": "W20", "title": "What Does Microsoft's Acquisition of Osmos Mean for Data Engineering in Fabric?", "publisher": "Solv Systems", "url": "https://solv-systems.com/resources/fabric-osmos-acquisition", "kind": "third-party"},
+    {"id": "W21", "title": "Database Hub in Fabric: Now in Public Preview", "publisher": "Microsoft Tech Community (Azure SQL blog)", "url": "https://techcommunity.microsoft.com/blog/azuresqlblog/database-hub-in-fabric-now-in-public-preview--turn-database-signals-into-guided-/4560846", "kind": "microsoft"},
+    {"id": "W22", "title": "GitHub Copilot Agent mode in SSMS", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/ssms/github-copilot/agent-mode", "kind": "microsoft"},
+    {"id": "W23", "title": "CREATE VECTOR INDEX (Transact-SQL)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/t-sql/statements/create-vector-index-transact-sql?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W24", "title": "Add Fabric Atlas workspace governance accelerator (pull request 659)", "publisher": "GitHub, microsoft/fabric-toolbox", "url": "https://github.com/microsoft/fabric-toolbox/pull/659", "kind": "community"},
+    {"id": "W25", "title": "Do These Violent Delights Have Violent Ends? Measuring the Post-Merge Fate of Agentic Code", "publisher": "arXiv 2607.09902", "url": "https://arxiv.org/pdf/2607.09902", "kind": "research"},
+    {"id": "W26", "title": "Not All Agents Are Equal: Code Quality and Post-Merge Maintenance Across Five Autonomous Coding Agents in the Wild", "publisher": "arXiv 2609.17598", "url": "https://arxiv.org/pdf/2609.17598", "kind": "research"},
+    {"id": "W27", "title": "FabCon and SQLCon 2026: Unifying databases and Fabric on a single data platform", "publisher": "Microsoft Azure blog", "url": "https://azure.microsoft.com/en-us/blog/fabcon-and-sqlcon-2026-unifying-databases-and-fabric-on-a-single-data-platform/", "kind": "microsoft"},
+    {"id": "W28", "title": "Stop defragmenting and start living: introducing auto index compaction", "publisher": "Microsoft Tech Community (Azure SQL blog)", "url": "https://techcommunity.microsoft.com/blog/azuresqlblog/stop-defragmenting-and-start-living-introducing-auto-index-compaction/4500089", "kind": "microsoft"},
+    {"id": "W29", "title": "Simplifying secure data access with Delegated OneLake Shortcuts (Preview)", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Simplifying-secure-data-access-with-Delegated-OneLake-Shortcuts/ba-p/5254632", "kind": "microsoft"},
+    {"id": "W30", "title": "What Is DSPM for AI Agents, and How Is It Different From Traditional DSPM?", "publisher": "AvePoint (vendor with a competing product)", "url": "https://www.avepoint.com/blog/protect/dspm-for-ai-agents", "kind": "third-party"},
+    {"id": "W31", "title": "Use Microsoft Purview to manage data security and compliance for Copilot in Fabric", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/purview/ai-copilot-fabric", "kind": "microsoft"},
+    {"id": "W32", "title": "Fabric IQ: The shared context layer for AI agents and real-time applications", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/blog/fbc_fabricupdatesblogs/fabric-iq-the-shared-context-layer-for-ai-agents-and-real-time-applications/5191678", "kind": "microsoft"},
+    {"id": "W33", "title": "Securing zero-copy distribution patterns with OneLake security and shortcuts", "publisher": "Microsoft Fabric community blog", "url": "https://community.fabric.microsoft.com/t5/Fabric-Updates-Blog/Securing-zero-copy-distribution-patterns-with-OneLake-security/ba-p/5227853", "kind": "microsoft"},
+    {"id": "W34", "title": "Microsoft Acquires Osmos for Agentic AI Data Engineering", "publisher": "Campus Technology", "url": "https://campustechnology.com/articles/2026/01/12/microsoft-acquires-osmos-for-agentic-ai-data-engineering.aspx", "kind": "press"}
+  ]
+}

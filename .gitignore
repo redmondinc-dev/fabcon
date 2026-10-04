@@ -1,0 +1,12 @@
+# Local source material: speaker decks, photos, raw notes, internal brief.
+# This repository is public. Nothing under private/ may be committed.
+private/
+
+# Build output and tooling
+node_modules/
+dist/
+_site/
+.DS_Store
+*.log
+.env
+.env.*
