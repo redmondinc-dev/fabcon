@@ -1,0 +1,47 @@
+<div class="pathpick">
+<fieldset>
+<legend class="diagram-text">Select a path.</legend>
+<label><input type="radio" name="access-path" value="all" checked> Both paths</label>
+<label><input type="radio" name="access-path" value="direct"> Direct</label>
+<label><input type="radio" name="access-path" value="group"> Through a group</label>
+</fieldset>
+<svg viewBox="0 0 364 432" role="img" aria-labelledby="access-paths-title" xmlns="http://www.w3.org/2000/svg">
+<title id="access-paths-title">Two paths from Alice to the customer data</title>
+<defs>
+<marker id="access-paths-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="currentColor"/></marker>
+</defs>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="132" y="8" width="100" height="38" rx="6"/>
+<rect class="n-direct" x="12" y="112" width="160" height="52" rx="6"/>
+<rect class="n-group" x="192" y="76" width="160" height="52" rx="6"/>
+<rect class="n-group" x="192" y="158" width="160" height="40" rx="6"/>
+<rect x="102" y="250" width="160" height="38" rx="6"/>
+<rect x="102" y="318" width="160" height="38" rx="6"/>
+<rect x="102" y="386" width="160" height="38" rx="6"/>
+<g marker-end="url(#access-paths-arrow)">
+<path class="p-direct" d="M160 46 93 110"/>
+<path class="p-direct" d="M92 164 139 248"/>
+<path class="p-group" d="M204 46 271 74"/>
+<path class="p-group" d="M272 128v28"/>
+<path class="p-group" d="M272 198 225 248"/>
+<path class="p-tail" d="M182 288v28"/>
+<path class="p-tail" d="M182 356v28"/>
+</g>
+</g>
+<g fill="currentColor" text-anchor="middle" font-size="13.5" font-weight="650">
+<text x="182" y="32">Alice</text>
+<text class="n-direct" x="92" y="134">Finance Report</text>
+<text class="n-group" x="272" y="98">Finance Users</text>
+<text class="n-group" x="272" y="183">Finance Workspace</text>
+<text x="182" y="274">Semantic model</text>
+<text x="182" y="342">Lakehouse</text>
+<text x="182" y="410">Customer data</text>
+</g>
+<g text-anchor="middle" font-size="11.5" font-weight="650" style="fill:var(--g-limits)">
+<text class="n-direct" x="92" y="152">direct access</text>
+<text class="n-group" x="272" y="116">a group</text>
+</g>
+</svg>
+<p class="why why-direct"><strong>Direct.</strong> Alice has direct access to Finance Report. The path continues to the semantic model, the lakehouse and the customer data.</p>
+<p class="why why-group"><strong>Through a group.</strong> Alice is in the group Finance Users. The group leads to Finance Workspace. The path continues to the semantic model, the lakehouse and the customer data.</p>
+</div>

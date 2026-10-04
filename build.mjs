@@ -125,9 +125,9 @@ function runChecks() {
       }
     }
     for (const m of p.body.matchAll(/^::diagram[ \t]+([\w-]+)[ \t]*$/gm)) {
-      for (const ext of ['svg', 'txt']) {
-        if (!existsSync(join(content, 'diagrams', `${m[1]}.${ext}`))) errors.push(`${p.file}: content/diagrams/${m[1]}.${ext} does not exist`);
-      }
+      const dir = join(content, 'diagrams');
+      if (!existsSync(join(dir, `${m[1]}.svg`)) && !existsSync(join(dir, `${m[1]}.html`))) errors.push(`${p.file}: content/diagrams/${m[1]}.svg (or .html) does not exist`);
+      if (!existsSync(join(dir, `${m[1]}.txt`))) errors.push(`${p.file}: content/diagrams/${m[1]}.txt does not exist`);
     }
     for (const s of sentencesOf(p.body)) {
       const n = wordCount(s);
@@ -320,8 +320,11 @@ function threadMapMd(link) {
 }
 
 // A diagram is <name>.svg and <name>.txt. The .txt file has "title:", "text:" and "credit:" lines.
+// <name>.html in place of <name>.svg is for a diagram that has controls around its SVG.
+const diagramFile = (name) => ['html', 'svg'].map((ext) => join(content, 'diagrams', `${name}.${ext}`)).find(existsSync);
+
 function diagramParts(name) {
-  const svg = readFileSync(join(content, 'diagrams', `${name}.svg`), 'utf8').trim();
+  const svg = readFileSync(diagramFile(name), 'utf8').trim();
   const meta = {};
   for (const line of readFileSync(join(content, 'diagrams', `${name}.txt`), 'utf8').split('\n')) {
     const i = line.indexOf(':');

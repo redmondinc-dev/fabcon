@@ -1,0 +1,3 @@
+title: Two paths from Alice to the customer data
+text: Alice reaches the customer data through 2 paths. One path is direct, through Finance Report. The other path is through the group Finance Users and Finance Workspace, and both paths continue through the semantic model and the lakehouse.
+credit: After Cristian Urbina Guerra, "Talking with your security model" (TH30)

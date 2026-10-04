@@ -294,6 +294,18 @@ figure.diagram {
 .diagram svg text { font-family: var(--font-sans); }
 .diagram figcaption { display: grid; gap: 0.25rem; line-height: 1.45; }
 
+/* Path selector on the Access page. It works without a script. All paths show by default. */
+.pathpick fieldset { margin: 0 0 var(--space-2); padding: 0; border: 0; }
+.pathpick label { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; margin-right: 1rem; font-size: 0.9375rem; }
+.pathpick input { accent-color: var(--accent); }
+.pathpick .why { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.45; }
+.pathpick:has([value="direct"]:checked) :is(.p-group, .n-group),
+.pathpick:has([value="group"]:checked) :is(.p-direct, .n-direct) { opacity: 0.25; }
+.pathpick:has([value="direct"]:checked) :is(.p-direct, .p-tail),
+.pathpick:has([value="group"]:checked) :is(.p-group, .p-tail) { stroke-width: 3; }
+.pathpick:has([value="direct"]:checked) .why-group,
+.pathpick:has([value="group"]:checked) .why-direct { display: none; }
+
 /* What the sessions said: the statement, then the labels at the right. */
 #what-the-sessions-said + ul { max-width: 57rem; margin: 1rem 0 0; padding: 0; list-style: none; }
 #what-the-sessions-said + ul li {
