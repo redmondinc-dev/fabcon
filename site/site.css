@@ -313,6 +313,10 @@ figure.diagram {
 }
 #what-the-sessions-said + ul .labels .chip { margin: 0 0 0 0.2rem; }
 
+table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; line-height: 1.45; }
+th, td { padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { font-weight: 650; border-bottom-color: var(--border); }
+
 /* Go deeper */
 details:not(.menu) { margin-top: -1px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 details:not(.menu) > summary { padding: 0.6rem 0; font-weight: 650; cursor: pointer; }

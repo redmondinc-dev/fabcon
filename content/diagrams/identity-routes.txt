@@ -1,0 +1,3 @@
+title: Four routes, four identities
+text: A reader reaches the data through one of 4 routes. Each route runs the query as a different identity: the reader, a delegated user, the maker or a service principal. The speaker checked the status of each route on 23 to 25 September 2026.
+credit: After Leon Gordon, "Building Enterprise AI Agents on Microsoft Fabric: Architecture, Security and Production Lessons" (TH14)
