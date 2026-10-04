@@ -9,7 +9,7 @@ In our reading, three sessions ask for the same thing: evidence of what the agen
 
 ## What the sessions said
 
-- Leon Gordon (TH14) showed a Copilot Studio capture. The outcome was "Resolved", and the reader got no figures. AI assigns the "Resolved implied" outcome after the session ends. [C504]
+- Leon Gordon (TH14) showed a Copilot Studio capture of a session of 14 September, on an older route. The outcome was "Resolved", and the reader got no figures. AI assigns the "Resolved implied" outcome after the session ends. [C504]
 - He said that rules validate figures, and models review wording. A model judge cannot prove arithmetic or identity. [C503]
 - He said that Copilot Studio has no documented join between a chat turn and the Fabric query. Thus you must design the identifier in. [C505]
 - Purview Data Security Posture Management (DSPM) for AI can record prompts and responses. Microsoft Learn says that you must first turn on Purview Audit, a collection policy and a tenant setting. [C507]
@@ -30,7 +30,7 @@ Leon Gordon's (TH14) design gates each answer: meaning, access, retrieval, calcu
 
 He said: keep an evidence record for each answer. When a prompt, tool, model or permission changes, repeat the same question, and repeat the test with two readers who have different access. [C506]
 
-In a separate test on synthetic data, 4 answers matched the reference and the caller was established at Fabric in 0 of 4. See [Access and identity](/access/#routes).
+In Leon Gordon's test of 15 September on synthetic data, 4 answers matched the reference. The caller was established at Fabric in 0 of 4. See [Access and identity](/access/#routes).
 
 Leon Gordon said that Foundry documents one trace for each turn: the agent run, the tool call and the model call. He verified on 17 September 2026 that Foundry tracing was generally available for prompt and hosted agents. Trace Replay was in preview. [C505]
 

@@ -11,7 +11,7 @@ A user can reach the same data through different paths. A permission is not the 
 
 - Cristian Urbina Guerra (TH30): security is a graph, not a list. Access can come from 6 layers: identity, workspace, item, data, inheritance and relationships. [C301, C302]
 - Leon Gordon (TH14) showed 4 routes to a Fabric data agent, each with a different identity contract. [C201]
-- In Leon Gordon's (TH14) demo on synthetic data, a reader limited to one region asked about London and got London's figure. The route used maker credentials, and the log named the maker. The settings pane is not proof of the caller. [C204, C202]
+- In Leon Gordon's (TH14) test of 24 September on synthetic data, a reader limited to one region asked about London and got London's figure. The route used maker credentials, and the log named the maker. The settings pane is not proof of the caller. [C204, C202]
 - Aaron Merrill and Cristian Petculescu (OneLake security session): workspace Admins, Members and Contributors read all OneLake data. Leon Gordon (TH14): editors are exempt from model row-level security. [C308, C206]
 
 ## Each route runs as an identity
@@ -32,7 +32,7 @@ Workspace Admins, Members and Contributors read all OneLake data. Microsoft Lear
 
 </details>
 
-<details id="routes"><summary>The route table, the demo and the customer case</summary>
+<details id="routes"><summary>The route table, the tests and the customer case</summary>
 
 | Route | The query runs as | Status |
 |---|---|---|
@@ -43,7 +43,7 @@ Workspace Admins, Members and Contributors read all OneLake data. Microsoft Lear
 
 The speaker checked the documentation on 15 to 17 September and the status on 23 to 25 September 2026. [C201]
 
-In the demo, 4 of 4 answers matched the reference figure. The caller was established at Fabric in 0 of 4. The data was synthetic, in the speaker's own tenant. The speaker states that no accuracy rate comes from 4 answers. [C203]
+In the speaker's test of 15 September, on the Fabric IQ route in Teams, 4 of 4 answers matched the reference figure. The caller was established at Fabric in 0 of 4. The data was synthetic, in the speaker's own tenant. The speaker states that no accuracy rate comes from 4 answers. [C203]
 
 In the speaker's enterprise case, model questions ran on behalf of the user, so row-level security applied. A tool call ran as a service principal, so it did not. The speaker marks this case "customer reported, not inspected". [C205]
 
