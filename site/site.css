@@ -1,31 +1,80 @@
 /* Light theme is the default. Dark follows the system unless the reader used the toggle. */
 :root {
-  --bg: #fbfaf7;
-  --ink: #1b1b1a;
-  --muted: #595752;
-  --line: #d6d2c9;
-  --accent: #0b5d5a;
+  /* Surfaces */
+  --bg: #f6f8f6;
   --raise: #ffffff;
+  --sunk: #e9eeea;
+
+  /* Text and lines. --line is decorative only. --border carries meaning. */
+  --ink: #10201b;
+  --muted: #4a5a54;
+  --line: #cdd6d0;
+  --border: #6c7b74;
+
+  /* Links, focus ring */
+  --accent: #0b6b57;
+
+  /* The four groups. Use only to show which group a thread belongs to. */
+  --g-context: #0b6b57;
+  --g-limits: #1f4f96;
+  --g-proof: #855a00;
+  --g-reality: #7a3a78;
+  --on-group: #ffffff;
+
+  /* One highlight. Fill only, with --on-mark text. */
+  --mark: #f2c744;
+  --on-mark: #10201b;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", monospace;
+
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+
+  --radius-sm: 2px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #131517;
-    --ink: #ecebe7;
-    --muted: #a9a7a0;
-    --line: #3a3e42;
-    --accent: #72d1c9;
-    --raise: #1b1e21;
+    --bg: #0e1512;
+    --raise: #17201c;
+    --sunk: #080d0b;
+    --ink: #e9f0ec;
+    --muted: #9db0a8;
+    --line: #2a3832;
+    --border: #6b7d75;
+    --accent: #5fd0b3;
+    --g-context: #5fd0b3;
+    --g-limits: #86b4f2;
+    --g-proof: #e2b24a;
+    --g-reality: #d79ad6;
+    --on-group: #0e1512;
+    --mark: #f2c744;
+    --on-mark: #10201b;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #131517;
-  --ink: #ecebe7;
-  --muted: #a9a7a0;
-  --line: #3a3e42;
-  --accent: #72d1c9;
-  --raise: #1b1e21;
+  --bg: #0e1512;
+  --raise: #17201c;
+  --sunk: #080d0b;
+  --ink: #e9f0ec;
+  --muted: #9db0a8;
+  --line: #2a3832;
+  --border: #6b7d75;
+  --accent: #5fd0b3;
+  --g-context: #5fd0b3;
+  --g-limits: #86b4f2;
+  --g-proof: #e2b24a;
+  --g-reality: #d79ad6;
+  --on-group: #0e1512;
+  --mark: #f2c744;
+  --on-mark: #10201b;
   color-scheme: dark;
 }
 
@@ -35,17 +84,17 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font: 1.0625rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 1.0625rem/1.6 var(--font-sans);
 }
 a { color: var(--accent); text-underline-offset: 0.15em; }
-:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 button {
   font: inherit;
   font-size: 0.875rem;
   color: var(--ink);
   background: var(--raise);
-  border: 1px solid var(--line);
-  border-radius: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 0.3rem 0.7rem;
   cursor: pointer;
 }
@@ -79,7 +128,7 @@ button {
   max-width: calc(100vw - 2rem);
   background: var(--raise);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 .menu li { padding: 0.2rem 0; }
 
@@ -115,16 +164,24 @@ li { margin: 0.25rem 0; }
   display: inline-block;
   margin-right: 0.2rem;
   padding: 0 0.5rem;
-  border: 1px solid var(--muted);
-  border-radius: 999px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--muted);
+  font-family: var(--font-mono);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   vertical-align: 0.1em;
   white-space: nowrap;
   cursor: help;
 }
-.chip[class*="st-"] { border-style: dashed; }
+/* Status chips. The line style gives the status. */
+.chip.st-ga { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+.chip.st-preview { border-style: dashed; color: var(--ink); }
+.chip.st-announced, .chip.st-roadmap { border-style: dotted; }
+.chip.st-not-available { text-decoration: line-through; }
 .chip .tip {
   position: absolute;
   z-index: 5;
@@ -135,8 +192,12 @@ li { margin: 0.25rem 0; }
   padding: 0.4rem 0.6rem;
   background: var(--ink);
   color: var(--bg);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
   font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  text-decoration: none;
   white-space: normal;
   visibility: hidden;
 }
@@ -153,8 +214,9 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
   margin: 0 auto;
   padding: 0.6rem 1rem;
   border: 2px solid var(--ink);
-  border-radius: 10px;
-  background: var(--raise);
+  border-radius: var(--radius-lg);
+  background: var(--mark);
+  color: var(--on-mark);
   text-align: center;
   font-size: 1.25rem;
   font-weight: 700;
@@ -163,10 +225,13 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
 .map-lines path { fill: none; stroke: currentColor; stroke-width: 2; }
 .map-lines marker path { stroke: none; fill: currentColor; }
 .map-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; align-items: start; }
-.group { padding-top: 0.75rem; border-top: 3px solid var(--ink); }
-.g-limits { border-top-style: dashed; }
-.g-proof { border-top-style: dotted; }
-.g-reality { border-top-style: double; border-top-width: 6px; }
+/* Each group has a line style and a colour. The line style works without colour. */
+.group { padding-top: 0.75rem; border-top: 3px solid var(--g); }
+.group h3 { color: var(--g); }
+.g-context { --g: var(--g-context); }
+.g-limits { --g: var(--g-limits); border-top-style: dashed; }
+.g-proof { --g: var(--g-proof); border-top-style: dotted; }
+.g-reality { --g: var(--g-reality); border-top-style: double; border-top-width: 6px; }
 .map-band { margin-top: 2rem; }
 .gloss { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9375rem; }
 .group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
@@ -177,7 +242,7 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
   height: 100%;
   padding: 0.7rem 0.9rem;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background: var(--raise);
   color: var(--ink);
   text-decoration: none;

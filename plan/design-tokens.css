@@ -1,0 +1,91 @@
+/*
+  Design tokens for the FabCon Europe 2026 debrief site.
+  Reference file. Merge these values into site/site.css; do not link this file.
+  The names --bg, --ink, --muted, --line, --accent and --raise are the names that site.css already uses.
+  Rules for use: plan/04-design.md.
+  Contrast was checked: all text pairs are 4.5:1 or more in both themes; --border is 3:1 or more.
+*/
+
+:root {
+  /* Surfaces */
+  --bg: #f6f8f6;        /* page ground: a cool white with a little green */
+  --raise: #ffffff;     /* panels, cards, diagram frames */
+  --sunk: #e9eeea;      /* recessed bands: For practice, code, table headers */
+
+  /* Text and lines */
+  --ink: #10201b;       /* all body and display text */
+  --muted: #4a5a54;     /* secondary text, captions, endnote numbers */
+  --line: #cdd6d0;      /* decorative hairlines only (below 3:1) */
+  --border: #6c7b74;    /* lines that carry meaning: chips, buttons, inputs, diagram frames */
+
+  /* Signature colour: links, focus ring, the Context group */
+  --accent: #0b6b57;
+
+  /* The four groups. Use only to show which group a thread belongs to. */
+  --g-context: #0b6b57;
+  --g-limits: #1f4f96;
+  --g-proof: #855a00;
+  --g-reality: #7a3a78;
+  --on-group: #ffffff;  /* text on a group colour fill */
+
+  /* One highlight. Fill only, with --ink text on it. Never as text or as a line on --bg. */
+  --mark: #f2c744;
+  --on-mark: #10201b;
+
+  /* Type */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Code", "Cascadia Mono", Consolas, "SF Mono", monospace;
+
+  /* Space: four steps only */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 4rem;
+
+  /* Radius */
+  --radius-sm: 2px;     /* chips and labels */
+  --radius-md: 6px;     /* panels, buttons, diagram frames */
+  --radius-lg: 12px;    /* thread map nodes */
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1512;
+    --raise: #17201c;
+    --sunk: #080d0b;
+    --ink: #e9f0ec;
+    --muted: #9db0a8;
+    --line: #2a3832;
+    --border: #6b7d75;
+    --accent: #5fd0b3;
+    --g-context: #5fd0b3;
+    --g-limits: #86b4f2;
+    --g-proof: #e2b24a;
+    --g-reality: #d79ad6;
+    --on-group: #0e1512;
+    --mark: #f2c744;
+    --on-mark: #10201b;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #0e1512;
+  --raise: #17201c;
+  --sunk: #080d0b;
+  --ink: #e9f0ec;
+  --muted: #9db0a8;
+  --line: #2a3832;
+  --border: #6b7d75;
+  --accent: #5fd0b3;
+  --g-context: #5fd0b3;
+  --g-limits: #86b4f2;
+  --g-proof: #e2b24a;
+  --g-reality: #d79ad6;
+  --on-group: #0e1512;
+  --mark: #f2c744;
+  --on-mark: #10201b;
+  color-scheme: dark;
+}

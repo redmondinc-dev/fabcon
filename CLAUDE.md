@@ -9,8 +9,9 @@ Readers are a technical audience: CTO, developer leads, data leads, IT. The atte
 1. `plan/01-site-spec.md` — pages, navigation, agent features, build rules.
 2. `plan/02-style-guide.md` — writing rules (STE-inspired), glossary, evidence labels.
 3. `plan/03-outline.md` — message, diagram and claims for each page.
-4. `content/claims.json` — the claims register. Every statement on the site traces to a claim.
-5. `content/sources.json` — the bibliography.
+4. `plan/04-design.md` — visual design: colours, type, chips, page layout. Token values are in `plan/design-tokens.css`.
+5. `content/claims.json` — the claims register. Every statement on the site traces to a claim.
+6. `content/sources.json` — the bibliography.
 
 If the folder `private/` exists on this machine, read `private/README.md` at the start of a session. It is local context only.
 
@@ -35,5 +36,4 @@ If the folder `private/` exists on this machine, read `private/README.md` at the
 ## What is not decided
 
 - The static generator (a short Node script or Eleventy).
-- The visual design. See `plan/01-site-spec.md`, section 9, for the direction.
 - The final wording of each message. The outline gives a first version.
