@@ -12,7 +12,8 @@ A user can reach the same data through different paths. A permission is not the 
 - Cristian Urbina Guerra (TH30): security is a graph, not a list. Access can come from 6 layers: identity, workspace, item, data, inheritance and relationships. [C301, C302]
 - Leon Gordon (TH14) showed 4 routes to a Fabric data agent, each with a different identity contract. [C201]
 - In Leon Gordon's (TH14) test of 24 September on synthetic data, a reader limited to one region asked about London and got London's figure. The route used maker credentials, and the log named the maker. The settings pane is not proof of the caller. [C204, C202]
-- Aaron Merrill and Cristian Petculescu (OneLake security session): workspace Admins, Members and Contributors read all OneLake data. Leon Gordon (TH14): editors are exempt from model row-level security. [C308, C206]
+- Aaron Merrill and Cristian Petculescu (OneLake security session): workspace Admins, Members and Contributors read all OneLake data. [C308]
+- Leon Gordon (TH14): editors are exempt from row-level security in a semantic model. [C206]
 
 ## Each route runs as an identity
 
@@ -40,7 +41,9 @@ A passthrough shortcut checks the user at the target. A delegated shortcut reads
 
 Shortcuts to external storage, such as S3 or ADLS Gen2, always use a delegated identity. Delegated OneLake shortcuts also work across tenants. [C310]
 
-A new permissions view answers 2 questions: "Who has access to this table?" and "What data can this user see?" The slide showed OneLake security roles only. In our reading, the view does not show semantic model security or access through groups. [C311]
+A new permissions view answers 2 questions: "Who has access to this table?" and "What data can this user see?"
+
+The slide showed OneLake security roles only. In our reading, the view does not show semantic model security or access through groups. [C311]
 
 </details>
 

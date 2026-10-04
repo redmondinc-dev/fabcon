@@ -11,7 +11,7 @@ This first version holds the notes of one of us. The second attendee had a focus
 
 ::sessions-table
 
-Where the speaker is "Not recorded", the attendee's notes do not hold the name. This site cites those sessions by title.
+Where the speaker is "Not named", the attendee's notes do not hold the name. This site cites those sessions by title.
 
 ## What this site does not cover
 

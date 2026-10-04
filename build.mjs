@@ -239,12 +239,19 @@ const noteOf = (notes, ref) => notes.get(`${ref.id}|${ref.loc || ''}`);
 
 // HTML only: one number for each source that a page cites, in the order of first use,
 // with the distinct locations of that source on the page. The twin keeps collectNotes.
+const letter = (k) => (k < 26 ? '' : letter(Math.floor(k / 26) - 1)) + String.fromCharCode(97 + (k % 26));
+
 function collectSources(body) {
   const srcs = new Map();
   for (const m of body.matchAll(CITE)) {
     for (const id of citeIds(m[1])) {
       for (const ref of claims.get(id).sources) {
-        if (!srcs.has(ref.id)) srcs.set(ref.id, { n: srcs.size + 1, locs: [] });
+        if (!srcs.has(ref.id)) {
+          // Sessions count 1, 2, 3 and web sources a, b, c, so each block at the foot reads without gaps.
+          const web = sources.get(ref.id).type === 'web';
+          const k = [...srcs.keys()].filter((id) => (sources.get(id).type === 'web') === web).length;
+          srcs.set(ref.id, { n: web ? letter(k) : k + 1, locs: [] });
+        }
         const e = srcs.get(ref.id);
         if (ref.loc && !e.locs.includes(ref.loc)) e.locs.push(ref.loc);
       }
@@ -368,7 +375,7 @@ function sessionRows() {
     return { s, fed: site.pages.filter((p) => slugs.has(p.slug) && p.slug !== 'home') };
   });
 }
-const sessionWho = (s) => (s.speakers?.length ? joinNames(s.speakers) : 'Not recorded');
+const sessionWho = (s) => (s.speakers?.length ? joinNames(s.speakers) : 'Not named');
 const sessionName = (s) => `${s.title}${s.session_code ? ` (${s.session_code})` : ''}`;
 
 function sessionsHtml(from) {
@@ -614,11 +621,11 @@ function locText(locs) {
   return [...parts].map(([key, items]) => (items.length ? `${key}${items.length > 1 ? 's' : ''} ${items.join(', ')}` : key)).join('; ');
 }
 
-// A session has a speaker, a code, or only a title. The Sessions page says "Not recorded".
+// A session has a speaker, a code, or only a title. The Sessions page says "Not named".
 function sessionLabel(s) {
   const code = s.session_code ? ` (${s.session_code})` : '';
   if (s.speakers?.length) return `${joinNames(s.speakers)}${code}`;
-  return s.session_code ? `Speaker not recorded${code}` : `${s.title} (speaker not recorded)`;
+  return s.session_code ? `Speaker not named${code}` : `${s.title} (speaker not named)`;
 }
 
 // The foot of a page: sessions (collapsed) and documentation links (open). Each line is a marker target.
