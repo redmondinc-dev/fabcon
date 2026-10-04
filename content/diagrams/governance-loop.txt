@@ -1,0 +1,3 @@
+title: Governance in the development loop
+text: A shared repository gives development agents their context, MCP servers and skills. Each change goes through a pull request and a human review before it reaches development, test or production. A governance agent reviews the tenant and proposes fixes as new pull requests.
+credit: After "Data Governance for Trust, Scale, and AI", FabCon Europe 2026
