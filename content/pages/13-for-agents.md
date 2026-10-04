@@ -12,12 +12,13 @@ This site is for people and for AI agents. Both get the same content from the sa
 - Each page has a Markdown twin at the same path: `index.md`. The twin includes the collapsed sections and the text of each diagram.
 - [claims.json](/claims.json) is the claims register. Each claim has an evidence label, a product status, its sources and a caveat.
 - [sources.json](/sources.json) is the bibliography.
+- [All findings](/findings/) shows the claims register as a page. The thread pages show the main points only.
 
 Each page also has a "Copy page as Markdown" button and a "Copy prompt" button.
 
 ## The evidence labels
 
-In the HTML pages, an unmarked statement is from a speaker's slide. Each other statement shows its label: Microsoft, Third party, Research, Notes or Our reading. The Markdown twins and claims.json give a label for each claim. Keep the label when you repeat a statement.
+In the HTML pages, an unmarked statement is from a speaker's slide. Each other statement shows its label: Microsoft, Third party, Research, Notes or Our reading. The Markdown twins, claims.json and the All findings page give a label for each claim. Keep the label when you repeat a statement.
 
 | Label | Value in claims.json | Meaning |
 |---|---|---|
@@ -49,6 +50,6 @@ The Markdown twin keeps the full numbered notes for each claim.
 
 ## Anchors
 
-Each claim has a stable anchor on the page that cites it, for example `#C201`. Each source has an anchor on the [Sources](/sources/) page, for example `#W03`.
+Each claim has a stable anchor on the All findings page, for example `/findings/#C201`. A thread page that cites the claim has the same anchor. Each source has an anchor on the [Sources](/sources/) page, for example `#W03`.
 
-The old paths `/identity/` and `/evidence/` now redirect to `/access/` and `/governance/`. Claim anchors such as `#C201` still work through the redirect.
+The old paths `/identity/` and `/evidence/` now redirect to `/access/` and `/governance/`. Claim anchors such as `#C201` still work through the redirect. If a thread page does not cite the claim, the anchor goes to the All findings page.
