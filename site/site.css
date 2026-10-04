@@ -295,8 +295,17 @@ figure.diagram {
 .diagram figcaption { display: grid; gap: 0.25rem; line-height: 1.45; }
 
 /* Path selector on the Access page. It works without a script. All paths show by default. */
-.pathpick fieldset { margin: 0 0 var(--space-2); padding: 0; border: 0; }
-.pathpick label { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; margin-right: 1rem; font-size: 0.9375rem; }
+.pathpick fieldset, .status-filter { margin: 0 0 var(--space-2); padding: 0; border: 0; }
+.status-filter { margin-top: var(--space-3); }
+.status-filter legend { padding: 0; font-weight: 650; }
+.status-filter input { accent-color: var(--accent); }
+article:has(.status-filter [value="ga"]:checked) tbody tr:not([data-status="ga"]),
+article:has(.status-filter [value="preview"]:checked) tbody tr:not([data-status="preview"]),
+article:has(.status-filter [value="announced"]:checked) tbody tr:not([data-status="announced"]),
+article:has(.status-filter [value="roadmap"]:checked) tbody tr:not([data-status="roadmap"]),
+article:has(.status-filter [value="not-available"]:checked) tbody tr:not([data-status="not-available"]) { display: none; }
+article > table { max-width: 57rem; }
+.pathpick label, .status-filter label { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 2rem; margin-right: 1rem; font-size: 0.9375rem; }
 .pathpick input { accent-color: var(--accent); }
 .pathpick .why { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.45; }
 .pathpick:has([value="direct"]:checked) :is(.p-group, .n-group),

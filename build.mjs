@@ -357,6 +357,11 @@ function bodyHtml(page, notes) {
       out += `<figure class="diagram" id="diagram-${parts[i + 2]}"><p class="diagram-title">${esc(d.title)}</p>${d.svg}<figcaption><span>${esc(d.text)}</span>${credit}</figcaption></figure>`;
     }
   }
+  // A table row gets the status of its first status chip, for the status filter.
+  out = out.replace(/<tr>(?=((?:(?!<\/tr>)[\s\S])*?)<\/tr>)/g, (tr, row) => {
+    const st = row.match(/class="chip st-([\w-]+)"/);
+    return st ? `<tr data-status="${st[1]}">` : tr;
+  });
   // "For practice" is a band: the heading and all that follows it, to the next heading.
   return out.replace(/<h2 id="for-practice">[\s\S]*?(?=<h2|$)/, (m) => `<section class="practice">${m}</section>\n`);
 }
@@ -382,6 +387,8 @@ function twinMd(page, link) {
     .replace(/\]\((\/[^)#\s]*)(#[^)\s]*)?\)/g, (_, path, frag = '') => `](${link(path)}${frag})`)
     .replace(new RegExp(DIRECTIVE.source, 'gm'), (_, directive, name) =>
       directive === 'thread-map' ? threadMapMd(link) : diagramMd(diagramParts(name)))
+    // A filter control has no meaning in the twin.
+    .replace(/<fieldset[\s\S]*?<\/fieldset>\n?/g, '')
     // A "Go deeper" section is a heading in the twin.
     .replace(/<details[^>]*>\s*<summary>(.*?)<\/summary>/g, '### $1')
     .replace(/<\/details>\n?/g, '')
