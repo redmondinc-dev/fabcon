@@ -32,6 +32,18 @@ Workspace Admins, Members and Contributors read all OneLake data. Microsoft Lear
 
 </details>
 
+<details id="onelake-roles"><summary>OneLake roles and shortcuts</summary>
+
+Aaron Merrill and Cristian Petculescu (OneLake security session) showed that a OneLake security role has 3 parts: who (members), what (permission) and target. The target is a schema, table, column, row or folder. A user in more than one role gets the union of the roles. [C307]
+
+A passthrough shortcut checks the user at the target. A delegated shortcut reads the target with a fixed identity. Then the consumer roles narrow the result. They cannot widen it. [C309]
+
+Shortcuts to external storage, such as S3 or ADLS Gen2, always use a delegated identity. Delegated OneLake shortcuts also work across tenants. [C310]
+
+A new permissions view answers 2 questions: "Who has access to this table?" and "What data can this user see?" The slide showed OneLake security roles only. In our reading, the view does not show semantic model security or access through groups. [C311]
+
+</details>
+
 <details id="routes"><summary>The route table, the tests and the customer case</summary>
 
 | Route | The query runs as | Status |
