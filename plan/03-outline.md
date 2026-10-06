@@ -21,7 +21,7 @@ History: the first version had eight threads. On 4 October 2026, Identity joined
 1. **Thread map** (the main diagram and the main navigation), directly below the message. Four groups, six threads. Each node is a link.
 2. **Our reading.** Six points. Each point is a bold line, one sentence, and links to its threads. A line below links to All findings (C001, C002).
 3. **Where to start, by role.** IT and security, governance, data and analytics.
-4. **About this site.** The scope (two attendees, one focus, data engineering notes not in yet), "Nothing here was tested in our own tenant", and the label rule. This block stays at the foot of the page.
+4. **About this site.** The scope (two attendees, one main focus, and the data engineer's additions with the label "Attendee account"), "Nothing here was tested in our own tenant", and the label rule. This block stays at the foot of the page.
 5. **More.** Where Fabric goes next, Open questions, All findings, For agents.
 
 | Group | Thread | Message |
@@ -74,7 +74,7 @@ The six points of "Our reading": data is still the base (understand your data fi
 
 **Go deeper:**
 - `six-layers`: build the security graph. (C306, C303, C304)
-- `onelake-roles`: OneLake roles and shortcuts, the permissions view, and the Learn exception for workspace roles. (C307, C308, C309, C310, C311)
+- `onelake-roles`: OneLake roles and shortcuts, the permissions view, and the Learn exception for workspace roles. From the second attendee: where the roles are set, and the access mode of the SQL endpoint. (C307, C308, C309, C310, C311, C316, C317, C907)
 - `routes`: the route table, the tests and the customer case. The 4-of-4 result is stated here only: 15 September, Fabric IQ route in Teams. (C201, C203, C205)
 - `prove-the-caller`: the operation log and the PIM test. (C207, C211)
 
@@ -90,11 +90,11 @@ The six points of "Our reading": data is still the base (understand your data fi
 
 **Diagram:** `injection-channels`. Left, "SQL": code and data in two channels. Right, "LLM": instructions and data in one channel. Below: the controls that sit outside the model. Credit: after Mariusz Wójcik and Piotr Balik, W21.
 
-**What the sessions said:** C401, C404, C406. "Limit what the agent can do" is our summary of the defence list.
+**What the sessions said:** C401, C403, C404, C406. "Limit what the agent can do" is our summary of the defence list.
 
 **Go deeper:**
 - `defences`: the 9 defences. (C406)
-- `attack-types`: the 5 attack types. (C405)
+- `attack-types`: the 5 attack types, and the point on compacted conversations from the second attendee. (C405, C409)
 - `sql-agent`: Copilot agent mode in SQL Server Management Studio, generally available. (C407)
 
 **Not confirmed:** the database constitution. (C954)
@@ -131,12 +131,14 @@ The six points of "Our reading": data is still the base (understand your data fi
 
 **Diagram:** `effort-split`. Expected and actual effort for four categories. Credit: after Hasan Savran, W41. The caption says that it is the speaker's estimate and that the slide gave no data source.
 
-**What the sessions said:** C701, C706, C703, C707.
+**What the sessions said:** C701, C706, C703, C707, and the GPU-accelerated warehouse from the second attendee (C711, C713).
 
 **Go deeper:**
 - `cost`: cost for each useful answer, on a fictional workload. The two figures are not like for like. (C706)
 - `capacity`: smoothing and throttling. (C707)
 - `gateway`: the AI gateway, and retrieval. (C702, C704)
+- `gpu-warehouse`: faster reads, at a higher rate. From the second attendee. (C711, C712, C713, C714, C715)
+- `table-health`: check table health before you pay for speed. From the second attendee. (C716)
 
 **Not confirmed:** the cost of Copilot Studio for each request. (C955)
 
@@ -176,7 +178,7 @@ The six points of "Our reading": data is still the base (understand your data fi
 | Agents | Fabric data agents and operations agents | C908 |
 | Agents | Data engineering agent | C905 |
 | Agents | Database agents | C902 |
-| Agents | Database Hub | C909 |
+| Agents | Database Hub | C909, C915 |
 | Security | OneLake security | C312 |
 | Security | Table Read API for agents | C906 |
 | Security | Dynamic row-level security | C907 |
@@ -188,10 +190,11 @@ The six points of "Our reading": data is still the base (understand your data fi
 | SQL | Live vector index | C901 |
 | SQL | Developer tools | C903 |
 | SQL | Automatic index compaction | C911 |
+| SQL | GPU query acceleration | C711, C713 |
 | Skills | DP-800 certification | C904 |
 | Sovereignty | Sovereign private cloud | C807 |
 
-**Go deeper:** the limits of these statements, and more detail on some rows.
+**Go deeper:** the limits of these statements, and more detail on some rows. The detail holds the second attendee's points on the Database Hub and dynamic row-level security (C915, C916, C917, C918).
 
 ---
 
@@ -219,8 +222,8 @@ Generated from `content/claims.json` by the `::findings-list` directive. One gro
 
 **Message:** One focus: applied AI, security and governance.
 
-- The focus statement: two attendees, and this version holds the notes of one.
-- A table of the 12 sessions from `content/sources.json`: title, speaker where known ("Not named" where not), date, and the pages that use it.
+- The focus statement: two attendees, one main focus, and what the second attendee added.
+- A table of the 14 sessions from `content/sources.json`: title, speaker where known ("Not named" where not), date, and the pages that use it.
 - What this site does not cover: Power BI authoring, Real-Time Intelligence, data engineering practice, most SQL sessions.
 - The evidence base in numbers. Keep the count of web sources equal to `content/sources.json`.
 

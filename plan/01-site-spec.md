@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-A public, static website that reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026). The site name is "FabCon Europe 2026: AI, security and governance". The current content is from the notes of one attendee.
+A public, static website that reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026). The site name is "FabCon Europe 2026: AI, security and governance". Most of the content is from the slides and notes of one attendee. The second attendee, a data engineer, added statements with the evidence value `account`.
 
 - **Readers:** a technical audience — CTO, developer leads, data leads, IT.
 - **Use 1:** the attendee presents it live.

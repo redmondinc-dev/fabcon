@@ -21,10 +21,11 @@ These 6 points are our conclusions from the sessions. The claims behind them are
 - **IT and security:** [Access and identity](/access/), [Untrusted input](/untrusted-input/)
 - **Governance:** [Evidence and governance](/governance/), [Concentration](/concentration/)
 - **Data and analytics:** [Context](/context/), [Production reality](/production/)
+- **Data engineering:** [Production reality](/production/#gpu-warehouse), [Where Fabric goes next](/signals/), [Access and identity](/access/#onelake-roles)
 
 ## About this site
 
-Two of us went to FabCon Europe 2026. This site covers one focus: applied AI in the Microsoft stack, and its security and governance. Data engineering notes are not in yet. See [Sessions and focus](/sessions/).
+Two of us went to FabCon Europe 2026. This site has one main focus: applied AI in the Microsoft stack, and its security and governance. The second of us, a data engineer, added the engines and the database estate. His statements show the label "Attendee account". See [Sessions and focus](/sessions/).
 
 Nothing here was tested in our own tenant. Each statement is from a speaker, from Microsoft or from a third party.
 
