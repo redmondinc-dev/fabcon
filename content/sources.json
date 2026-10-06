@@ -64,6 +64,7 @@
     {
       "id": "S-ONELAKE",
       "title": "OneLake security – deep dive and what's new",
+      "session_code": "W47",
       "speakers": ["Aaron Merrill", "Cristian Petculescu"],
       "date": "2026-09-30",
       "basis": "full slide deck (90 slides) and 8 photos",
@@ -99,6 +100,22 @@
       "speakers": [],
       "date": "2026-10-01",
       "basis": "attendee notes and 2 photos of a live demo. Session title is from attendee notes."
+    },
+    {
+      "id": "S-DBHUB",
+      "title": "Database Hub session",
+      "session_code": "T14",
+      "speakers": ["Patrick LeBlanc", "Charles Webb"],
+      "date": "2026-09-29",
+      "basis": "the second attendee's account and his summary deck of 5 October 2026. The session title is not recorded; this title names the topic. The date is from the session code."
+    },
+    {
+      "id": "S-GPU-WAREHOUSE",
+      "title": "GPU-accelerated warehouse session",
+      "session_code": "W29",
+      "speakers": ["Filip Popović", "Maraki Ketema"],
+      "date": "2026-09-30",
+      "basis": "the second attendee's account and his summary deck of 5 October 2026. The session title is not recorded; this title names the topic. The date is from the session code."
     }
   ],
   "web": [

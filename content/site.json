@@ -11,8 +11,8 @@
   ],
   "summary": [
     "This site reports on applied AI, security and governance in Microsoft Fabric, from FabCon Europe 2026.",
-    "Two of us attended, and this version holds the notes of one.",
-    "Each statement has an evidence label: Slide, Notes, Microsoft, Third party, Research or Our reading.",
+    "Two of us attended: one with a focus on applied AI, and a data engineer.",
+    "Each statement has an evidence label: Slide, Notes, Microsoft, Third party, Research, Attendee account or Our reading.",
     "Speaker statements are not tested facts, and nothing here was tested in our own tenant."
   ],
   "groups": [

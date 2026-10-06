@@ -27,6 +27,7 @@ const EVIDENCE = {
   docs: ['Microsoft', 'From Microsoft documentation or a Microsoft blog.'],
   'third-party': ['Third party', 'From an independent article or a vendor.'],
   research: ['Research', 'From an academic paper.'],
+  account: ['Attendee account', 'The second attendee\'s report of a session. Not checked against a slide.'],
   inference: ['Our reading', 'A conclusion that we made.'],
 };
 const STATUS = {
