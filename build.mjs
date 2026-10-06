@@ -314,11 +314,15 @@ function citeHtml(group, srcs, state) {
 }
 
 function citeMd(group, notes) {
+  let prev = null;
   return citeIds(group).map((id) => {
     const c = claims.get(id);
-    let t = `*(${EVIDENCE[c.evidence][0]})*`;
-    if (c.product_status) t += ` *(${STATUS[c.product_status]}, as of ${site.statusAsOf})*`;
-    for (const ref of c.sources) t += ` [${noteOf(notes, ref).n}]`;
+    let label = `*(${EVIDENCE[c.evidence][0]})*`;
+    if (c.product_status) label += ` *(${STATUS[c.product_status]}, as of ${site.statusAsOf})*`;
+    const refs = c.sources.map((ref) => `[${noteOf(notes, ref).n}]`).join(' ');
+    // In one group, a claim with the same labels as the claim before it does not repeat them.
+    const t = label === prev ? refs : `${label} ${refs}`;
+    prev = label;
     return t;
   }).join(' ');
 }
