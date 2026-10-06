@@ -37,6 +37,8 @@ If the folder `private/` exists on this machine, read `private/README.md` at the
 - Write page content as Markdown in `content/pages/`. The build makes HTML, Markdown twins, `llms.txt` and `llms-full.txt` from the same source.
 - Keep the build small. No client framework.
 - After each content change, run the build (`npm run build`) and then `scripts/check-dist`. The build checks claim ids, source ids, sentence length and that nothing under `private/` is tracked. `scripts/check-dist` checks links, anchors, the redirect stubs and the page budgets. `scripts/source-share` reports the share of each source on each page.
+- Before a commit, run `scripts/preflight`. It fails on a media file, an email address, a local path, a private term, or a file that git does not track or ignore. The deployment runs it too. Stage files by name.
+- The build writes its commit to `dist/version.txt` and to a `build` meta tag on each page.
 - Commit in small steps. Use a branch for each page.
 
 ## What is not decided

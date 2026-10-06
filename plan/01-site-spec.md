@@ -98,6 +98,8 @@ The human pages and the agent files come from the same source. They must not dri
   - a sentence in a page message is longer than 12 words;
   - a redirect goes to a path that is not a page, or the thread of a claim has no page.
 - The build reports sentences longer than 25 words as warnings.
+- The build writes its commit to `version.txt` and to a `build` meta tag on each page. A build from a working tree with edits has the mark "+changes".
+- `scripts/preflight` runs after the build, also in the deployment. It fails on a media or office file, an email address, a path on a local machine, a private term, or a file that git does not track or ignore. The private terms are not in the repository: they come from the secret `PREFLIGHT_TERMS` or from `private/preflight-terms.txt`.
 - `scripts/check-dist` checks the built site: links and anchors, the redirect stubs, removed strings, that each claim is on All findings, the number of Go deeper blocks and diagrams for each thread page, and that the twins match the pages. Run it after each build.
 - `scripts/source-share` reports, for each page, the share of the notes from each source.
 
