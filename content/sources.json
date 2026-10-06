@@ -1,5 +1,5 @@
 {
-  "_about": "Bibliography for the site FabCon Europe 2026: AI, security and governance. Session sources are cited by speaker where the speaker is known, otherwise by session title. Web sources were found on 2026-10-04 and must be re-checked before publication. Slide content is paraphrased or quoted briefly; no slide images are published.",
+  "_about": "Bibliography for the site FabCon Europe 2026: AI, security and governance. Session sources are cited by speaker where the speaker is known, otherwise by session title. Web sources were found on 2026-10-04 (W40 to W44 on 2026-10-06) and must be re-checked before publication. Slide content is paraphrased or quoted briefly; no slide images are published.",
   "event": {
     "name": "European Microsoft Fabric + SQL Community Conference (FabCon Europe / SQLCon Europe)",
     "place": "Barcelona",
@@ -157,6 +157,11 @@
     {"id": "W36", "title": "FabCon and SQLCon 2026 in Barcelona: Building the data foundation for Microsoft Copilot and agents", "publisher": "Microsoft Azure blog", "url": "https://azure.microsoft.com/en-us/blog/fabcon-and-sqlcon-2026-in-barcelona-building-the-data-foundation-for-microsoft-copilot-and-agents/", "kind": "microsoft"},
     {"id": "W37", "title": "What Is Ontology (Preview)?", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/iq/ontology/overview", "kind": "microsoft"},
     {"id": "W38", "title": "New Microsoft Certified: SQL AI Developer Associate Certification", "publisher": "Microsoft Tech Community (Skills Hub blog)", "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/new-microsoft-certified-sql-ai-developer-associate-certification/4494113", "kind": "microsoft"},
-    {"id": "W39", "title": "Read data secured with OneLake security", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/read-secured-data", "kind": "microsoft"}
+    {"id": "W39", "title": "Read data secured with OneLake security", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/read-secured-data", "kind": "microsoft"},
+    {"id": "W40", "title": "Query Acceleration in Fabric Data Warehouse (Preview)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/query-acceleration", "kind": "microsoft"},
+    {"id": "W41", "title": "Fabric operations", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/enterprise/fabric-operations", "kind": "microsoft"},
+    {"id": "W42", "title": "sys.sp_get_table_health_metrics (Transact-SQL)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-get-table-health-metrics-transact-sql?view=fabric", "kind": "microsoft"},
+    {"id": "W43", "title": "Database Hub (Preview)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/database/hub/overview", "kind": "microsoft"},
+    {"id": "W44", "title": "Enable performance monitoring for Microsoft SQL (preview)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/database/hub/add-sql", "kind": "microsoft"}
   ]
 }

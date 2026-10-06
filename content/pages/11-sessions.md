@@ -27,6 +27,6 @@ The second attendee added the GPU-accelerated warehouse and the Database Hub. Th
 - 14 sessions across 3 days. For 2 of them, the basis is the second attendee's account.
 - 6 slide decks with about 250 slides.
 - 77 photos of slides.
-- 39 web sources.
+- 44 web sources.
 
 See [Sources](/sources/) for each one.

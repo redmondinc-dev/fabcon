@@ -28,7 +28,7 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Agents | Fabric data agents and operations agents | Fabric data agents are generally available. Operations agents monitor real-time data and act. [C908] |
 | Agents | Data engineering agent | Microsoft acquired Osmos in January 2026. Its technology is now a data engineering agent in Fabric. [C905] |
 | Agents | Database agents | Microsoft said that database agents for SQL and PostgreSQL on Azure will soon be in preview. The keynote slide also named SQL Server and Azure HorizonDB. [C902] |
-| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. It is free in the preview. [C909, C915] |
+| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. It needs no Fabric capacity. [C909, C915] |
 | Security | OneLake security | The speakers said that OneLake security is generally available. Eventhouse and external engines are in preview. [C312] |
 | Security | Table Read API for agents | An agent reads a Delta or Iceberg table without SQL. OneLake applies table, column and row security on each read. [C906] |
 | Security | Dynamic row-level security | Rules can use the name of the user and can join other tables. The estimate is the first quarter of 2027. [C907] |
@@ -69,9 +69,9 @@ Three rows have no status chip, because their sources state no status. They show
 
 Database agents follow 5 steps: detect, understand, verify, learn, automate. They have skills, tools and connectors. [C902]
 
-The Database Hub reads SQL Server through Azure Arc, Azure SQL, Azure Database for PostgreSQL and Cosmos DB. It does not cover mirrored databases or the Fabric warehouse. [C915]
+The Database Hub shows Azure SQL, SQL database in Fabric, Azure Database for PostgreSQL and Azure Cosmos DB. It also shows SQL Server through Azure Arc or on Azure VMs. It does not support mirrored databases or Fabric Data Warehouse. The preview does not support Fabric capacities in North Europe or West Europe. [C915]
 
-For SQL Server, it needs Azure Arc and SQL Server 2016 SP1 or later, Standard or Enterprise edition, on Windows. The license type must be Software Assurance or pay-as-you-go. [C916]
+For performance data from SQL Server through Azure Arc, it needs SQL Server 2016 SP1 or later, Standard or Enterprise edition, on Windows. The license type must be Software Assurance or pay-as-you-go. [C916]
 
 The Database Hub is not the Monitoring hub. The Monitoring hub watches Fabric jobs and pipelines. [C917]
 

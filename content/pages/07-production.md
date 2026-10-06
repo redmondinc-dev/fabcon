@@ -45,17 +45,17 @@ He said that most RAG failures happen at the retrieval stage. RAG latency is one
 
 Filip Popović and Maraki Ketema (W29) presented these points:
 
-- Fabric Data Warehouse has GPU query acceleration, built with NVIDIA. It is in limited preview. [C711]
+- Fabric Data Warehouse has GPU query acceleration. It is in limited preview, by request, in 5 regions. [C711]
 - Microsoft claims up to 7 times the speed of 3 leading cloud warehouses. This is Microsoft's own benchmark. [C712]
 - With acceleration on, a warehouse core uses 3.446 capacity units, against 0.538. [C713]
-- One switch turns it on for the whole workspace. Each query on a warehouse or SQL endpoint there then bills at the GPU rate. [C714]
-- It speeds up reads only. It is for SELECT queries on the gold layer, best up to about 1 TB scanned. [C715]
+- One switch turns it on for the whole workspace. Each query on a warehouse or SQL endpoint there then bills at the GPU rate. A change of the switch cancels the queries that run. [C714]
+- It speeds up reads only. Queries on up to about 1 TB of data benefit most. [C715]
 
 </details>
 
 <details id="table-health"><summary>Check table health before you pay for speed</summary>
 
-Microsoft has a health procedure for lakehouse tables. It finds small files and deleted rows. The usual fix is OPTIMIZE. Small files slow each engine. [C716]
+Microsoft has a health procedure for lakehouse tables: `sys.sp_get_table_health_metrics`, on the SQL analytics endpoint. It finds small files and deleted rows. The usual fix is OPTIMIZE, which runs from Spark. [C716]
 
 </details>
 
