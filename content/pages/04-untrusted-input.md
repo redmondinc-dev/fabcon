@@ -10,6 +10,7 @@ Mariusz Wójcik and Piotr Balik (W21) said that there is no "sanitized" natural 
 ## What the sessions said
 
 - Mariusz Wójcik and Piotr Balik (W21) said that SQL injection and prompt injection use the same fault: no separation of code and data. [C401]
+- Their slide put prompt injection at number 1 in the OWASP Top 10 for LLM applications (2025). [C403]
 - For SQL injection, they said that parameterised queries are the primary defence. Input validation and a web application firewall are additions, not replacements. [C404]
 - For prompt injection, their slide listed 9 defences, such as least privilege and authorization of each action on the server. "Limit what the agent can do" is our summary of the list. [C406]
 
@@ -34,6 +35,8 @@ Mariusz Wójcik and Piotr Balik (W21) listed these defences: [C406]
 <details id="attack-types"><summary>The 5 types of prompt injection attack</summary>
 
 Mariusz Wójcik and Piotr Balik showed 5 attack types: direct, indirect, obfuscated, agent and multimodal, and amplified by many attempts. Indirect attacks hide in documents, web pages or retrieved content. Attackers combine them. [C405]
+
+The speakers also said that a conversation can be easier to attack after it is compacted. [C409]
 
 </details>
 

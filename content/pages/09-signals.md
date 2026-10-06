@@ -28,7 +28,7 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Agents | Fabric data agents and operations agents | Fabric data agents are generally available. Operations agents monitor real-time data and act. [C908] |
 | Agents | Data engineering agent | Microsoft acquired Osmos in January 2026. Its technology is now a data engineering agent in Fabric. [C905] |
 | Agents | Database agents | Microsoft said that database agents for SQL and PostgreSQL on Azure will soon be in preview. The keynote slide also named SQL Server and Azure HorizonDB. [C902] |
-| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. [C909] |
+| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. It is free in the preview. [C909, C915] |
 | Security | OneLake security | The speakers said that OneLake security is generally available. Eventhouse and external engines are in preview. [C312] |
 | Security | Table Read API for agents | An agent reads a Delta or Iceberg table without SQL. OneLake applies table, column and row security on each read. [C906] |
 | Security | Dynamic row-level security | Rules can use the name of the user and can join other tables. The estimate is the first quarter of 2027. [C907] |
@@ -40,6 +40,7 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | SQL | Live vector index | Azure SQL Database has vector compression and a live vector index. [C901] |
 | SQL | Developer tools | Copilot chat in SQL Server Management Studio, Schema Compare, SQL Projects and a SQL formatter. [C903] |
 | SQL | Automatic index compaction | It removes the need for scheduled index maintenance jobs. Microsoft said on 29 September 2026 that it is generally available. [C911] |
+| SQL | GPU query acceleration | Fabric Data Warehouse has GPU query acceleration, in limited preview. A core then uses about 6.4 times the capacity units. See [Production reality](/production/#gpu-warehouse). [C711, C713] |
 | Skills | DP-800 certification | A new certification: SQL AI Developer Associate. [C904] |
 | Sovereignty | Sovereign private cloud | The keynote showed Foundry Local, data platform services and customer applications on Azure Local. [C807] |
 
@@ -67,6 +68,14 @@ Three rows have no status chip, because their sources state no status. They show
 <details id="more-detail"><summary>More detail on some rows</summary>
 
 Database agents follow 5 steps: detect, understand, verify, learn, automate. They have skills, tools and connectors. [C902]
+
+The Database Hub reads SQL Server through Azure Arc, Azure SQL, Azure Database for PostgreSQL and Cosmos DB. It does not cover mirrored databases or the Fabric warehouse. [C915]
+
+For SQL Server, it needs Azure Arc and SQL Server 2016 SP1 or later, Standard or Enterprise edition, on Windows. The license type must be Software Assurance or pay-as-you-go. [C916]
+
+The Database Hub is not the Monitoring hub. The Monitoring hub watches Fabric jobs and pipelines. [C917]
+
+The rules for dynamic row-level security use USER_ID() and IS_MEMBER(). [C918]
 
 Column-level security removes hidden columns in Spark and Power BI. In SQL, the query must leave out the hidden columns. [C313]
 

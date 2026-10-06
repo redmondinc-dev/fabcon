@@ -1,6 +1,6 @@
 ---
 page: production
-description: Where the effort and the cost of an AI project go after the prototype: evaluation, data, gateways and capacity.
+description: Where the effort and the cost go after the prototype: evaluation, data, gateways, capacity and the price of faster queries.
 ---
 
 Hasan Savran (W41) estimated that the prototype is 10% of the effort in an LLM project. Teams expect 70%. [C701]
@@ -13,6 +13,7 @@ Hasan Savran (W41) estimated that the prototype is 10% of the effort in an LLM p
 - Leon Gordon (TH14) said that you pay for each attempt, not for each answer. His cost figures come from a fictional workload. [C706]
 - Hasan Savran said that an agent can loop on a failed tool call and spend money each time. Use budget guards, rate limits for each session, and cost alerts. [C703]
 - Leon Gordon showed that queries that the agent generates are interactive, and they throttle first. [C707]
+- Filip Popović and Maraki Ketema (W29) presented GPU query acceleration for the warehouse. A warehouse core then uses about 6.4 times the capacity units. [C711, C713]
 
 ## Go deeper
 
@@ -37,6 +38,24 @@ This is the default policy from Microsoft Learn. The speaker verified it on 17 S
 Hasan Savran (W41) said that applications must talk to an AI gateway, not to a model directly. The gateway gives model routing, cost tracking, token logging, access control, one API standard, and governance and audit. Models become replaceable. The slide named LiteLLM as the example. [C702]
 
 He said that most RAG failures happen at the retrieval stage. RAG latency is one of the biggest adoption killers in the enterprise. You must have a method to find vector data that is out of sync with the source. [C704]
+
+</details>
+
+<details id="gpu-warehouse"><summary>Faster reads, at a higher rate</summary>
+
+Filip Popović and Maraki Ketema (W29) presented these points:
+
+- Fabric Data Warehouse has GPU query acceleration, built with NVIDIA. It is in limited preview. [C711]
+- Microsoft claims up to 7 times the speed of 3 leading cloud warehouses. This is Microsoft's own benchmark. [C712]
+- With acceleration on, a warehouse core uses 3.446 capacity units, against 0.538. [C713]
+- One switch turns it on for the whole workspace. Each query on a warehouse or SQL endpoint there then bills at the GPU rate. [C714]
+- It speeds up reads only. It is for SELECT queries on the gold layer, best up to about 1 TB scanned. [C715]
+
+</details>
+
+<details id="table-health"><summary>Check table health before you pay for speed</summary>
+
+Microsoft has a health procedure for lakehouse tables. It finds small files and deleted rows. The usual fix is OPTIMIZE. Small files slow each engine. [C716]
 
 </details>
 
