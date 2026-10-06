@@ -38,6 +38,17 @@ const STATUS = {
   'not-available': 'Not available',
 };
 
+// The commit that this build came from. It shows which build a server gives.
+// "+changes" marks a build from a working tree with edits that are not committed.
+const buildVersion = (() => {
+  try {
+    const git = (...a) => execFileSync('git', ['-C', root, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    return git('rev-parse', '--short=12', 'HEAD') + (git('status', '--porcelain', '--untracked-files=no') ? '+changes' : '');
+  } catch {
+    return 'unknown';
+  }
+})();
+
 const errors = [];
 const warnings = [];
 
@@ -758,6 +769,7 @@ for (const page of pages) {
     pager: pagerHtml(page),
     statusAsOf: esc(site.statusAsOf),
     webCheckedOn: esc(site.webCheckedOn),
+    buildVersion: esc(buildVersion),
   };
   const dir = page.path.slice(1);
   write(`${dir}index.html`, layout.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? ''));
@@ -813,6 +825,7 @@ write('llms-full.txt', [
 write('claims.json', readFileSync(join(content, 'claims.json'), 'utf8'));
 write('sources.json', readFileSync(join(content, 'sources.json'), 'utf8'));
 write('robots.txt', 'User-agent: *\nAllow: /\n');
+write('version.txt', `${buildVersion}\n`);
 mkdirSync(join(dist, 'assets'), { recursive: true });
 for (const f of ['site.css', 'site.js']) copyFileSync(join(here, 'site', f), join(dist, 'assets', f));
 
