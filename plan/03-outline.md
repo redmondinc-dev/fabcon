@@ -18,10 +18,10 @@ History: the first version had eight threads. On 4 October 2026, Identity joined
 
 **Order of the page:**
 
-1. **Thread map** (the main diagram and the main navigation), directly below the message. Four groups, six threads. Each node is a link.
+1. **Thread map** (the main diagram and the main navigation), directly below the message. Five groups, nine threads. Each node is a link. The Reality check and Data platform groups are bands below the three top groups.
 2. **Our reading.** Six points. Each point is a bold line, one sentence, and links to its threads. A line below links to All findings (C001, C002).
 3. **Where to start, by role.** IT and security, governance, data and analytics.
-4. **About this site.** The scope (two attendees, one focus, data engineering notes not in yet), "Nothing here was tested in our own tenant", and the label rule. This block stays at the foot of the page.
+4. **About this site.** The scope (two attendees, two focuses), "Nothing here was tested in our own tenant", and the label rule. This block stays at the foot of the page.
 5. **More.** Where Fabric goes next, Open questions, All findings, For agents.
 
 | Group | Thread | Message |
@@ -161,6 +161,60 @@ The six points of "Our reading": data is still the base (understand your data fi
 
 ---
 
+## 6a. Data engineering agent
+
+**Message:** People define the contract. The agent builds inside it.
+
+**Lead:** Project Osmos is a data engineering agent in Fabric, in preview. A task reports complete only after validation. (C720, C730, C722)
+
+**Diagram:** `osmos-task`. Coding agent → task in a Fabric workspace (permissions inherited) → understand → build → validate, with a refine loop → complete. People at the side: define the contract, instruct, reply. Credit: after Naresh Venkat and Achraf Cherki Elidrissi, W08.
+
+**What the sessions said:** C721, C720, C722, C727, C728.
+
+**Go deeper:** `start-a-task` (C723, C724, C730, C731, C726), `cost` (C732, C729, C915), `harness` (C725, C733).
+
+**Not confirmed:** the task REST API (C958).
+
+Claim range: C720 to C739.
+
+---
+
+## 6b. Lakehouse table health
+
+**Message:** Lakehouse tables degrade silently. Someone must maintain them.
+
+**Lead:** Lakehouse tables get no automatic maintenance. A procedure on the SQL analytics endpoint reports the worst problem of each table. (C740, C742)
+
+**Diagram:** `table-health`. Health check → 3 symptoms → 3 fixes, run from Spark. Credit: after Filip Popović and Maraki Ketema, W29; the procedure and the first fix for deleted rows are from Microsoft Learn.
+
+**What the sessions said:** C740, C741, C748, C749.
+
+**Go deeper:** `health-check` (C742 to C745), `write-and-sync` (C746, C747, C753), `gpu` (C750 to C752).
+
+**Not confirmed:** "SQL analytics endpoint 2.0" (C959).
+
+Claim range: C740 to C759.
+
+---
+
+## 6c. SQL and databases
+
+**Message:** Some new SQL features are in Azure only. Check each one.
+
+**Lead:** SQL Server 2025 and Azure SQL added locking, index and AI features. Some are in Azure only, and some are off by default. (C764, C765)
+
+**Diagram:** `sql-where`. Three bands: GA in both, preview in SQL Server 2025, Azure and Fabric SQL only. Our drawing, from Microsoft Learn.
+
+**What the sessions said:** C760, C762, C768, C774.
+
+**Go deeper:** `on-premises` (C765, C764, C767, C766), `ai-for-the-database` (C771, C772, C773, C770), `database-hub` (C776, C777, C778, C775), `troubleshooting-and-hyperscale` (C769, C779).
+
+**Not confirmed:** "proactive" automatic plan correction (caveat of C768).
+
+Claim range: C760 to C789. New signals claims: C915 to C917. New open questions: C958, C959.
+
+---
+
 ## 7. Where Fabric goes next
 
 **Message:** Fabric becomes the place where agents get context.
@@ -219,7 +273,7 @@ Generated from `content/claims.json` by the `::findings-list` directive. One gro
 
 **Message:** One focus: applied AI, security and governance.
 
-- The focus statement: two attendees, and this version holds the notes of one.
+- The focus statement: two attendees, two focuses, 6 shared sessions.
 - A table of the 12 sessions from `content/sources.json`: title, speaker where known ("Not named" where not), date, and the pages that use it.
 - What this site does not cover: Power BI authoring, Real-Time Intelligence, data engineering practice, most SQL sessions.
 - The evidence base in numbers. Keep the count of web sources equal to `content/sources.json`.

@@ -1,0 +1,3 @@
+title: From health check to fix
+text: The health procedure on the SQL analytics endpoint reports the worst problem of a table. Many small files need OPTIMIZE. Many deleted rows need OPTIMIZE, or REORG with PURGE to force it. An old checkpoint needs a new checkpoint. The fixes run from Spark.
+credit: After Filip Popović and Maraki Ketema, "Data Warehousing for the AI Era" (W29). The procedure and the first fix for deleted rows are from Microsoft Learn.

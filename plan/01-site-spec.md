@@ -2,7 +2,7 @@
 
 ## 1. Purpose
 
-A public, static website that reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026). The site name is "FabCon Europe 2026: AI, security and governance". The current content is from the notes of one attendee.
+A public, static website that reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026). The site name is "FabCon Europe 2026: AI, security and governance". The content holds the notes of both attendees: applied AI, security and governance, and data engineering.
 
 - **Readers:** a technical audience — CTO, developer leads, data leads, IT.
 - **Use 1:** the attendee presents it live.
@@ -32,6 +32,9 @@ The site reports and connects ideas. It does not ask the readers for a decision.
 | 4 | `/governance/` | Evidence and governance | Thread 4 |
 | 5 | `/production/` | Production reality | Thread 5 |
 | 6 | `/concentration/` | Concentration | Thread 6 |
+| 6a | `/build/` | Data engineering agent | Thread 7 (Data platform) |
+| 6b | `/table-health/` | Lakehouse table health | Thread 8 (Data platform) |
+| 6c | `/sql/` | SQL and databases | Thread 9 (Data platform) |
 | 7 | `/signals/` | Where Fabric goes next | Status table of announcements |
 | 8 | `/open-questions/` | Open questions | What is not confirmed, and the first tests |
 | 9 | `/findings/` | All findings | Each claim with its label, sources and caveat. Generated from `claims.json`. |
@@ -47,7 +50,7 @@ The outline for each page is in `plan/03-outline.md`.
 
 - **Home is a hub.** The thread map is the main navigation. It is a diagram, and each node is a link.
 - **Each thread page stands alone.** A reader who opens one page from a link understands it.
-- **Linear path for presentation.** Left and right arrow keys go to the previous and next page in the order of the table above. Show "Previous" and "Next" links at the foot of each page. Only the six thread pages have a number in these links.
+- **Linear path for presentation.** Left and right arrow keys go to the previous and next page in the order of the table above. Show "Previous" and "Next" links at the foot of each page. Only the thread pages have a number in these links.
 - **Top bar:** site name, the thread list, Sources, For agents.
 - **Deep links:** each section heading and each claim has a stable `id`. Each claim has the anchor `#C###` on All findings and on each page that cites it. If a page does not cite the claim, a script sends the anchor to All findings.
 - **Sources at the foot of a page:** a collapsed "Sessions on this page" block (numbers 1, 2, 3) and a visible "Documentation links" list (letters a, b, c). Each marker in the text links to its line. Each line links to `/sources/#<source-id>`.

@@ -26,6 +26,7 @@
   --g-limits: #1f4f96;
   --g-proof: #855a00;
   --g-reality: #7a3a78;
+  --g-platform: #9a3b1d;
   --on-group: #ffffff;  /* text on a group colour fill */
 
   /* One highlight. Fill only, with --ink text on it. Never as text or as a line on --bg. */
@@ -64,6 +65,8 @@
     --g-limits: #86b4f2;
     --g-proof: #e2b24a;
     --g-reality: #d79ad6;
+  --g-platform: #f0a07e;
+    --g-platform: #f0a07e;
     --on-group: #0e1512;
     --mark: #f2c744;
     --on-mark: #10201b;
@@ -84,6 +87,7 @@
   --g-limits: #86b4f2;
   --g-proof: #e2b24a;
   --g-reality: #d79ad6;
+  --g-platform: #f0a07e;
   --on-group: #0e1512;
   --mark: #f2c744;
   --on-mark: #10201b;

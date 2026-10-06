@@ -2,7 +2,7 @@
 
 A public static website, the debrief of a conference. It reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026) about applied AI, security and governance in Microsoft Fabric.
 
-The current content is from the notes of one attendee. The notes of the second attendee (focus: data engineering) are not in it yet.
+The content holds the notes of both attendees. The first focus is applied AI, security and governance. The second focus is data engineering (the "Data platform" band on the thread map).
 
 Readers are a technical audience: CTO, developer leads, data leads, IT. The attendee presents the site live. Readers also explore it alone, and point AI agents at it.
 
@@ -16,9 +16,9 @@ Readers are a technical audience: CTO, developer leads, data leads, IT. The atte
 6. `content/sources.json` — the bibliography.
 7. `content/site.json` — the page order, titles, messages and redirects.
 
-The site has six thread pages: Context, Access and identity, Untrusted input, Evidence and governance, Production reality, Concentration. The old paths `/identity/` and `/evidence/` are redirect stubs.
+The site has nine thread pages: Context, Access and identity, Untrusted input, Evidence and governance, Production reality, Concentration, and three in the Data platform group: Data engineering agent, Lakehouse table health, SQL and databases. The old paths `/identity/` and `/evidence/` are redirect stubs.
 
-If the folder `private/` exists on this machine, read `private/README.md` at the start of a session. It is local context only.
+If the folder `private/` exists on this machine, read `private/README.md` at the start of a session. It is local context only. The second attendee's photos and transcript are in `private/sources/photos/attendee-2/` and `private/sources/transcripts/attendee-2-photos.md` on that attendee's machine.
 
 ## Rules that do not change
 

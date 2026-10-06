@@ -1,0 +1,3 @@
+title: Where each feature runs
+text: Optimized locking and the ABORT_QUERY_EXECUTION hint are generally available in SQL Server 2025 and in Azure SQL. In SQL Server 2025, optimized locking is off by default. The vector index and change event streaming are in preview in SQL Server 2025. Automatic index compaction is in Azure SQL and Fabric SQL only.
+credit: Our drawing, from Microsoft Learn: optimized locking, automatic index compaction, change event streaming, and What's new in SQL Server 2025.

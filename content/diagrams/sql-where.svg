@@ -1,0 +1,20 @@
+<svg viewBox="0 0 364 300" role="img" aria-labelledby="sql-where-title" xmlns="http://www.w3.org/2000/svg">
+<title id="sql-where-title">Where each feature runs</title>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="8" y="8" width="348" height="84" rx="6"/>
+<rect x="8" y="108" width="348" height="84" rx="6" stroke-dasharray="6 4"/>
+<rect x="8" y="208" width="348" height="84" rx="6" stroke-dasharray="1 5" stroke-linecap="round" stroke-width="2.5"/>
+</g>
+<g font-size="13" font-weight="650" style="fill:var(--g-platform)">
+<text x="22" y="32">GA in SQL Server 2025 and Azure SQL</text>
+<text x="22" y="132">Preview in SQL Server 2025</text>
+<text x="22" y="232">Azure SQL and Fabric SQL only</text>
+</g>
+<g fill="currentColor" font-size="12.5">
+<text x="22" y="56">Optimized locking (off by default on-premises)</text>
+<text x="22" y="76">ABORT_QUERY_EXECUTION query hint</text>
+<text x="22" y="156">Vector index</text>
+<text x="22" y="176">Change event streaming (not with mirroring)</text>
+<text x="22" y="256">Automatic index compaction</text>
+</g>
+</svg>

@@ -337,8 +337,8 @@ function threadMapHtml(from) {
     }).join('');
     return `<section class="group g-${g.id}"><h3>${esc(g.title)}</h3><p class="gloss">${esc(g.gloss)}</p><ul>${cards}</ul></section>`;
   };
-  const top = site.groups.filter((g) => g.id !== 'reality').map(group).join('');
-  const reality = group(site.groups.find((g) => g.id === 'reality'));
+  const top = site.groups.filter((g) => !g.band).map(group).join('');
+  const bands = site.groups.filter((g) => g.band).map((g) => `<div class="map-band">${group(g)}</div>`).join('\n');
   return `<figure class="map" id="thread-map">
 <div class="map-agent">Agent</div>
 <svg class="map-lines" viewBox="0 0 900 90" aria-hidden="true" focusable="false">
@@ -348,7 +348,7 @@ function threadMapHtml(from) {
 <path d="M750 88C750 40 515 60 500 6" stroke-dasharray="1 7" stroke-linecap="round" marker-end="url(#map-arrow)"/>
 </svg>
 <div class="map-groups">${top}</div>
-<div class="map-band">${reality}</div>
+${bands}
 <figcaption>${esc(site.threadMapText)}</figcaption>
 </figure>`;
 }

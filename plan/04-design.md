@@ -28,7 +28,7 @@ Token values: `plan/design-tokens.css`. Merge them into `site/site.css`. Do not 
 |---|---|---|
 | `--bg: #fbfaf7` (warm) | `#f6f8f6` (cool, green-tinted) | The warm ground reads as a default AI look. |
 | `--accent: #0b5d5a` | `#0b6b57` | A little greener. Closer to the Fabric feel. |
-| Groups differ by line style only | Line style **and** a group colour (`--g-context`, `--g-limits`, `--g-proof`, `--g-reality`) | A reader sees the group at a glance. Line style keeps it readable without colour. |
+| Groups differ by line style only | Line style **and** a group colour (`--g-context`, `--g-limits`, `--g-proof`, `--g-reality`, `--g-platform`) | A reader sees the group at a glance. Line style keeps it readable without colour. |
 | Chips are pills (`border-radius: 999px`) | `--radius-sm` (2px), mono font, uppercase | A label, not a button. |
 | Each status chip is dashed | One line style for each status. See section 5. | The status must be readable without the text. |
 | Chip border uses `--muted` | `--border` | One token for lines that carry meaning. |
@@ -96,7 +96,7 @@ Top to bottom. Each part is already in the page pattern of `plan/02-style-guide.
 6. **For practice.** A band on `--sunk` with `--radius-md` and padding `--space-3`.
 7. **Not confirmed.** Plain text and one link to Open questions.
 8. **Sources.** A collapsed "Sessions on this page" block and a visible "Documentation links" list, in the `.sources` style.
-9. **Previous and next.** A 2px `--ink` line above. Each link has a label (`← PREVIOUS · 01`) and the page title. Only the six thread pages have a number. The link to the home page has the title "Home".
+9. **Previous and next.** A 2px `--ink` line above. Each link has a label (`← PREVIOUS · 01`) and the page title. Only the thread pages have a number. The link to the home page has the title "Home".
 
 On the home page the thread list reads as four rows, one for each group: the group marker and gloss on the left, the thread messages on the right as large links with their numbers. The current card grid under the agent node is also acceptable. Choose the one that reads better at phone width.
 

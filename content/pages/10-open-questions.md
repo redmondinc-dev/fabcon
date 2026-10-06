@@ -34,6 +34,8 @@ The question is about an agent that is built outside Foundry and Copilot Studio.
 
 The attendee's notes name them. No slide is held. The notes also ask how skills and plugins work with coding agents. [C954]
 
+Microsoft Learn now answers the first part. Both are extended properties: CONSTITUTION.md on the database, and AGENTS.md on an object. See [SQL and databases](/sql/#ai-for-the-database). [C771]
+
 - **Why it matters.** These files set what a coding agent can do in a database.
 - **What would answer it.** The documentation for Copilot in SQL Server Management Studio.
 
@@ -50,6 +52,20 @@ Ontology export is now documented. Microsoft Learn says that an ontology item ca
 
 - **Why it matters.** Open data formats cover tables, and the ontology now has an export. We found no documented export for AI instructions and agent definitions.
 - **What would answer it.** Export documentation from Microsoft, or a test export.
+
+### Is the task API of the data engineering agent public?
+
+A slide showed 5 REST endpoints for tasks. We found no documentation for them. [C958]
+
+- **Why it matters.** A public API lets a team start and watch tasks from its own tools.
+- **What would answer it.** Microsoft documentation for the API, or a statement from the product team.
+
+### What is "SQL analytics endpoint 2.0"?
+
+The notes name an upgrade to it. We found no Microsoft page that uses the name. [C959]
+
+- **Why it matters.** An upgrade can change how fast the endpoint sees new data.
+- **What would answer it.** The slide deck of the session, or a Microsoft page that uses the name.
 
 ## First tests
 

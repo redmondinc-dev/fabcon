@@ -1,0 +1,40 @@
+<svg viewBox="0 0 364 404" role="img" aria-labelledby="osmos-task-title" xmlns="http://www.w3.org/2000/svg">
+<title id="osmos-task-title">A task runs inside the workspace</title>
+<defs>
+<marker id="osmos-task-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--g-platform)"/></marker>
+</defs>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="28" y="8" width="190" height="40" rx="6"/>
+<rect x="8" y="88" width="238" height="252" rx="6" stroke-dasharray="6 4"/>
+<rect x="36" y="140" width="174" height="36" rx="6"/>
+<rect x="36" y="200" width="174" height="36" rx="6"/>
+<rect x="36" y="260" width="174" height="36" rx="6"/>
+<rect x="28" y="356" width="190" height="40" rx="12" style="fill:var(--mark)"/>
+<rect x="262" y="178" width="94" height="58" rx="6"/>
+</g>
+<g fill="none" stroke-width="2" style="stroke:var(--g-platform)">
+<path d="M123 48v38" marker-end="url(#osmos-task-arrow)"/>
+<path d="M123 176v22" marker-end="url(#osmos-task-arrow)"/>
+<path d="M123 236v22" marker-end="url(#osmos-task-arrow)"/>
+<path d="M36 278H22v-60h12" stroke-dasharray="4 3" marker-end="url(#osmos-task-arrow)"/>
+<path d="M123 296v58" marker-end="url(#osmos-task-arrow)"/>
+<path d="M248 207h12" marker-start="url(#osmos-task-arrow)" marker-end="url(#osmos-task-arrow)"/>
+</g>
+<g fill="currentColor" text-anchor="middle" font-size="13" font-weight="650">
+<text x="123" y="33">Coding agent</text>
+<text x="127" y="110">Task in a Fabric workspace</text>
+<text x="123" y="163">Understand</text>
+<text x="123" y="223">Build</text>
+<text x="123" y="283">Validate</text>
+<text x="123" y="381" style="fill:var(--on-mark)">Complete</text>
+<text x="309" y="203">People</text>
+</g>
+<g font-size="11.5" style="fill:var(--muted)">
+<text x="127" y="127" text-anchor="middle">Permissions inherited</text>
+<text x="309" y="222" text-anchor="middle">instruct, reply</text>
+<text x="309" y="256" text-anchor="middle">Define the</text>
+<text x="309" y="271" text-anchor="middle">contract</text>
+<text x="30" y="252">Refine</text>
+<text x="131" y="326">if it passes</text>
+</g>
+</svg>

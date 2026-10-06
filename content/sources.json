@@ -8,10 +8,10 @@
   "sessions": [
     {
       "id": "S-KEYNOTE",
-      "title": "Opening keynote",
-      "speakers": [],
+      "title": "The Data Foundation for AI: What's Next in Microsoft Fabric (opening keynote)",
+      "speakers": ["Arun Ulag", "Amir Netz", "Shireesh Thota"],
       "date": "2026-09-29",
-      "basis": "attendee notes and 11 photos of slides",
+      "basis": "attendee notes and 11 photos of slides. Second attendee: notes and 3 photos of slides. Title and speakers are from the ESPC programme.",
       "public_links": ["https://aka.ms/FabricSQLCerts", "https://aka.ms/dp800/exam"]
     },
     {
@@ -51,7 +51,7 @@
       "session_code": "W21",
       "speakers": ["Mariusz Wójcik", "Piotr Balik"],
       "date": "2026-09-30",
-      "basis": "full slide deck (17 slides) and 6 photos"
+      "basis": "full slide deck (17 slides) and 6 photos. Second attendee: notes and 2 photos."
     },
     {
       "id": "S-SAVRAN",
@@ -66,15 +66,16 @@
       "title": "OneLake security – deep dive and what's new",
       "speakers": ["Aaron Merrill", "Cristian Petculescu"],
       "date": "2026-09-30",
-      "basis": "full slide deck (90 slides) and 8 photos",
+      "basis": "full slide deck (90 slides) and 8 photos. Second attendee: notes and 3 photos.",
       "public_links": ["https://aka.ms/OneLake-Security-Whitepaper", "https://aka.ms/OLSGetStartedIntegrating"]
     },
     {
       "id": "S-SQLPERF",
-      "title": "SQL Performance with AI",
-      "speakers": [],
+      "title": "Mastering Performance for Microsoft SQL with AI",
+      "speakers": ["Erin Stellato", "Anna Hoffman"],
       "date": "2026-10-01",
-      "basis": "attendee notes and 3 photos of slides. Session title is from attendee notes."
+      "basis": "attendee notes and 3 photos of slides. Second attendee: notes and 3 photos. Title, code and speakers are from the ESPC programme.",
+      "session_code": "TH02"
     },
     {
       "id": "S-GORDON",
@@ -91,14 +92,57 @@
       "session_code": "TH30",
       "speakers": ["Cristian Urbina Guerra"],
       "date": "2026-10-01",
-      "basis": "full slide deck (17 slides) and 2 photos"
+      "basis": "full slide deck (17 slides) and 2 photos. Second attendee: notes and 6 photos."
     },
     {
       "id": "S-ONTOLOGY",
       "title": "Ontology session (Fabric IQ)",
       "speakers": [],
       "date": "2026-10-01",
-      "basis": "attendee notes and 2 photos of a live demo. Session title is from attendee notes."
+      "basis": "attendee notes and 2 photos of a live demo. Session title is from attendee notes.. Second attendee: notes and 2 photos of slides on the main stage (1 October, 15:38). That this is the same session is our reading."
+    },
+    {
+      "id": "S-DBHUB",
+      "title": "Database Hub in Fabric: A Control Plane for your Entire Database Estate",
+      "session_code": "T14",
+      "speakers": ["Patrick LeBlanc", "Charles Webb"],
+      "date": "2026-09-29",
+      "basis": "second attendee: notes and 1 photo of a slide. Title and speakers are from the ESPC programme.",
+      "public_links": ["https://espc.tech/conference/fabcon-europe-2026/programme/database-hub-in-fabric-a-control-plane-for-your-entire-database-estate/"]
+    },
+    {
+      "id": "S-SEMARCHY",
+      "title": "Delivering Data Products Across the Microsoft Ecosystem",
+      "speakers": ["Craig Gravina"],
+      "date": "2026-09-29",
+      "basis": "second attendee: 1 photo of a slide. Vendor session (Semarchy). Title and speaker are from the ESPC programme.",
+      "public_links": ["https://espc.tech/conference/fabcon-europe-2026/programme/delivering-data-products-across-the-microsoft-ecosystem/"]
+    },
+    {
+      "id": "S-OSMOS",
+      "title": "From Prompt to Finished Project: Introducing Project Osmos, Data engineering agent in Microsoft Fabric",
+      "session_code": "W08",
+      "speakers": ["Naresh Venkat", "Achraf Cherki Elidrissi"],
+      "date": "2026-09-30",
+      "basis": "second attendee: notes and 8 photos of slides. Title and speakers are from the ESPC programme.",
+      "public_links": ["https://aka.ms/data-engineering-agent"]
+    },
+    {
+      "id": "S-DW",
+      "title": "Data Warehousing for the AI Era: Deep Dive into High-Performance Analytics and GPU-acceleration",
+      "session_code": "W29",
+      "speakers": ["Filip Popović", "Maraki Ketema"],
+      "date": "2026-09-30",
+      "basis": "second attendee: notes and 2 photos of slides. Title and speakers are from the ESPC programme."
+    },
+    {
+      "id": "S-HYPERSCALE",
+      "title": "Azure SQL Hyperscale: The Cloud Database for the era of AI",
+      "session_code": "TH15",
+      "speakers": ["Bob Ward", "Borko Novakovic"],
+      "date": "2026-10-01",
+      "basis": "second attendee: 3 photos of slides. The match to this session is by time and topic. It is our reading.",
+      "public_links": ["https://espc.tech/conference/fabcon-europe-2026/programme/azure-sql-hyperscale-the-cloud-database-for-the-era-of-ai/"]
     }
   ],
   "web": [
@@ -140,6 +184,29 @@
     {"id": "W36", "title": "FabCon and SQLCon 2026 in Barcelona: Building the data foundation for Microsoft Copilot and agents", "publisher": "Microsoft Azure blog", "url": "https://azure.microsoft.com/en-us/blog/fabcon-and-sqlcon-2026-in-barcelona-building-the-data-foundation-for-microsoft-copilot-and-agents/", "kind": "microsoft"},
     {"id": "W37", "title": "What Is Ontology (Preview)?", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/iq/ontology/overview", "kind": "microsoft"},
     {"id": "W38", "title": "New Microsoft Certified: SQL AI Developer Associate Certification", "publisher": "Microsoft Tech Community (Skills Hub blog)", "url": "https://techcommunity.microsoft.com/blog/skills-hub-blog/new-microsoft-certified-sql-ai-developer-associate-certification/4494113", "kind": "microsoft"},
-    {"id": "W39", "title": "Read data secured with OneLake security", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/read-secured-data", "kind": "microsoft"}
+    {"id": "W39", "title": "Read data secured with OneLake security", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/onelake/security/read-secured-data", "kind": "microsoft"},
+    {"id": "W40", "title": "Get started with the data engineering agent (Project Osmos)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/data-engineering-agent-get-started", "kind": "microsoft"},
+    {"id": "W41", "title": "Data engineering agent consumption", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/data-engineering-agent-consumption", "kind": "microsoft"},
+    {"id": "W42", "title": "sys.sp_get_table_health_metrics (Transact-SQL)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-get-table-health-metrics-transact-sql?view=fabric", "kind": "microsoft"},
+    {"id": "W43", "title": "Tutorial: conditional lakehouse optimization", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/tutorial-conditional-lakehouse-optimization", "kind": "microsoft"},
+    {"id": "W44", "title": "SQL analytics endpoint performance considerations", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/sql-analytics-endpoint-performance", "kind": "microsoft"},
+    {"id": "W45", "title": "Query acceleration in Fabric Data Warehouse", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-warehouse/query-acceleration", "kind": "microsoft"},
+    {"id": "W46", "title": "Fabric operations", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/enterprise/fabric-operations", "kind": "microsoft"},
+    {"id": "W47", "title": "Optimized locking", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/performance/optimized-locking?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W48", "title": "Automatic index compaction", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/indexes/automatic-index-compaction?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W49", "title": "Configure change event streaming", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/track-changes/change-event-streaming/configure?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W50", "title": "Database instructions for GitHub Copilot in SSMS", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/ssms/github-copilot/database-instructions", "kind": "microsoft"},
+    {"id": "W51", "title": "Query Store hints best practices", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/relational-databases/performance/query-store-hints-best-practices?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W52", "title": "What is Database Hub in Fabric?", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/database/hub/overview", "kind": "microsoft"},
+    {"id": "W53", "title": "Add SQL Server to Database Hub", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/database/hub/add-sql", "kind": "microsoft"},
+    {"id": "W54", "title": "FabCon Europe 2026 recap", "publisher": "Solv Systems", "url": "https://solv-systems.com/resources/fabcon-europe-2026-recap", "kind": "third-party"},
+    {"id": "W55", "title": "SQL MCP Server overview (Data API builder)", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/azure/data-api-builder/mcp/overview", "kind": "microsoft"},
+    {"id": "W56", "title": "What's new in SQL Server 2025", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/sql/sql-server/what-s-new-in-sql-server-2025?view=sql-server-ver17", "kind": "microsoft"},
+    {"id": "W57", "title": "Hyperscale service tier", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/azure/azure-sql/database/service-tier-hyperscale?view=azuresql", "kind": "microsoft"},
+    {"id": "W58", "title": "SQL analytics endpoint metadata sync", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-engineering/sql-analytics-endpoint-metadata-sync", "kind": "microsoft"},
+    {"id": "W59", "title": "dbt job overview", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/data-factory/dbt-job-overview", "kind": "microsoft"},
+    {"id": "W60", "title": "SQLCon Barcelona 2026: advancing SQL with greater control, scale and intelligence", "publisher": "Microsoft SQL Server blog", "url": "https://www.microsoft.com/en-us/sql-server/blog/2026/09/28/sqlcon-barcelona-2026-advancing-sql-with-greater-control-scale-and-intelligence/", "kind": "microsoft"},
+    {"id": "W61", "title": "Delta Lake table REORG (fabric-docs)", "publisher": "Microsoft Learn source on GitHub", "url": "https://github.com/MicrosoftDocs/fabric-docs/blob/main/docs/data-engineering/delta-lake-reorg.md", "kind": "microsoft"},
+    {"id": "W62", "title": "Install skills for Fabric", "publisher": "Microsoft Learn", "url": "https://learn.microsoft.com/en-us/fabric/fundamentals/skills-for-fabric-install", "kind": "microsoft"}
   ]
 }

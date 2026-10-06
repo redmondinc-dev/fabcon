@@ -1,11 +1,14 @@
 ---
 page: sessions
-description: The 12 sessions behind this site, its focus, and what the site does not cover.
+description: The 17 sessions behind this site, its 2 focuses, and what the site does not cover.
 ---
 
-Two of us went to FabCon Europe 2026. This site reports one focus: applied AI in the Microsoft stack, and the security and governance of it. It does not cover the full event.
+Two of us went to FabCon Europe 2026. This site reports 2 focuses. It does not cover the full event.
 
-This first version holds the notes of one of us. The second attendee had a focus on data engineering, and those notes are not in it yet.
+- **Applied AI, security and governance.** The first attendee: the six thread pages from Context to Concentration.
+- **Data engineering.** The second attendee: the data engineering agent, lakehouse tables, and SQL and databases.
+
+We both attended 6 of the sessions. For those sessions, the notes and photos of both attendees are in the sources.
 
 ## The sessions
 
@@ -17,16 +20,15 @@ Where the speaker is "Not named", the attendee's notes do not hold the name. Thi
 
 - Power BI authoring.
 - Real-Time Intelligence.
-- Data engineering practice.
 - Most SQL sessions.
 
-Data engineering was the focus of the second attendee. Those notes can add that part.
 
 ## The evidence base
 
-- 12 sessions across 3 days.
+- 17 sessions across 3 days.
 - 6 slide decks with about 250 slides.
-- 77 photos of slides.
-- 39 web sources.
+- 111 photos of slides.
+- 10 pages of handwritten notes from the second attendee.
+- 62 web sources.
 
 See [Sources](/sources/) for each one.

@@ -1,0 +1,40 @@
+<svg viewBox="0 0 364 330" role="img" aria-labelledby="table-health-title" xmlns="http://www.w3.org/2000/svg">
+<title id="table-health-title">From health check to fix</title>
+<defs>
+<marker id="table-health-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" style="fill:var(--g-platform)"/></marker>
+</defs>
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<rect x="8" y="8" width="348" height="44" rx="6" style="fill:var(--mark)"/>
+<rect x="36" y="84" width="154" height="44" rx="6"/>
+<rect x="36" y="154" width="154" height="44" rx="6"/>
+<rect x="36" y="224" width="154" height="44" rx="6"/>
+<rect x="210" y="84" width="146" height="44" rx="6"/>
+<rect x="210" y="154" width="146" height="44" rx="6" stroke-dasharray="5 4"/>
+<rect x="210" y="224" width="146" height="44" rx="6"/>
+</g>
+<g fill="none" stroke-width="2" style="stroke:var(--g-platform)">
+<path d="M20 52v194"/>
+<path d="M20 106h14" marker-end="url(#table-health-arrow)"/>
+<path d="M20 176h14" marker-end="url(#table-health-arrow)"/>
+<path d="M20 246h14" marker-end="url(#table-health-arrow)"/>
+<path d="M190 106h18" marker-end="url(#table-health-arrow)"/>
+<path d="M190 176h18" marker-end="url(#table-health-arrow)"/>
+<path d="M190 246h18" marker-end="url(#table-health-arrow)"/>
+</g>
+<g text-anchor="middle" font-size="12.5" font-weight="650">
+<text x="182" y="35" style="fill:var(--on-mark)">Health check: worst problem first</text>
+</g>
+<g fill="currentColor" text-anchor="middle" font-size="12.5" font-weight="650">
+<text x="113" y="110">Many small files</text>
+<text x="113" y="180">Many deleted rows</text>
+<text x="113" y="250">Old checkpoint</text>
+<text x="283" y="110">OPTIMIZE</text>
+<text x="283" y="172">OPTIMIZE, or</text>
+<text x="283" y="188">REORG with PURGE</text>
+<text x="283" y="250">New checkpoint</text>
+</g>
+<g font-size="11.5" style="fill:var(--muted)">
+<text x="182" y="298" text-anchor="middle">Symptom on the left. Fix on the right.</text>
+<text x="182" y="316" text-anchor="middle">Run each fix from Spark, not from the SQL endpoint.</text>
+</g>
+</svg>

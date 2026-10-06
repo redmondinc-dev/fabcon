@@ -7,7 +7,7 @@ description: The thread map, our reading in 6 points, where to start by role, an
 
 ## Our reading
 
-1. **Data is still the base.** An agent is only as good as the data and the definitions behind it. Understand your data first. → [Context](/context/), [Production reality](/production/)
+1. **Data is still the base.** An agent is only as good as the data and the definitions behind it. Understand your data first. → [Context](/context/), [Production reality](/production/), [Lakehouse table health](/table-health/)
 2. **Context is now a product layer.** The ontology is a new layer above the semantic model, and it is still in preview. → [Context](/context/)
 3. **Limits: lock down what the agent can reach.** Each route to the data can use a different identity, and a model cannot fully separate instructions from data. → [Access and identity](/access/), [Untrusted input](/untrusted-input/)
 4. **Proof: show what the agent did.** The controls exist, but joining them into one picture is still unsolved. → [Evidence and governance](/governance/)
@@ -21,10 +21,11 @@ These 6 points are our conclusions from the sessions. The claims behind them are
 - **IT and security:** [Access and identity](/access/), [Untrusted input](/untrusted-input/)
 - **Governance:** [Evidence and governance](/governance/), [Concentration](/concentration/)
 - **Data and analytics:** [Context](/context/), [Production reality](/production/)
+- **Data engineering:** [Data engineering agent](/build/), [Lakehouse table health](/table-health/), [SQL and databases](/sql/)
 
 ## About this site
 
-Two of us went to FabCon Europe 2026. This site covers one focus: applied AI in the Microsoft stack, and its security and governance. Data engineering notes are not in yet. See [Sessions and focus](/sessions/).
+Two of us went to FabCon Europe 2026. This site covers 2 focuses. The first is applied AI in the Microsoft stack, and its security and governance. The second is data engineering. See [Sessions and focus](/sessions/).
 
 Nothing here was tested in our own tenant. Each statement is from a speaker, from Microsoft or from a third party.
 

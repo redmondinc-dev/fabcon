@@ -1,0 +1,3 @@
+title: A task runs inside the workspace
+text: A coding agent starts a task in a Fabric workspace, and the task inherits the workspace permissions. The agent understands the workspace, builds and validates, and a failed validation goes back to build. The task is complete only when validation passes. People define the contract, add instructions and reply to the agent.
+credit: After Naresh Venkat and Achraf Cherki Elidrissi, "From Prompt to Finished Project: Introducing Project Osmos" (W08)

@@ -19,6 +19,7 @@
   --g-limits: #1f4f96;
   --g-proof: #855a00;
   --g-reality: #7a3a78;
+  --g-platform: #9a3b1d;
   --on-group: #ffffff;
 
   /* One highlight. Fill only, with --on-mark text. */
@@ -53,6 +54,8 @@
     --g-limits: #86b4f2;
     --g-proof: #e2b24a;
     --g-reality: #d79ad6;
+  --g-platform: #f0a07e;
+    --g-platform: #f0a07e;
     --on-group: #0e1512;
     --mark: #f2c744;
     --on-mark: #10201b;
@@ -72,6 +75,7 @@
   --g-limits: #86b4f2;
   --g-proof: #e2b24a;
   --g-reality: #d79ad6;
+  --g-platform: #f0a07e;
   --on-group: #0e1512;
   --mark: #f2c744;
   --on-mark: #10201b;
@@ -241,13 +245,16 @@ figcaption { max-width: 42rem; margin-top: 1rem; font-size: 0.9375rem; color: va
 .g-limits { --g: var(--g-limits); }
 .g-proof { --g: var(--g-proof); }
 .g-reality { --g: var(--g-reality); }
+.g-platform { --g: var(--g-platform); }
 .group.g-limits { border-top-style: dashed; }
 .group.g-proof { border-top-style: dotted; }
 .group.g-reality { border-top-style: double; border-top-width: 6px; }
+.group.g-platform { border-top-width: 6px; }
 .map-band { margin-top: 2rem; }
 .gloss { margin: 0 0 0.75rem; color: var(--muted); font-size: 0.9375rem; }
 .group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
 .map-band .group ul { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.map-band .g-platform ul { grid-template-columns: repeat(3, 1fr); }
 .group li { margin: 0; }
 .card {
   display: block;
