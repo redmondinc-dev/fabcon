@@ -11,7 +11,7 @@ Mariusz Wójcik and Piotr Balik (W21) said that there is no "sanitized" natural 
 
 - Mariusz Wójcik and Piotr Balik (W21) said that SQL injection and prompt injection use the same fault: no separation of code and data. [C401]
 - Their slide put prompt injection at number 1 in the OWASP Top 10 for LLM applications (2025). [C403]
-- For SQL injection, they said that parameterised queries are the primary defence. Input validation and a web application firewall are additions, not replacements. [C404]
+- For SQL injection, they said that parameterized queries are the primary defence. Input validation and a web application firewall are additions, not replacements. [C404]
 - For prompt injection, their slide listed 9 defences, such as least privilege and authorization of each action on the server. "Limit what the agent can do" is our summary of the list. [C406]
 
 ## Go deeper
@@ -22,7 +22,7 @@ Mariusz Wójcik and Piotr Balik (W21) listed these defences: [C406]
 
 - Never execute model output directly.
 - Separate trusted instructions, user data and tool output.
-- Use approved, parameterised actions.
+- Use approved, parameterized actions.
 - Authorize each action on the server.
 - Validate input.
 - Give least privilege.
@@ -54,7 +54,7 @@ These points are our reading.
 
 - Treat retrieved documents, tool results and user text as untrusted input.
 - Give each agent the least access that the task needs. This control still works when the model is fooled.
-- Keep parameterised queries for all SQL that an agent generates or triggers.
+- Keep parameterized queries for all SQL that an agent generates or triggers.
 
 ## Not confirmed
 

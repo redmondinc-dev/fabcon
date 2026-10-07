@@ -43,7 +43,7 @@ The Markdown twin keeps the full numbered notes for each claim.
 
 ## The limits
 
-- Product status as of 1 October 2026. Web sources checked 4 October 2026. Speaker statements are not tested facts.
+- Product status as of 1 October 2026. Web sources checked 4 and 6 October 2026. Speaker statements are not tested facts.
 - Nothing here was tested in our own tenant. [C957]
 - Check each product status against Microsoft Learn before you use it.
 - Fictional and synthetic numbers are labelled. Keep that label.

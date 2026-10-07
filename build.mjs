@@ -516,7 +516,7 @@ function findingsHtml(from) {
       const where = (on.get(c.id) || []).map((p) => `<a href="${href(from, p.path)}#${c.id}">${esc(pageName(p))}</a>`).join(', ');
       return `<li id="${c.id}"><p><span class="claim-id">${c.id}</span> ${esc(c.text)}<span class="labels">${chips}</span></p>`
         + (c.caveat ? `<p class="claim-meta">Caveat: ${esc(c.caveat)}</p>` : '')
-        + `<p class="claim-meta">${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.</p>`
+        + (c.sources.length ? `<p class="claim-meta">${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.</p>` : '')
         + (where ? `<p class="claim-meta">On page: ${where}.</p>` : '')
         + '</li>';
     }).join('\n');
@@ -539,7 +539,7 @@ function findingsMd(link) {
       return [
         t,
         ...(c.caveat ? [`  - Caveat: ${c.caveat}`] : []),
-        `  - ${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.`,
+        ...(c.sources.length ? [`  - ${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.`] : []),
         ...(where ? [`  - On page: ${where}.`] : []),
       ];
     });
