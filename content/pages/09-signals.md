@@ -28,8 +28,7 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | Agents | Fabric data agents and operations agents | Fabric data agents are generally available. Operations agents monitor real-time data and act. [C908] |
 | Agents | Data engineering agent | Microsoft acquired Osmos in January 2026. Its technology is now a data engineering agent in Fabric, in preview. See [Data engineering agent](/build/). [C905, C730] |
 | Agents | Database agents | Microsoft said that database agents for SQL and PostgreSQL on Azure will soon be in preview. The keynote slide also named SQL Server and Azure HorizonDB. [C902] |
-| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. [C909] |
-| Agents | Database Hub status | Database Hub is in public preview and is free. It reads SQL Server through Azure Arc. [C776] |
+| Agents | Database Hub | The Database Hub gives one view of databases across edge, cloud and Fabric, with a human in the loop. It needs no Fabric capacity. [C909, C915] |
 | Security | OneLake security | The speakers said that OneLake security is generally available. Eventhouse and external engines are in preview. [C312] |
 | Security | Table Read API for agents | An agent reads a Delta or Iceberg table without SQL. OneLake applies table, column and row security on each read. [C906] |
 | Security | Dynamic row-level security | Rules can use the name of the user and can join other tables. The estimate is the first quarter of 2027. [C907] |
@@ -44,10 +43,10 @@ Each status is as of 1 October 2026. Check it again before you use it.
 | SQL | Where index compaction runs | Azure SQL Database, Managed Instance and SQL database in Fabric. SQL Server 2025 does not have it. [C764] |
 | SQL | Optimized locking | Generally available in SQL Server 2025, but off by default. It needs accelerated database recovery. [C765] |
 | SQL | Change event streaming | In preview. It cannot run on a database that also uses Fabric mirroring. [C766] |
-| SQL | SQL Server on Azure Local | Connected and disconnected, generally available. [C917] |
-| Platform | GPU query acceleration | In limited preview. A warehouse core uses 3.446 capacity units with it, against 0.538 without it. [C750, C751] |
-| Platform | F0 capacity | Announced, with no fixed size. It bills by capacity unit hours on demand. No price is published. [C915] |
-| Platform | dbt job item | In preview. It runs against Fabric Data Warehouse only. [C916] |
+| SQL | SQL Server on Azure Local | Connected and disconnected, generally available. [C921] |
+| SQL | GPU query acceleration | Fabric Data Warehouse has GPU query acceleration, in limited preview. A core then uses about 6.4 times the capacity units. See [Production reality](/production/#gpu-warehouse). [C711, C713] |
+| Platform | F0 capacity | Announced, with no fixed size. It bills by capacity unit hours on demand. No price is published. [C919] |
+| Platform | dbt job item | In preview. It runs against Fabric Data Warehouse only. [C920] |
 | Skills | DP-800 certification | A new certification: SQL AI Developer Associate. [C904] |
 | Sovereignty | Sovereign private cloud | The keynote showed Foundry Local, data platform services and customer applications on Azure Local. [C807] |
 
@@ -75,6 +74,14 @@ Three rows have no status chip, because their sources state no status. They show
 <details id="more-detail"><summary>More detail on some rows</summary>
 
 Database agents follow 5 steps: detect, understand, verify, learn, automate. They have skills, tools and connectors. [C902]
+
+The Database Hub shows Azure SQL, SQL database in Fabric, Azure Database for PostgreSQL and Azure Cosmos DB. It also shows SQL Server through Azure Arc or on Azure VMs. It does not support mirrored databases or Fabric Data Warehouse. The preview does not support Fabric capacities in North Europe or West Europe. [C915]
+
+For performance data from SQL Server through Azure Arc, it needs SQL Server 2016 SP1 or later, Standard or Enterprise edition, on Windows. The license type must be Software Assurance or pay-as-you-go. [C916]
+
+The Database Hub is not the Monitoring hub. The Monitoring hub watches Fabric jobs and pipelines. [C917]
+
+The rules for dynamic row-level security use USER_NAME(), USER_ID(), IS_MEMBER() and UTC_HALF_HOUR(). [C918]
 
 Column-level security removes hidden columns in Spark and Power BI. In SQL, the query must leave out the hidden columns. [C313]
 

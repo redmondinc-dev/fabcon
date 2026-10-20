@@ -41,6 +41,12 @@ A passthrough shortcut checks the user at the target. A delegated shortcut reads
 
 Shortcuts to external storage, such as S3 or ADLS Gen2, always use a delegated identity. Delegated OneLake shortcuts also work across tenants. [C310]
 
+OneLake security is set on lakehouses, mirrored databases and mirrored catalogs. Fabric SQL database is next. [C316]
+
+How a SQL endpoint applies the roles depends on its access mode. A switch of the mode cancels the queries that run. [C317]
+
+Dynamic row-level security is on the roadmap. See [Where Fabric goes next](/signals/). [C907]
+
 A new permissions view answers 2 questions: "Who has access to this table?" and "What data can this user see?"
 
 The slide showed OneLake security roles only. In our reading, the view does not show semantic model security or access through groups. [C311]

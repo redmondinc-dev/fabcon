@@ -34,7 +34,7 @@ The task inherits the workspace permissions. Other members act on the same task,
 
 The agent bills to the Fabric capacity, on the Copilot and AI meter. The Spark notebooks that it runs bill separately. [C732]
 
-The capacity use of the agent comes in peaks. The speakers suggested an F0 capacity. Microsoft announced F0 as coming soon. [C729, C915]
+The capacity use of the agent comes in peaks. The speakers suggested an F0 capacity. Microsoft announced F0 as coming soon. [C729, C919]
 
 </details>
 

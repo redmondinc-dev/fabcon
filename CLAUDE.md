@@ -2,7 +2,7 @@
 
 A public static website, the debrief of a conference. It reports what two attendees learned at FabCon Europe 2026 (Barcelona, 28 September to 1 October 2026) about applied AI, security and governance in Microsoft Fabric.
 
-The content holds the notes of both attendees. The first focus is applied AI, security and governance. The second focus is data engineering (the "Data platform" band on the thread map).
+The content holds the notes of both attendees. The first focus is applied AI, security and governance. The second focus is data engineering (the "Data platform" band on the thread map). A statement from the second attendee's summary deck, with no slide or transcript behind it, carries the evidence value `account`.
 
 Readers are a technical audience: CTO, developer leads, data leads, IT. The attendee presents the site live. Readers also explore it alone, and point AI agents at it.
 
@@ -27,7 +27,7 @@ If the folder `private/` exists on this machine, read `private/README.md` at the
 - **Credit.** Use the speaker's name where `content/sources.json` has it. If not, cite the session title and "FabCon Europe 2026". Do not write "Microsoft said" for a community speaker.
 - **Evidence.** Follow the label rule in `plan/02-style-guide.md`, section 4. Keep each `caveat` that changes the meaning of a statement. Speaker statements are not tested facts. Fictional and synthetic numbers stay labelled.
 - **All findings.** Each claim is public on `/findings/`. A thread page shows the main points only, so a claim can leave a thread page. A claim does not leave `claims.json`.
-- **New facts.** To add or change a statement, check it against the source first: a public page that you open in that session, or the transcript. To add a statement, add a claim first, with a source. If the source is a deck or photo, read the transcript in `private/sources/transcripts/`. If the transcript is not enough, read the original in `private/sources/decks/` or `private/sources/photos/`.
+- **New facts.** To add or change a statement, check it against the source first: a public page that you open in that session, or the transcript. To add a statement, add a claim first, with a source. If the source is a deck or photo, read the transcript in `private/sources/transcripts/`. If the transcript is not enough, read the original in `private/sources/decks/` or `private/sources/photos/`. One exception, decided by the owner on 6 October 2026: a statement from the second attendee can rest on his summary deck alone. Give it the evidence value `account` ("Attendee account").
 - **Simple wins.** One message for each page, 12 words maximum for each sentence. A reader must understand the page from the message and the diagram. A thread page has a fixed budget: see `plan/02-style-guide.md`, section 1.
 - **No JavaScript dependency for content.** All text, including collapsed sections, is in the HTML.
 - **Product status has a date.** The status values in the claims are "as of 1 October 2026". Check them again before publication.
@@ -37,6 +37,8 @@ If the folder `private/` exists on this machine, read `private/README.md` at the
 - Write page content as Markdown in `content/pages/`. The build makes HTML, Markdown twins, `llms.txt` and `llms-full.txt` from the same source.
 - Keep the build small. No client framework.
 - After each content change, run the build (`npm run build`) and then `scripts/check-dist`. The build checks claim ids, source ids, sentence length and that nothing under `private/` is tracked. `scripts/check-dist` checks links, anchors, the redirect stubs and the page budgets. `scripts/source-share` reports the share of each source on each page.
+- Before a commit, run `scripts/preflight`. It fails on a media file, an email address, a local path, a private term, or a file that git does not track or ignore. The deployment runs it too. Stage files by name.
+- The build writes its commit to `dist/version.txt` and to a `build` meta tag on each page.
 - Commit in small steps. Use a branch for each page.
 
 ## What is not decided

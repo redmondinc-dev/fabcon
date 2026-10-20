@@ -1,0 +1,90 @@
+#!/usr/bin/env node
+// Check the repository and dist/ for material that must not be public. Exit 1 on a failure.
+//   scripts/preflight
+// It reads git (read-only) for the list of tracked files. Run it after the build, so that it also reads dist/.
+// Private terms (names that must not show) are not in this repository. Give them in one of two places:
+//   - the environment variable PREFLIGHT_TERMS, with a comma or a new line between terms;
+//   - the local file private/preflight-terms.txt, one term for each line.
+
+import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
+import { join, dirname, resolve, relative, sep } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { execFileSync } from 'node:child_process';
+
+const repo = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const dist = join(repo, 'dist');
+const git = (...a) => execFileSync('git', ['-C', repo, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
+const lines = (t) => t.split('\n').filter(Boolean);
+
+const failures = [];
+const fail = (section, msg) => failures.push(`[${section}] ${msg}`);
+
+const tracked = lines(git('ls-files'));
+const walk = (d) => readdirSync(d).flatMap((f) => {
+  const p = join(d, f);
+  return statSync(p).isDirectory() ? walk(p) : [p];
+});
+const built = existsSync(dist) ? walk(dist).map((f) => relative(repo, f).split(sep).join('/')) : [];
+
+// ---------- 1. media and office files ----------
+const MEDIA = /\.(png|jpe?g|gif|webp|heic|tiff?|bmp|pdf|pptx?|docx?|xlsx?|key|mp4|mov|m4a|mp3|wav|zip)$/i;
+const media = [...tracked, ...built].filter((f) => MEDIA.test(f));
+for (const f of media) fail('1 media', `${f}: a media or office file. Diagrams are inline SVG.`);
+console.log(`1. Media and office files: ${media.length} in ${tracked.length} tracked and ${built.length} built files.`);
+
+// ---------- 2. private/ ----------
+const priv = tracked.filter((f) => f.startsWith('private/'));
+for (const f of priv) fail('2 private', `${f}: git tracks a path under private/`);
+console.log(`2. Tracked paths under private/: ${priv.length}.`);
+
+// ---------- 3. untracked files that git does not ignore ----------
+// Such a file goes into a commit with the first "git add" of its folder.
+const loose = lines(git('ls-files', '--others', '--exclude-standard'));
+for (const f of loose) fail('3 untracked', `${f}: not tracked and not ignored. Ignore it, move it or commit it.`);
+console.log(`3. Untracked files that git does not ignore: ${loose.length}.`);
+
+// ---------- 4 to 6. text ----------
+const SKIP = new Set(['package-lock.json', 'scripts/preflight']);
+const texts = [...tracked, ...built].filter((f) => !SKIP.has(f) && !MEDIA.test(f)).flatMap((f) => {
+  const p = join(repo, f);
+  if (!existsSync(p)) return [];
+  const t = readFileSync(p, 'utf8');
+  return t.includes('\u0000') ? [] : [[f, t]];
+});
+const where = (t, i) => `line ${t.slice(0, i).split('\n').length}`;
+
+const EMAIL = /[A-Za-z0-9._%+-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}/g;
+const LOCAL_PATH = /[/]Users[/][^\s/"')]+|[/]home[/][a-z][^\s/"')]*|[A-Za-z]:\\Users\\/g;
+let emails = 0;
+let paths = 0;
+for (const [f, t] of texts) {
+  for (const m of t.matchAll(EMAIL)) { emails++; fail('4 email', `${f}, ${where(t, m.index)}: an email address`); }
+  for (const m of t.matchAll(LOCAL_PATH)) { paths++; fail('5 path', `${f}, ${where(t, m.index)}: a path on a local machine ("${m[0]}")`); }
+}
+console.log(`4. Email addresses: ${emails} in ${texts.length} text files.`);
+console.log(`5. Paths on a local machine: ${paths}.`);
+
+const termsFile = join(repo, 'private', 'preflight-terms.txt');
+const rawTerms = process.env.PREFLIGHT_TERMS || (existsSync(termsFile) ? readFileSync(termsFile, 'utf8') : '');
+const terms = rawTerms.split(/[\n,]/).map((s) => s.trim().toLowerCase()).filter((s) => s && !s.startsWith('#'));
+if (!terms.length) {
+  console.log('6. Private terms: NOT CHECKED. No list in PREFLIGHT_TERMS or in private/preflight-terms.txt.');
+} else {
+  let hits = 0;
+  for (const [f, t] of texts) {
+    const low = t.toLowerCase();
+    terms.forEach((term, n) => {
+      const i = low.indexOf(term);
+      // The message gives the number of the term, not the term: the log of a public build is public.
+      if (i >= 0) { hits++; fail('6 terms', `${f}, ${where(t, i)}: private term number ${n + 1}`); }
+    });
+  }
+  console.log(`6. Private terms: ${hits} hit(s) for ${terms.length} term(s).`);
+}
+
+if (failures.length) {
+  console.error(`\n${failures.length} failure(s):`);
+  for (const f of failures) console.error(`  ${f}`);
+  process.exit(1);
+}
+console.log('\nPreflight passed.');

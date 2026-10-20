@@ -27,6 +27,7 @@ const EVIDENCE = {
   docs: ['Microsoft', 'From Microsoft documentation or a Microsoft blog.'],
   'third-party': ['Third party', 'From an independent article or a vendor.'],
   research: ['Research', 'From an academic paper.'],
+  account: ['Attendee account', 'The second attendee\'s report of a session. Not checked against a slide.'],
   inference: ['Our reading', 'A conclusion that we made.'],
 };
 const STATUS = {
@@ -36,6 +37,17 @@ const STATUS = {
   roadmap: 'Roadmap',
   'not-available': 'Not available',
 };
+
+// The commit that this build came from. It shows which build a server gives.
+// "+changes" marks a build from a working tree with edits that are not committed.
+const buildVersion = (() => {
+  try {
+    const git = (...a) => execFileSync('git', ['-C', root, ...a], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+    return git('rev-parse', '--short=12', 'HEAD') + (git('status', '--porcelain', '--untracked-files=no') ? '+changes' : '');
+  } catch {
+    return 'unknown';
+  }
+})();
 
 const errors = [];
 const warnings = [];
@@ -313,11 +325,15 @@ function citeHtml(group, srcs, state) {
 }
 
 function citeMd(group, notes) {
+  let prev = null;
   return citeIds(group).map((id) => {
     const c = claims.get(id);
-    let t = `*(${EVIDENCE[c.evidence][0]})*`;
-    if (c.product_status) t += ` *(${STATUS[c.product_status]}, as of ${site.statusAsOf})*`;
-    for (const ref of c.sources) t += ` [${noteOf(notes, ref).n}]`;
+    let label = `*(${EVIDENCE[c.evidence][0]})*`;
+    if (c.product_status) label += ` *(${STATUS[c.product_status]}, as of ${site.statusAsOf})*`;
+    const refs = c.sources.map((ref) => `[${noteOf(notes, ref).n}]`).join(' ');
+    // In one group, a claim with the same labels as the claim before it does not repeat them.
+    const t = label === prev ? refs : `${label} ${refs}`;
+    prev = label;
     return t;
   }).join(' ');
 }
@@ -500,7 +516,7 @@ function findingsHtml(from) {
       const where = (on.get(c.id) || []).map((p) => `<a href="${href(from, p.path)}#${c.id}">${esc(pageName(p))}</a>`).join(', ');
       return `<li id="${c.id}"><p><span class="claim-id">${c.id}</span> ${esc(c.text)}<span class="labels">${chips}</span></p>`
         + (c.caveat ? `<p class="claim-meta">Caveat: ${esc(c.caveat)}</p>` : '')
-        + `<p class="claim-meta">${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.</p>`
+        + (c.sources.length ? `<p class="claim-meta">${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.</p>` : '')
         + (where ? `<p class="claim-meta">On page: ${where}.</p>` : '')
         + '</li>';
     }).join('\n');
@@ -523,7 +539,7 @@ function findingsMd(link) {
       return [
         t,
         ...(c.caveat ? [`  - Caveat: ${c.caveat}`] : []),
-        `  - ${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.`,
+        ...(c.sources.length ? [`  - ${c.sources.length > 1 ? 'Sources' : 'Source'}: ${c.sources.map(src).join('; ')}.`] : []),
         ...(where ? [`  - On page: ${where}.`] : []),
       ];
     });
@@ -753,6 +769,7 @@ for (const page of pages) {
     pager: pagerHtml(page),
     statusAsOf: esc(site.statusAsOf),
     webCheckedOn: esc(site.webCheckedOn),
+    buildVersion: esc(buildVersion),
   };
   const dir = page.path.slice(1);
   write(`${dir}index.html`, layout.replace(/\{\{(\w+)\}\}/g, (_, k) => vars[k] ?? ''));
@@ -808,6 +825,7 @@ write('llms-full.txt', [
 write('claims.json', readFileSync(join(content, 'claims.json'), 'utf8'));
 write('sources.json', readFileSync(join(content, 'sources.json'), 'utf8'));
 write('robots.txt', 'User-agent: *\nAllow: /\n');
+write('version.txt', `${buildVersion}\n`);
 mkdirSync(join(dist, 'assets'), { recursive: true });
 for (const f of ['site.css', 'site.js']) copyFileSync(join(here, 'site', f), join(dist, 'assets', f));
 

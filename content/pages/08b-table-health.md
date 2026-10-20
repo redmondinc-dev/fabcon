@@ -40,11 +40,11 @@ A new metadata sync is in preview. It applies only to endpoints that you create 
 
 <details id="gpu"><summary>GPU acceleration and its cost</summary>
 
-GPU query acceleration is in limited preview. One workspace setting turns it on for all warehouses and endpoints. A change of the setting cancels running queries. [C750]
+GPU query acceleration is in limited preview. One workspace setting turns it on for all warehouses and endpoints. A change of the setting cancels running queries. [C711, C714]
 
-With acceleration on, a warehouse core uses 3.446 capacity units, against 0.538 without it. All queries in the workspace use the accelerated meter. [C751]
+With acceleration on, a warehouse core uses 3.446 capacity units, against 0.538 without it. All queries in the workspace use the accelerated meter. [C713, C714]
 
-Acceleration helps reads only. It is available in 5 regions. [C752]
+Acceleration helps reads only. It is available in 5 regions. [C711, C715]
 
 </details>
 

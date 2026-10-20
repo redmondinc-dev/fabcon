@@ -18,7 +18,7 @@ Each page also has a "Copy page as Markdown" button and a "Copy prompt" button.
 
 ## The evidence labels
 
-In the HTML pages, an unmarked statement is from a speaker's slide. Each other statement shows its label: Microsoft, Third party, Research, Notes or Our reading. The Markdown twins, claims.json and the All findings page give a label for each claim. Keep the label when you repeat a statement.
+In the HTML pages, an unmarked statement is from a speaker's slide. Each other statement shows its label: Microsoft, Third party, Research, Notes, Attendee account or Our reading. The Markdown twins, claims.json and the All findings page give a label for each claim. Keep the label when you repeat a statement.
 
 | Label | Value in claims.json | Meaning |
 |---|---|---|
@@ -27,6 +27,7 @@ In the HTML pages, an unmarked statement is from a speaker's slide. Each other s
 | Microsoft | `docs` | From Microsoft documentation or a Microsoft blog. |
 | Third party | `third-party` | From an independent article or a vendor. |
 | Research | `research` | From an academic paper. |
+| Attendee account | `account` | The second attendee's report of a session. Not checked against a slide. |
 | Our reading | `inference` | A conclusion that we made. |
 
 A second label gives the product status where it applies: GA, Preview, Announced, Roadmap or Not available.
@@ -42,7 +43,7 @@ The Markdown twin keeps the full numbered notes for each claim.
 
 ## The limits
 
-- Product status as of 1 October 2026. Web sources checked 4 October 2026. Speaker statements are not tested facts.
+- Product status as of 1 October 2026. Web sources checked 4 and 6 October 2026. Speaker statements are not tested facts.
 - Nothing here was tested in our own tenant. [C957]
 - Check each product status against Microsoft Learn before you use it.
 - Fictional and synthetic numbers are labelled. Keep that label.

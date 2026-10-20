@@ -25,7 +25,7 @@ These 6 points are our conclusions from the sessions. The claims behind them are
 
 ## About this site
 
-Two of us went to FabCon Europe 2026. This site covers 2 focuses. The first is applied AI in the Microsoft stack, and its security and governance. The second is data engineering. See [Sessions and focus](/sessions/).
+Two of us went to FabCon Europe 2026. This site covers 2 focuses. The first is applied AI in the Microsoft stack, and its security and governance. The second is data engineering. See [Sessions and focus](/sessions/). A few statements from the second attendee rest on his summary deck. They show the label "Attendee account".
 
 Nothing here was tested in our own tenant. Each statement is from a speaker, from Microsoft or from a third party.
 

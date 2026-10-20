@@ -10,6 +10,8 @@ Two of us went to FabCon Europe 2026. This site reports 2 focuses. It does not c
 
 We both attended 6 of the sessions. For those sessions, the notes and photos of both attendees are in the sources.
 
+A few of the second attendee's statements rest on his summary deck alone. They show the label "Attendee account".
+
 ## The sessions
 
 ::sessions-table
@@ -21,7 +23,6 @@ Where the speaker is "Not named", the attendee's notes do not hold the name. Thi
 - Power BI authoring.
 - Real-Time Intelligence.
 - Most SQL sessions.
-
 
 ## The evidence base
 

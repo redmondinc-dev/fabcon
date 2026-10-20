@@ -30,6 +30,11 @@ jobs:
       # The build runs the checks first. It stops on an unknown claim or source,
       # a message that is too long, or a tracked path under private/.
       - run: npm run build
+      # The preflight stops the deployment on a media file, an email address, a local path
+      # or a private term in the tracked files or in dist/.
+      - run: node scripts/preflight
+        env:
+          PREFLIGHT_TERMS: ${{ secrets.PREFLIGHT_TERMS }}
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -83,6 +83,7 @@ The label comes from the `evidence` field of the claim. In the HTML, a statement
 | Microsoft | `docs` | From Microsoft documentation or a Microsoft blog. |
 | Third party | `third-party` | From an independent article or a vendor. |
 | Research | `research` | From an academic paper. |
+| Attendee account | `account` | The second attendee's report of a session. Not checked against a slide. |
 | Our reading | `inference` | A conclusion that we made. |
 
 Product status shows as a second chip where it applies: **GA**, **Preview**, **Announced**, **Roadmap**, **Not available**.
@@ -94,6 +95,7 @@ Rules:
 - Keep the speaker's own limits. If a caveat changes the meaning of a statement, put it in the same sentence or the next one. The All findings page shows each caveat.
 - Do not write an absolute statement about what a source does not have. Write "We found no…".
 - Fictional or synthetic numbers stay labelled as fictional or synthetic each time they appear.
+- An account statement is the report of the second attendee. Give the speaker and the session as he gave them. It is not checked against a slide or a transcript.
 - Nothing on the site was tested in our own tenant. The home page and the Open questions page say this.
 
 ## 5. Credit and quotation
